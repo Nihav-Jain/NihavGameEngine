@@ -29,7 +29,7 @@ namespace Library
 		std::vector<std::future<void>> futures;
 		DeliverExpiredEvents(gameTime, futures);
 
-		// wait for the events to be dispatched before removing them so that if an exception si thrown, the mEvents vector is not modified
+		// wait for the events to be dispatched before removing them so that if an exception is thrown, the mEvents vector is not modified
 		for (auto& f : futures)
 		{
 			f.get();

@@ -12,6 +12,8 @@
 #include "Bar.h"
 #include "BarSubscriber.h"
 
+#include "AsyncFooSubscriber.h"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Library;
 using namespace std::chrono;
@@ -313,6 +315,79 @@ namespace UnitTestLibraryDesktop
 			Event<Foo>::UnsubscribeAll();
 		}
 
+		TEST_METHOD(EventTestAsyc)
+		{
+			std::uint32_t size = 15;
+			Foo foo(10);
+			Game game;
+			EventQueue& queue = game.GetWorld().GetEventQueue();
+			const GameTime& gameTime = game.GetGameTime();
+
+			std::uint32_t i;
+			AsyncFooSubscriber templateFooSubscriber(queue, gameTime);
+			// 100 AsyncFooSubscribers
+			AsyncFooSubscriber** fooSubscribers = new AsyncFooSubscriber*[size];
+			for (i = 0; i < size; i++)
+			{
+				fooSubscribers[i] = new AsyncFooSubscriber(queue, gameTime);
+				Event<Foo>::Subscribe(*fooSubscribers[i]);
+			}
+			// 100 AsyncBarSubscribers
+
+			// 100 Foo Events
+			for (i = 0; i < size; i++)
+			{
+				std::shared_ptr<Event<Foo>> fooEvent = std::make_shared<Event<Foo>>(foo);
+				queue.Enqueue(fooEvent, gameTime);
+			}
+			// 100 Bar Events
+
+			game.Start();
+			// sleep
+			Sleep(100);
+
+			// Test non-notification
+			for (i = 0; i < size; i++)
+			{
+				Assert::IsFalse(fooSubscribers[i]->wasNotified);
+				Assert::AreEqual(0, fooSubscribers[i]->data);
+			}
+
+			// Update
+			game.Update();
+			//// Test notification
+			for (i = 0; i < size; i++)
+			{
+				Assert::IsTrue(fooSubscribers[i]->wasNotified);
+				Assert::AreEqual(10, fooSubscribers[i]->data);
+			}
+
+			// reset all subscribers
+			for (i = 0; i < size; i++)
+			{
+				fooSubscribers[i]->wasNotified = false;
+				fooSubscribers[i]->data = 0;
+			}
+
+			//sleep
+			Sleep(100);
+
+			// Update
+			game.Update();
+			// Test for new values according to events queued by subscribers
+			for (i = 0; i < size; i++)
+			{
+				Assert::IsTrue(fooSubscribers[i]->wasNotified);
+				Assert::AreEqual(100, fooSubscribers[i]->data);
+			}
+
+			Event<Foo>::UnsubscribeAll();
+			for (i = 0; i < size; i++)
+			{
+				delete fooSubscribers[i];
+			}
+			delete[] fooSubscribers;
+		}
 
 #if defined(DEBUG) | defined(_DEBUG)
 		static _CrtMemState sStartMemState;
