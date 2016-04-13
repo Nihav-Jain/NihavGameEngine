@@ -1,8 +1,11 @@
 #pragma once
 #include <memory>
+#include <thread>
+#include <future>
 #include "Event.h"
 #include "Vector.h"
 #include "GameTime.h"
+#include "EventPublisher.h"
 
 namespace Library
 {
@@ -77,10 +80,12 @@ namespace Library
 		void CancelEvent(const std::shared_ptr<EventPublisher>& publisher);
 
 	private:
-		void DeliverExpiredEvents(const GameTime& gameTime);
+		void DeliverExpiredEvents(const GameTime& gameTime, std::vector<std::future<void>>& futures);
 
 		Vector<std::shared_ptr<EventPublisher>> mPublishers;
 		Vector<std::shared_ptr<EventPublisher>> mExpiredEvents;
+
+		std::mutex mMutex;
 	};
 }
 

@@ -7,16 +7,16 @@ namespace Library
 
 	RTTI_DEFINITIONS(EventPublisher);
 
-	EventPublisher::EventPublisher(const Vector<IEventSubscriber*>& subscriberList) :
-		mSubscriberList(&subscriberList), mTimeEnqueued(), mDelay()
+	EventPublisher::EventPublisher(const Vector<IEventSubscriber*>& subscriberList, std::mutex& eventMutex) :
+		mSubscriberList(&subscriberList), mTimeEnqueued(), mDelay(), mMutexPtr(&eventMutex)
 	{}
 
 	EventPublisher::EventPublisher(const EventPublisher& rhs) :
-		mSubscriberList(rhs.mSubscriberList), mTimeEnqueued(rhs.mTimeEnqueued), mDelay(mDelay)
+		mSubscriberList(rhs.mSubscriberList), mTimeEnqueued(rhs.mTimeEnqueued), mDelay(mDelay), mMutexPtr(rhs.mMutexPtr)
 	{}
 
 	EventPublisher::EventPublisher(EventPublisher&& rhs) :
-		mSubscriberList(rhs.mSubscriberList), mTimeEnqueued(std::move(rhs.mTimeEnqueued)), mDelay(std::move(mDelay))
+		mSubscriberList(rhs.mSubscriberList), mTimeEnqueued(std::move(rhs.mTimeEnqueued)), mDelay(std::move(mDelay)), mMutexPtr(rhs.mMutexPtr)
 	{}
 
 	EventPublisher& EventPublisher::operator=(const EventPublisher& rhs)
@@ -26,6 +26,7 @@ namespace Library
 			mSubscriberList = rhs.mSubscriberList;
 			mTimeEnqueued = rhs.mTimeEnqueued;
 			mDelay = rhs.mDelay;
+			mMutexPtr = rhs.mMutexPtr;
 		}
 		return *this;
 	}
@@ -37,6 +38,7 @@ namespace Library
 			mSubscriberList = rhs.mSubscriberList;
 			mTimeEnqueued = std::move(rhs.mTimeEnqueued);
 			mDelay = std::move(rhs.mDelay);
+			mMutexPtr = rhs.mMutexPtr;
 		}
 		return *this;
 	}
@@ -66,9 +68,19 @@ namespace Library
 
 	void EventPublisher::Deliver() const
 	{
+		std::lock_guard<std::mutex> lock(*mMutexPtr);
+
+		std::vector<std::future<void>> futures;
 		for (auto& subscriber : *mSubscriberList)
 		{
-			subscriber->Notify(*this);
+			futures.emplace_back(std::async([&](IEventSubscriber* subscriber) {
+				subscriber->Notify(*this);
+			}, subscriber));
+		}
+
+		for (auto& f : futures)
+		{
+			f.get();
 		}
 	}
 

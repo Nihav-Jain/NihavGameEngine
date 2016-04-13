@@ -22,7 +22,7 @@ namespace Library
 		 *	Constructor
 		 *	@param constant reference to the vector of pointers to subscribers of an Event
 		 */
-		explicit EventPublisher(const Vector<IEventSubscriber*>& subscriberList);
+		explicit EventPublisher(const Vector<IEventSubscriber*>& subscriberList, std::mutex& eventMutex);
 
 		/**
 		 *	Copy Constructor
@@ -91,7 +91,7 @@ namespace Library
 		std::chrono::milliseconds mTimeEnqueued;
 		std::chrono::milliseconds mDelay;
 
-		mutable std::mutex mMutex;
+		mutable std::mutex* mMutexPtr;
 	};
 
 }

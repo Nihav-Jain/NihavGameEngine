@@ -8,15 +8,17 @@ namespace Library
 
 	template <typename T>
 	Vector<IEventSubscriber*> Event<T>::mSubscriberList(0);
+	template <typename T>
+	std::mutex Event<T>::mMutex;
 
 	template <typename T>
 	Event<T>::Event(const T& payload) :
-		mMessage(payload), EventPublisher(mSubscriberList)
+		mMessage(payload), EventPublisher(mSubscriberList, mMutex)
 	{}
 
 	template<typename T>
 	Event<T>::Event(T&& payload) :
-		mMessage(std::move(payload)), EventPublisher(mSubscriberList)
+		mMessage(std::move(payload)), EventPublisher(mSubscriberList, mMutex)
 	{}
 
 	template<typename T>
@@ -54,6 +56,7 @@ namespace Library
 	template<typename T>
 	void Event<T>::Subscribe(IEventSubscriber& subscriber)
 	{
+		std::lock_guard<std::mutex> lock(mMutex);
 		if(mSubscriberList.Find(&subscriber) == mSubscriberList.end())
 			mSubscriberList.PushBack(&subscriber);
 	}
@@ -61,12 +64,14 @@ namespace Library
 	template<typename T>
 	void Event<T>::Unsubscribe(IEventSubscriber& subscriber)
 	{
+		std::lock_guard<std::mutex> lock(mMutex);
 		mSubscriberList.Remove(&subscriber);
 	}
 
 	template<typename T>
 	void Event<T>::UnsubscribeAll()
 	{
+		std::lock_guard<std::mutex> lock(mMutex);
 		mSubscriberList.Clear();
 	}
 

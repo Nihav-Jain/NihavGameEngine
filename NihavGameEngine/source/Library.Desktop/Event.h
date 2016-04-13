@@ -84,6 +84,7 @@ namespace Library
 	private:
 		T mMessage;
 		static Vector<IEventSubscriber*> mSubscriberList;
+		static std::mutex mMutex;
 	};
 }
 

@@ -9,6 +9,7 @@ namespace Library
 
 	void EventQueue::Enqueue(const std::shared_ptr<EventPublisher>& publisher, const GameTime& gameTime, std::chrono::milliseconds delay)
 	{
+		std::lock_guard<std::mutex> lock(mMutex);
 		if (mPublishers.Find(publisher) == mPublishers.end())
 		{
 			publisher->SetTime(gameTime.ElapsedGameTime(), delay);
@@ -18,25 +19,41 @@ namespace Library
 
 	void EventQueue::Send(const std::shared_ptr<EventPublisher>& publisher)
 	{
+		std::lock_guard<std::mutex> lock(mMutex);
 		publisher->Deliver();
 		mPublishers.Remove(publisher);
 	}
 
 	void EventQueue::Update(const GameTime& gameTime)
 	{
-		DeliverExpiredEvents(gameTime);
+		std::vector<std::future<void>> futures;
+		DeliverExpiredEvents(gameTime, futures);
 
+		// wait for the events to be dispatched before removing them so that if an exception si thrown, the mEvents vector is not modified
+		for (auto& f : futures)
+		{
+			f.get();
+		}
+
+		std::lock_guard<std::mutex> lock(mMutex);
 		for (auto& expiredEvent : mExpiredEvents)
 		{
 			mPublishers.Remove(expiredEvent);
 		}
-
 		mExpiredEvents.Clear();
 	}
 
 	void EventQueue::Clear(const GameTime& gameTime)
 	{
-		DeliverExpiredEvents(gameTime);
+		std::vector<std::future<void>> futures;
+		DeliverExpiredEvents(gameTime, futures);
+
+		for (auto& f : futures)
+		{
+			f.get();
+		}
+
+		std::lock_guard<std::mutex> lock(mMutex);
 		mPublishers.Clear();
 		mExpiredEvents.Clear();
 	}
@@ -56,15 +73,18 @@ namespace Library
 		mPublishers.Remove(publisher);
 	}
 
-	void EventQueue::DeliverExpiredEvents(const GameTime& gameTime)
+	void EventQueue::DeliverExpiredEvents(const GameTime& gameTime, std::vector<std::future<void>>& futures)
 	{
-		for (auto& publisher : mPublishers)
+		std::lock_guard<std::mutex> lock(mMutex);
+		for (const auto& publisher : mPublishers)
 		{
-			if (publisher->IsExpired(gameTime.ElapsedGameTime()))
-			{
-				publisher->Deliver();
-				mExpiredEvents.PushBack(publisher);
-			}
+			futures.emplace_back(std::async([&](std::shared_ptr<EventPublisher>& publisher) {
+				if (publisher->IsExpired(gameTime.ElapsedGameTime()))
+				{
+					publisher->Deliver();
+					mExpiredEvents.PushBack(publisher);
+				}
+			}, publisher));
 		}
 	}
 
