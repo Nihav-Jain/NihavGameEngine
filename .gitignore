@@ -233,6 +233,7 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
+NihavGameEngine/docs/*
 
 !NihavGameEngine/external/*
 !NihavGameEngine/external/expat/*
