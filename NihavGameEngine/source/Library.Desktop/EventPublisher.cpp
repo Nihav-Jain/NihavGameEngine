@@ -64,7 +64,7 @@ namespace Library
 		return false;
 	}
 
-	void EventPublisher::Deliver()
+	void EventPublisher::Deliver() const
 	{
 		for (auto& subscriber : *mSubscriberList)
 		{

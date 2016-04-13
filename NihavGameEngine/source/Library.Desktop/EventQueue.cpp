@@ -9,8 +9,11 @@ namespace Library
 
 	void EventQueue::Enqueue(const std::shared_ptr<EventPublisher>& publisher, const GameTime& gameTime, std::chrono::milliseconds delay)
 	{
-		publisher->SetTime(gameTime.ElapsedGameTime(), delay);
-		mPublishers.PushBack(publisher);
+		if (mPublishers.Find(publisher) == mPublishers.end())
+		{
+			publisher->SetTime(gameTime.ElapsedGameTime(), delay);
+			mPublishers.PushBack(publisher);
+		}
 	}
 
 	void EventQueue::Send(const std::shared_ptr<EventPublisher>& publisher)

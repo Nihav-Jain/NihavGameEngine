@@ -1,5 +1,7 @@
 #pragma once
 #include <chrono>
+#include <thread>
+#include <future>
 #include "RTTI.h"
 #include "Vector.h"
 #include "IEventSubscriber.h"
@@ -82,12 +84,14 @@ namespace Library
 		/**
 		 *	Notifies all the subscribers of this event
 		 */
-		void Deliver();
+		void Deliver() const;
 
 	private:
 		const Vector<IEventSubscriber*>* mSubscriberList;
 		std::chrono::milliseconds mTimeEnqueued;
 		std::chrono::milliseconds mDelay;
+
+		mutable std::mutex mMutex;
 	};
 
 }

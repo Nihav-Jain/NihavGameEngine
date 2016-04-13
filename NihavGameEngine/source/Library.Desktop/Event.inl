@@ -54,7 +54,8 @@ namespace Library
 	template<typename T>
 	void Event<T>::Subscribe(IEventSubscriber& subscriber)
 	{
-		mSubscriberList.PushBack(&subscriber);
+		if(mSubscriberList.Find(&subscriber) == mSubscriberList.end())
+			mSubscriberList.PushBack(&subscriber);
 	}
 
 	template<typename T>
@@ -64,7 +65,7 @@ namespace Library
 	}
 
 	template<typename T>
-	void Event<T>::UnsubscriberAll()
+	void Event<T>::UnsubscribeAll()
 	{
 		mSubscriberList.Clear();
 	}

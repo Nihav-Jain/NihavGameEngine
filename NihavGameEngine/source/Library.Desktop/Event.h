@@ -73,7 +73,7 @@ namespace Library
 		/**
 		 *	deregisters all subscribers of this Event
 		 */
-		static void UnsubscriberAll();
+		static void UnsubscribeAll();
 
 		/**
 		 *	The payload carried by this Event for its subscribers

@@ -78,7 +78,7 @@ namespace UnitTestLibraryDesktop
 			subscriber.wasNotified = false;
 			subscriber.data = 0;
 
-			fooEvent.UnsubscriberAll();
+			fooEvent.UnsubscribeAll();
 			fooEvent.Deliver();
 
 			Assert::AreEqual(0, subscriber.data);
@@ -87,7 +87,7 @@ namespace UnitTestLibraryDesktop
 			subscriber.wasNotified = false;
 			subscriber.data = 0;
 
-			Event<Foo>::UnsubscriberAll();
+			Event<Foo>::UnsubscribeAll();
 		}
 
 		TEST_METHOD(EventTestEventQueue)
@@ -158,8 +158,8 @@ namespace UnitTestLibraryDesktop
 			Assert::IsFalse(barSubsciber.wasNotified);
 			Assert::AreEqual(0, barSubsciber.data);
 
-			Event<Foo>::UnsubscriberAll();
-			Event<Bar>::UnsubscriberAll();
+			Event<Foo>::UnsubscribeAll();
+			Event<Bar>::UnsubscribeAll();
 		}
 
 		TEST_METHOD(EventQueueTestSend)
@@ -202,7 +202,7 @@ namespace UnitTestLibraryDesktop
 			Assert::IsFalse(subscriber.wasNotified);
 			Assert::AreEqual(0, subscriber.data);
 
-			Event<Foo>::UnsubscriberAll();
+			Event<Foo>::UnsubscribeAll();
 		}
 
 		TEST_METHOD(EventQueueTestClear)
@@ -228,7 +228,7 @@ namespace UnitTestLibraryDesktop
 			Assert::IsTrue(subscriber.wasNotified);
 			Assert::AreEqual(20, subscriber.data);
 
-			Event<Foo>::UnsubscriberAll();
+			Event<Foo>::UnsubscribeAll();
 		}
 
 		TEST_METHOD(EventQueueTestCancelEvent)
@@ -258,7 +258,7 @@ namespace UnitTestLibraryDesktop
 			Assert::IsFalse(subscriber.wasNotified);
 			Assert::AreEqual(0, subscriber.data);
 
-			Event<Foo>::UnsubscriberAll();
+			Event<Foo>::UnsubscribeAll();
 		}
 
 		TEST_METHOD(EventTestCopyMoveSemantics)
@@ -287,7 +287,7 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(20, fooEventMove2.Message().GetData());
 			Assert::AreEqual(0, fooEventMove.Message().GetData());
 
-			Event<Foo>::UnsubscriberAll();
+			Event<Foo>::UnsubscribeAll();
 		}
 
 		TEST_METHOD(EventTestRTTI)
@@ -310,7 +310,7 @@ namespace UnitTestLibraryDesktop
 			rtti = fooEvent.QueryInterface(EventPublisher::TypeIdClass());
 			Assert::IsNotNull(rtti);
 
-			Event<Foo>::UnsubscriberAll();
+			Event<Foo>::UnsubscribeAll();
 		}
 
 

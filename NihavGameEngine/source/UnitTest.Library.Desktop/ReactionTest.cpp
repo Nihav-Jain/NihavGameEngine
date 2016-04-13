@@ -87,7 +87,7 @@ namespace UnitTestLibraryDesktop
 			a = result3->Get<std::int32_t>();
 			Assert::AreEqual(150, a);
 
-			Event<EventMessageAttributed>::UnsubscriberAll();
+			Event<EventMessageAttributed>::UnsubscribeAll();
 			world.GetEventQueue().Clear(*world.GetWorldState().mGameTime);
 
 			ActionList* switchAction = entity->FindAction("switch2")->As<ActionList>();
@@ -143,7 +143,7 @@ namespace UnitTestLibraryDesktop
 			a = result3->Get<std::int32_t>();
 			Assert::AreEqual(150, a);
 
-			Event<EventMessageAttributed>::UnsubscriberAll();
+			Event<EventMessageAttributed>::UnsubscribeAll();
 			world.GetEventQueue().Clear(*world.GetWorldState().mGameTime);
 
 		}
@@ -193,7 +193,7 @@ namespace UnitTestLibraryDesktop
 			a = result3->Get<std::int32_t>();
 			Assert::AreEqual(0, a);
 
-			Event<EventMessageAttributed>::UnsubscriberAll();
+			Event<EventMessageAttributed>::UnsubscribeAll();
 			world.GetEventQueue().Clear(*world.GetWorldState().mGameTime);
 		}
 
@@ -242,7 +242,7 @@ namespace UnitTestLibraryDesktop
 			a = result3->Get<std::int32_t>();
 			Assert::AreEqual(60, a);
 
-			Event<EventMessageAttributed>::UnsubscriberAll();
+			Event<EventMessageAttributed>::UnsubscribeAll();
 			world.GetEventQueue().Clear(*world.GetWorldState().mGameTime);
 		}
 
@@ -320,7 +320,7 @@ namespace UnitTestLibraryDesktop
 			Assert::IsNotNull(reaction.QueryInterface(Reaction::TypeIdClass()));
 			Assert::IsNull(reaction.QueryInterface(ActionExpression::TypeIdClass()));
 
-			Event<EventMessageAttributed>::UnsubscriberAll();
+			Event<EventMessageAttributed>::UnsubscribeAll();
 		}
 
 #if defined(DEBUG) | defined(_DEBUG)
