@@ -317,7 +317,9 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(EventTestAsyc)
 		{
-			std::uint32_t size = 15;
+			for (std::uint32_t k = 0; k < 200; k++)
+			{
+			std::uint32_t size = 10;
 			Foo foo(10);
 			Game game;
 			EventQueue& queue = game.GetWorld().GetEventQueue();
@@ -387,6 +389,8 @@ namespace UnitTestLibraryDesktop
 				delete fooSubscribers[i];
 			}
 			delete[] fooSubscribers;
+			}
+
 		}
 
 #if defined(DEBUG) | defined(_DEBUG)

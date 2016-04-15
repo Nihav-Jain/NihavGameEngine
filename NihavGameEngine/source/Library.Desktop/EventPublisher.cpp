@@ -68,14 +68,17 @@ namespace Library
 
 	void EventPublisher::Deliver() const
 	{
-		std::lock_guard<std::mutex> lock(*mMutexPtr);
-
 		std::vector<std::future<void>> futures;
-		for (auto& subscriber : *mSubscriberList)
+
 		{
-			futures.emplace_back(std::async([&](IEventSubscriber* subscriber) {
-				subscriber->Notify(*this);
-			}, subscriber));
+			std::lock_guard<std::mutex> lock(*mMutexPtr);
+
+			for (auto& subscriber : *mSubscriberList)
+			{
+				futures.emplace_back(std::async([&](IEventSubscriber* subscriber) {
+					subscriber->Notify(*this);
+				}, subscriber));
+			}
 		}
 
 		for (auto& f : futures)

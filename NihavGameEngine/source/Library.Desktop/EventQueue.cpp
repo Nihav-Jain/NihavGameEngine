@@ -60,16 +60,19 @@ namespace Library
 
 	bool EventQueue::IsEmpty() const
 	{
+		std::lock_guard<std::mutex> lock(mMutex);
 		return mPublishers.IsEmpty();
 	}
 
 	std::uint32_t EventQueue::Size() const
 	{
+		std::lock_guard<std::mutex> lock(mMutex);
 		return mPublishers.Size();
 	}
 
 	void EventQueue::CancelEvent(const std::shared_ptr<EventPublisher>& publisher)
 	{
+		std::lock_guard<std::mutex> lock(mMutex);
 		mPublishers.Remove(publisher);
 	}
 

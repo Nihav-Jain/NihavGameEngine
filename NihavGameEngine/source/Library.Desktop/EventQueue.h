@@ -85,7 +85,7 @@ namespace Library
 		Vector<std::shared_ptr<EventPublisher>> mPublishers;
 		Vector<std::shared_ptr<EventPublisher>> mExpiredEvents;
 
-		std::mutex mMutex;
+		mutable std::mutex mMutex;
 	};
 }
 
