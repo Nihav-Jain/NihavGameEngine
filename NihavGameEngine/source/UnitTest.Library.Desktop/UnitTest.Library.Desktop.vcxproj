@@ -221,6 +221,7 @@
     <ClInclude Include="ActorEntity.h" />
     <ClInclude Include="AngryBirdsSharedData.h" />
     <ClInclude Include="AngryBirdsXmlParseHelper.h" />
+    <ClInclude Include="AsyncBarSubscriber.h" />
     <ClInclude Include="AsyncFooSubscriber.h" />
     <ClInclude Include="AttributedExternalError.h" />
     <ClInclude Include="AttributedFoo.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="ActorEntity.cpp" />
     <ClCompile Include="AngryBirdsSharedData.cpp" />
     <ClCompile Include="AngryBirdsXmlParseHelper.cpp" />
+    <ClCompile Include="AsyncBarSubscriber.cpp" />
     <ClCompile Include="AsyncFooSubscriber.cpp" />
     <ClCompile Include="AttributedExternalError.cpp" />
     <ClCompile Include="AttributedFoo.cpp" />

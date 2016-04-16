@@ -45,22 +45,26 @@ namespace Library
 
 	void EventPublisher::SetTime(const std::chrono::milliseconds& timeEnqueued, std::chrono::milliseconds delay)
 	{
+		std::lock_guard<std::mutex> lock(*mMutexPtr);
 		mTimeEnqueued = timeEnqueued;
 		mDelay = delay;
 	}
 
 	const std::chrono::milliseconds& EventPublisher::TimeEnqueued() const
 	{
+		std::lock_guard<std::mutex> lock(*mMutexPtr);
 		return mTimeEnqueued;
 	}
 
 	const std::chrono::milliseconds& EventPublisher::Delay() const
 	{
+		std::lock_guard<std::mutex> lock(*mMutexPtr);
 		return mDelay;
 	}
 
 	bool EventPublisher::IsExpired(const std::chrono::milliseconds& currentTime) const
 	{
+		std::lock_guard<std::mutex> lock(*mMutexPtr);
 		if ((currentTime - mTimeEnqueued) > mDelay)
 			return true;
 		return false;
