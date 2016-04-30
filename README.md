@@ -1,6 +1,9 @@
 # NihavGameEngine
 A data driven game engine, written in C++,using XML as its scripting language, being developed for the programming track curriculum, FIEA (Spring 2016).
 
+### Update
+The engine development is being continued in the repository [GeometryWars](https://github.com/Nihav-Jain/GeometryWars).
+
 ## Modules
 
 - **Templated Data Structures**
