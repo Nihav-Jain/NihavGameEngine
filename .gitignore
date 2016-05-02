@@ -237,6 +237,7 @@ NihavGameEngine/docs/*
 
 !NihavGameEngine/external/*
 !NihavGameEngine/external/expat/*
+!NihavGameEngine/external/expat/lib/*
 !NihavGameEngine/external/expat/lib/Win32/*
 !NihavGameEngine/external/expat/lib/Win32/Debug/*
 !NihavGameEngine/external/expat/lib/Win32/Release/*
@@ -252,3 +253,4 @@ NihavGameEngine/docs/*
 !NihavGameEngine/external/glfw/lib/x64/*
 !NihavGameEngine/external/glfw/lib/x64/Debug/*
 !NihavGameEngine/external/glfw/lib/x64/Release/*
+NihavGameEngine/build/NihavGameEngine.VC.db
