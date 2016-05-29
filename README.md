@@ -1,5 +1,5 @@
-# NihavGameEngine
-A cross-platform data driven game engine, written in C++, supporting Desktop, XBOX One and Android. The engine provides a custom scripting language (based on XML) to write games. THe project is being developed as a personal project for the programming track curriculum, FIEA (Spring-Summer 2016).
+# Cross-Platform Data Driven Game Engine
+A cross-platform data driven game engine, written in C++, supporting **Desktop, XBOX One and Android**. The engine provides a **custom scripting language** (based on XML) to write games. The project is being developed as a personal project for the programming track curriculum, FIEA (Spring-Summer 2016).
 
 ### Geometry Wars
 Check out [GeometryWars](https://github.com/Nihav-Jain/GeometryWars), developed for the PC using this game engine and its scripting language.
@@ -24,4 +24,4 @@ Check out [GeometryWars](https://github.com/Nihav-Jain/GeometryWars), developed 
 - **Reaction** - scriptable event publishers and subscribers
 
 ## Upcoming Modules
-- **Cross-Platform development for XBOX One and Android
+- **Cross-Platform development for XBOX One and Android**
