@@ -1,0 +1,107 @@
+<world name="NihavWorld">
+	<sector name="worldSector">
+		<vector name="sectorCorners" value="vec4(10, 20, 30, 40)" />
+		<entity class="Entity" name="actor">
+			<integer name="switchInteger" value="15" />
+			<float name="switchFloat" value="10.10" />
+			<action class="ActionList" name="actionList"/>
+
+			<include file="Content\config\xml_action_switch_case.xml" />
+			
+			<switch name="vecSwitch" switchValue="sectorCorners">
+				<case name="case1" caseValue="vec4(20, 30, 40, 10)" break="true">
+					<action class="ActionList" name="case1"/>
+				</case>
+				<case name="case2" caseValue="vec4(30, 40, 10, 20)" break="true">
+					<action class="ActionList" name="case2"/>
+				</case>
+				<case name="case3" caseValue="vec4(10, 20, 30, 40)" break="true">
+					<action class="ActionList" name="case3"/>
+				</case>
+			</switch>
+						
+			<switch name="switch1" switchValue="switchFloat">
+				<case name="case1" caseValue="10" break="true">
+					<action class="ActionList" name="case1"/>
+				</case>
+				<case name="case2" caseValue="15.15" break="true">
+					<action class="ActionList" name="case2"/>
+				</case>
+				<case name="case3" caseValue="20" break="true">
+					<action class="ActionList" name="case3"/>
+				</case>
+				<case name="case3" caseValue="40" default="true">
+					<action class="ActionList" name="case3"/>
+				</case>
+			</switch>
+			<integer name="abc" value="10"/>
+			<integer name="C" value="6"/>
+			<integer name="xyz" value="10"/>
+			<integer name="result" value="0"/>
+			<integer name="result2" value="0"/>
+
+			<string name="appendString" value="somestring"/>
+			<expression name="appendExp">
+				<string name="expression">appendString = appendString + {" = "} + abc</string>
+			</expression>
+
+			<integer name="intArr" value="10"/>
+			<integer name="intArr" value="20"/>
+			<integer name="intArr" value="30"/>
+			<integer name="intArr" value="40"/>
+
+			<integer name="arrResult1" value="0"/>
+			<expression name="appendExp">
+				<string name="expression">arrResult1 = array(intArr, {0})</string>
+			</expression>
+
+			<integer name="arrResult2" value="0"/>
+			<expression name="appendExp">
+				<string name="expression">arrResult2 = array(intArr, {1})</string>
+			</expression>
+
+			<integer name="arrResult3" value="0"/>
+			<expression name="appendExp">
+				<string name="expression">arrResult3 = array(intArr, {2})</string>
+			</expression>
+
+			<integer name="arrSize" value="0"/>
+			<expression name="appendExp">
+				<string name="expression">arrSize = arraySize(intArr)</string>
+			</expression>
+
+			<expression name="exp1">
+				<string name="expression">result = switchInteger + abc - C</string>
+			</expression>
+			
+			<expression name="exp2">
+				<string name="expression">result2 = switchInteger + (abc - C)/xyz</string>
+			</expression>
+
+			<bool name="boolResult" value="false" />
+			<bool name="boolResult2" value="true" />
+			<expression name="exp3">
+				<string name="expression">boolResult = (C == xyz) || (abc > C)</string>
+			</expression>
+			<expression name="exp4">
+				<string name="expression">boolResult2 = (C == xyz) &amp;&amp; (abc > C)</string>
+			</expression>
+		</entity>
+
+		<vector name="someVector" value="vec4(0, 0, 0, 0)"/>
+		<integer name="multiplier" value="2"/>
+		<expression name="sectorExp1">
+			<string name="expression">someVector = multiplier * sectorCorners</string>
+		</expression>
+
+	</sector>	
+
+	<integer name="int1" value="1"/>
+	<integer name="int2" value="2"/>
+	<integer name="worldResult" value="0"/>
+
+	<expression name="worldExp1">
+		<string name="expression">worldResult = int1 + int2</string>
+	</expression>
+
+</world>

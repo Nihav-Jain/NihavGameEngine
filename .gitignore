@@ -3,7 +3,7 @@
 
 # User-specific files
 *.suo
-*.user
+# *.user for Game.Desktop.OpenGL debugging
 *.userosscache
 *.sln.docstates
 
@@ -254,3 +254,54 @@ NihavGameEngine/docs/*
 !NihavGameEngine/external/glfw/lib/x64/Debug/*
 !NihavGameEngine/external/glfw/lib/x64/Release/*
 NihavGameEngine/build/NihavGameEngine.VC.db
+
+!GeometryWars/external/*
+!GeometryWars/external/expat/*
+!GeometryWars/external/expat/lib/*
+!GeometryWars/external/expat/lib/Win32/*
+!GeometryWars/external/expat/lib/Win32/Debug/*
+!GeometryWars/external/expat/lib/Win32/Release/*
+!GeometryWars/external/expat/lib/x64/*
+!GeometryWars/external/expat/lib/x64/Debug/*
+!GeometryWars/external/expat/lib/x64/Release/*
+
+!GeometryWars/external/glfw/*
+!GeometryWars/external/glfw/lib/*
+!GeometryWars/external/glfw/lib/Win32/*
+!GeometryWars/external/glfw/lib/Win32/Debug/*
+!GeometryWars/external/glfw/lib/Win32/Release/*
+!GeometryWars/external/glfw/lib/x64/*
+!GeometryWars/external/glfw/lib/x64/Debug/*
+!GeometryWars/external/glfw/lib/x64/Release/*
+
+!GeometryWars/external/FMOD/*
+!GeometryWars/external/FMOD/lib/*
+!GeometryWars/external/FMOD/lib/Win32/*
+!GeometryWars/external/FMOD/lib/Win32/Debug/*
+!GeometryWars/external/FMOD/lib/Win32/Release/*
+!GeometryWars/external/FMOD/lib/x64/*
+!GeometryWars/external/FMOD/lib/x64/Debug/*
+!GeometryWars/external/FMOD/lib/x64/Release/*
+
+!GeometryWars/external/DirectXTK/*
+!GeometryWars/external/DirectXTK/lib/*
+!GeometryWars/external/DirectXTK/lib/Win32/*
+!GeometryWars/external/DirectXTK/lib/Win32/Debug/*
+!GeometryWars/external/DirectXTK/lib/Win32/Release/*
+!GeometryWars/external/DirectXTK/lib/x64/*
+!GeometryWars/external/DirectXTK/lib/x64/Debug/*
+!GeometryWars/external/DirectXTK/lib/x64/Release/*
+
+GeometryWars/build/GeometryWars.VC.db
+
+!GeometryWars/external/soil/*
+!GeometryWars/external/soil/lib/*
+!GeometryWars/external/soil/lib/Win32/*
+!GeometryWars/external/soil/lib/Win32/Debug/*
+!GeometryWars/external/soil/lib/Win32/Release/*
+!GeometryWars/external/soil/lib/x64/*
+!GeometryWars/external/soil/lib/x64/Debug/*
+!GeometryWars/external/soil/lib/x64/Release/*
+
+GeometryWars/docs/*
+

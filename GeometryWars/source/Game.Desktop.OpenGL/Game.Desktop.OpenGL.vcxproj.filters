@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="OpenGLRenderDevice.cpp" />
+    <ClCompile Include="OpenGLShader.cpp" />
+    <ClCompile Include="OpenGLTexture.cpp" />
+    <ClCompile Include="gl3w.c" />
+    <ClCompile Include="OpenGLFrameBuffer.cpp" />
+    <ClCompile Include="OpenGLBuffer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="OpenGLRenderDevice.h" />
+    <ClInclude Include="OpenGLShader.h" />
+    <ClInclude Include="OpenGLTexture.h" />
+    <ClInclude Include="OpenGLFrameBuffer.h" />
+    <ClInclude Include="OpenGLBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{913f8d07-09f4-44b9-b0e7-b62636380dc2}</UniqueIdentifier>
+      <Extensions>.glsl</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Content\shader\glsl\bloom_blend_f.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Content\shader\glsl\bloom_blur_f.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Content\shader\glsl\bloom_f.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Content\shader\glsl\bloom_v.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Content\shader\glsl\polygon_f.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Content\shader\glsl\polygon_g.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Content\shader\glsl\polygon_v.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Content\shader\glsl\sprite_f.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Content\shader\glsl\sprite_v.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

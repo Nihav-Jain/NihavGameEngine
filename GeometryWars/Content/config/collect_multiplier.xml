@@ -1,0 +1,94 @@
+<gameobject class="Collectible" name="CollectMultiplier">
+	<!-- Collectible Class Attributes -->
+	<bool name="iscollected" value="false" />
+	<string name="collectiblechannel" value="collideplayers" />
+	<string name="movechannel" value="movetoplayer" />
+	
+	<!-- GameObject Class Attributes -->
+	<vector name="position" value="vec4(0, 0, 0, 0)"/>
+	<vector name="rotation" value="vec4(0, 0, 0, 0)"/>
+	<vector name="scale" value="vec4(15, 15, 1, 0)"/>
+	<vector name="direction" value="vec4(0, 0, 0, 0)"/>
+	<float name="speed" value="0.35" />
+	<integer name="TimeAlive" value="0" />
+	<integer name="LifeSpan" value="4000" />
+  
+	<!-- Polygon Renderer Component -->
+	<polygon_renderer name="PolygonRenderer">
+		<float name="width" value="3" />
+		<vector name="color" value="vec4(0.4178851, 1, 0.02842604, 1)" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="1" />
+		<integer name="indices" value="1" />
+		<integer name="indices" value="2" />
+		<integer name="indices" value="2" />
+		<integer name="indices" value="3" />
+		<integer name="indices" value="3" />
+		<integer name="indices" value="0" />
+		<vector name="points" value="vec4(-0.2, 0, 0, 0)" />
+		<vector name="points" value="vec4(0, 0.4, 0, 0)" />
+		<vector name="points" value="vec4(0.2, 0, 0, 0)" />
+		<vector name="points" value="vec4(0, -0.4, 0, 0)" />
+	</polygon_renderer>
+	
+	<!-- CircleCollider Component (collideplayers) -->
+	<component class="CircleColliderComponent" name="CircleColliderComponent">
+		<float name="radius" value="7.0" />
+		<bool name="enabled" value="true" />
+		<string name="channel" value="collideplayers" />
+	</component>
+	
+	<!-- CircleCollider Component (movetoplayer) -->
+	<component class="CircleColliderComponent" name="CircleColliderComponent">
+		<float name="radius" value="10.0" />
+		<bool name="enabled" value="true" />
+		<string name="channel" value="movetoplayer" />
+	</component>
+	
+	<!-- Update Loop -->
+	<action class="ActionList" name="Update">
+		<!-- Update position -->
+		<expression name="movement">
+			<string name="expression">position = position + direction * ownerWorld.deltaTime * speed</string>
+		</expression>
+		
+		<expression name="update_time">
+			<string name="expression">TimeAlive = TimeAlive + ownerWorld.deltaTime</string>
+		</expression>
+		<if name="CheckIfCollected">
+			<condition>
+				<string name="expression">TimeAlive &gt;= LifeSpan</string>
+			</condition>
+			<then>
+				<action class="ActionDestroyEntity" name="destroySelf">
+					<expression name="exp1">
+						<string name="expression">entityInstanceName = ref(ownerEntity)</string>
+					</expression>
+				</action>
+			</then>
+		</if>
+		<!-- Destroy self if collected -->
+		<if name="CheckIfCollected">
+			<condition>
+				<string name="expression">iscollected</string>
+			</condition>
+			<then>
+				
+			<!-- Play Multiplier music -->
+			<action class="ActionPlayMusic" name="playMusic">
+				<string name="musicName" value="Multiplier.mp3"/>
+				<integer name="loop" value="1"  index="0"/>
+				<float name="volume" value="0.5" index="0"/>
+			</action>
+
+			<action class="ActionDestroyEntity" name="destroySelf">
+				<expression name="exp1">
+					<string name="expression">entityInstanceName = ref(ownerEntity)</string>
+				</expression>
+			</action>
+
+			</then>
+		</if>
+	</action>
+	
+</gameobject>
