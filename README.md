@@ -1,8 +1,8 @@
 # NihavGameEngine
-A data driven game engine, written in C++,using XML as its scripting language, being developed for the programming track curriculum, FIEA (Spring 2016).
+A cross-platform data driven game engine, written in C++, supporting Desktop, XBOX One and Android. The engine provides a custom scripting language (based on XML) to write games. THe project is being developed as a personal project for the programming track curriculum, FIEA (Spring-Summer 2016).
 
-### Update
-The engine development is being continued in the repository [GeometryWars](https://github.com/Nihav-Jain/GeometryWars).
+### Geometry Wars
+Check out [GeometryWars](https://github.com/Nihav-Jain/GeometryWars), developed for the PC using this game engine and its scripting language.
 
 ## Modules
 
@@ -20,5 +20,8 @@ The engine development is being continued in the repository [GeometryWars](https
 - **Factory** - a templated object Factory
 - **World, Sector, Entity** - forms the Game heirarchy where Sectors can be loosely considered as "levels/maps" and Entities can be equivalent to Actors / GameObjects
 - **Action** - a loose equivalent of a "Game Component", can be used to execute specialized functions on Entities. Specialized Actions currently implemented include a switch-case block and an expression which can be used to write simple arithmetic evaluation expressions for the scripting language 
-- **Event** - implements the observer pattern for publisher-subscriber communication and implements a time-based dispath queue
+- **Event** - implements the observer pattern for publisher-subscriber communication and implements an asynchronous, time-based dispath queue
 - **Reaction** - scriptable event publishers and subscribers
+
+## Upcoming Modules
+- **Cross-Platform development for XBOX One and Android
