@@ -100,7 +100,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4091;4201;4239;4592;4055;4152;4099;4005</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\gl3w\include\;$(SolutionDir)\..\external\soil\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\source\Library.Shared\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\gl3w\include\;$(SolutionDir)\..\external\soil\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4091;4201;4239;4592;4055;4152;4099;4005</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\external\gl3w\include\;$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\soil\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\source\Library.Shared\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\external\gl3w\include\;$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\soil\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,7 +156,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4091;4201;4239;4592;4055;4152;4099;4005</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\gl3w\include\;$(SolutionDir)\..\external\soil\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\source\Library.Shared\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\gl3w\include\;$(SolutionDir)\..\external\soil\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -187,7 +187,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4091;4201;4239;4592;4055;4152;4099;4005</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\external\gl3w\include\;$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\soil\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\source\Library.Shared\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glfw\include;$(SolutionDir)\..\external\gl3w\include\;$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\soil\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
