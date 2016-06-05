@@ -264,15 +264,6 @@ NihavGameEngine/build/NihavGameEngine.VC.db
 !NihavGameEngine/external/FMOD/lib/x64/Debug/*
 !NihavGameEngine/external/FMOD/lib/x64/Release/*
 
-!NihavGameEngine/external/DirectXTK/*
-!NihavGameEngine/external/DirectXTK/lib/*
-!NihavGameEngine/external/DirectXTK/lib/Win32/*
-!NihavGameEngine/external/DirectXTK/lib/Win32/Debug/*
-!NihavGameEngine/external/DirectXTK/lib/Win32/Release/*
-!NihavGameEngine/external/DirectXTK/lib/x64/*
-!NihavGameEngine/external/DirectXTK/lib/x64/Debug/*
-!NihavGameEngine/external/DirectXTK/lib/x64/Release/*
-
 NihavGameEngine/build/NihavGameEngine.VC.db
 
 !NihavGameEngine/external/soil/*
