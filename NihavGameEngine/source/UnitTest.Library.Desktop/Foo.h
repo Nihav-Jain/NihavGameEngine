@@ -10,7 +10,7 @@ public:
  	 *	Contructor of class Foo
 	 *	@param data integer value stored in Foo
 	 */
-	Foo(int data = 10);
+	Foo(int data = 10, float anotherData = 10.10);
 
 	/**
 	 *	Copy Contructor of class Foo
@@ -67,8 +67,11 @@ public:
 	 */
 	int* GetPointerData() const;
 
+	float GetAnotherData() const;
+
 private:
 	int mData;
 	int* mPointerData;
+	float mAnotherData;
 };
 

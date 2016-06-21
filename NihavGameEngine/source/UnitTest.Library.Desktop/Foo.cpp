@@ -2,8 +2,8 @@
 #include "Foo.h"
 
 
-Foo::Foo(int data) :
-	mData(data), mPointerData(new int(data))
+Foo::Foo(int data, float anotherData) :
+	mData(data), mPointerData(new int(data)), mAnotherData(anotherData)
 {
 }
 
@@ -84,4 +84,9 @@ void Foo::SetData(int data)
 int* Foo::GetPointerData() const
 {
 	return mPointerData;
+}
+
+float Foo::GetAnotherData() const
+{
+	return mAnotherData;
 }
