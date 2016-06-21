@@ -269,6 +269,7 @@
     <ClInclude Include="Stack.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="UniquePtr.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="World.h" />
@@ -396,6 +397,7 @@
     <None Include="SharedPtr.inl" />
     <None Include="SList.inl" />
     <None Include="Stack.inl" />
+    <None Include="UniquePtr.inl" />
     <None Include="Vector.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

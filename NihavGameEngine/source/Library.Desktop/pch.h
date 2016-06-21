@@ -21,6 +21,7 @@
 #include <fstream>
 
 #include "SharedPtr.h"
+#include "UniquePtr.h"
 #include "RTTI.h"
 #include "glm\glm.hpp"
 #include <expat.h>
