@@ -21,21 +21,30 @@ namespace Library
 		mRawPtr(rawPtr)
 	{}
 
+	template<typename T>
+	SharedPtr<T>::SharedPtr() :
+		mRawPtr(nullptr)
+	{}
+
 	template <typename T>
 	SharedPtr<T>::~SharedPtr()
 	{
-		std::list<SharedPtr<T>*>::iterator itr = std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), this);
-		if (itr != mReferenceCount[mRawPtr].end())
-			mReferenceCount[mRawPtr].erase(itr);
-		if (mReferenceCount[mRawPtr].size() == 0)
-			delete mRawPtr;
+		if (mRawPtr != nullptr)
+		{
+			std::list<SharedPtr<T>*>::iterator itr = std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), this);
+			if (itr != mReferenceCount[mRawPtr].end())
+				mReferenceCount[mRawPtr].erase(itr);
+			if (mReferenceCount[mRawPtr].size() == 0)
+				delete mRawPtr;
+		}
 	}
 
 	template<typename T>
 	SharedPtr<T>::SharedPtr(const SharedPtr& rhs) :
 		mRawPtr(rhs.mRawPtr)
 	{
-		mReferenceCount[mRawPtr].push_back(this);
+		if(mRawPtr != nullptr)
+			mReferenceCount[mRawPtr].push_back(this);
 	}
 
 	template<typename T>
@@ -43,24 +52,30 @@ namespace Library
 		mRawPtr(rhs.mRawPtr)
 	{
 		rhs.mRawPtr = nullptr;
-		std::list<SharedPtr<T>*>::iterator itr = std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), &rhs);
-		if (itr != mReferenceCount[mRawPtr].end())
-			mReferenceCount[mRawPtr].erase(itr);
-		else
-			mReferenceCount[mRawPtr].push_back(this);
+
+		if (mRawPtr != nullptr)
+		{
+			std::list<SharedPtr<T>*>::iterator itr = std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), &rhs);
+			if (itr != mReferenceCount[mRawPtr].end())
+				mReferenceCount[mRawPtr].erase(itr);
+			else
+				mReferenceCount[mRawPtr].push_back(this);
+		}
 	}
 
 	template<typename T>
 	SharedPtr<T>& SharedPtr<T>::operator=(const SharedPtr& rhs)
 	{
-		if (this != &rhs)
+		if (this != &rhs && mRawPtr != rhs.mRawPtr)
 		{
-			mReferenceCount[mRawPtr].erase(std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), this));
-			mReferenceCount[rhs.mRawPtr].push_back(this);
-
-			if (mReferenceCount[mRawPtr].size() == 0)
-				delete mRawPtr;
-
+			if (mRawPtr != nullptr)
+			{
+				mReferenceCount[mRawPtr].erase(std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), this));
+				if (mReferenceCount[mRawPtr].size() == 0)
+					delete mRawPtr;
+			}
+			if(rhs.mRawPtr != nullptr)
+				mReferenceCount[rhs.mRawPtr].push_back(this);
 			mRawPtr = rhs.mRawPtr;
 		}
 		return *this;
@@ -71,10 +86,19 @@ namespace Library
 	{
 		if (this != &rhs)
 		{
-			mReferenceCount[rhs.mRawPtr].erase(std::find(mReferenceCount[rhs.mRawPtr].begin(), mReferenceCount[rhs.mRawPtr].end(), &rhs));
-			mReferenceCount[rhs.mRawPtr].push_back(this);
-
+			if (rhs.mRawPtr != nullptr)
+			{
+				mReferenceCount[rhs.mRawPtr].erase(std::find(mReferenceCount[rhs.mRawPtr].begin(), mReferenceCount[rhs.mRawPtr].end(), &rhs));
+				mReferenceCount[rhs.mRawPtr].push_back(this);
+			}
+			if (mRawPtr != nullptr)
+			{
+				mReferenceCount[mRawPtr].erase(std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), this));
+				if (mReferenceCount[mRawPtr].size() == 0)
+					delete mRawPtr;
+			}
 			mRawPtr = rhs.mRawPtr;
+			rhs.mRawPtr = nullptr;
 		}
 		return *this;
 	}
@@ -132,6 +156,8 @@ namespace Library
 	template<typename T>
 	std::uint32_t SharedPtr<T>::ReferenceCount(SharedPtr<T>& sharedPtr)
 	{
-		return static_cast<std::uint32_t>(mReferenceCount[sharedPtr.RawPtr()].size());
+		if(sharedPtr.RawPtr() != nullptr)
+			return static_cast<std::uint32_t>(mReferenceCount[sharedPtr.RawPtr()].size());
+		return 0;
 	}
 }

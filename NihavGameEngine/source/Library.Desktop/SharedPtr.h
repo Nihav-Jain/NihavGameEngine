@@ -9,6 +9,7 @@ namespace Library
 	class SharedPtr
 	{
 	public:
+		SharedPtr();
 		~SharedPtr();
 		SharedPtr(const SharedPtr& rhs);
 		SharedPtr(SharedPtr&& rhs);
