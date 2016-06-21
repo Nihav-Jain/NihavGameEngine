@@ -20,8 +20,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "SharedPtr.h"
-#include "UniquePtr.h"
+#include "..\Library.Shared\SharedPtr.h"
+#include "..\Library.Shared\UniquePtr.h"
 #include "RTTI.h"
 #include "glm\glm.hpp"
 #include <expat.h>

@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "Stack.h"
 #include "UniquePtr.h"
 
 namespace Library

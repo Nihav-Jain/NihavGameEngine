@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "Stack.h"
 #include "SharedPtr.h"
 
 namespace Library
