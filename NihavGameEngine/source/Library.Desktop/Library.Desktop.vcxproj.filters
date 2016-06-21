@@ -271,6 +271,9 @@
     <ClInclude Include="XmlParseHelperDefineSector.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
+    <ClInclude Include="SharedPtr.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -520,6 +523,9 @@
     <None Include="ParticleSystem.inl">
       <Filter>Kernel\Graphic</Filter>
     </None>
+    <None Include="SharedPtr.inl">
+      <Filter>Memory</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -554,6 +560,9 @@
     </Filter>
     <Filter Include="Kernel\Input">
       <UniqueIdentifier>{47b9067a-1920-4c6a-9348-923f2602694f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{6d21600a-bee3-4c55-b87a-6d50b84aa3db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

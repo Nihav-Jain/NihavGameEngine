@@ -20,6 +20,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "SharedPtr.h"
 #include "RTTI.h"
 #include "glm\glm.hpp"
 #include <expat.h>
