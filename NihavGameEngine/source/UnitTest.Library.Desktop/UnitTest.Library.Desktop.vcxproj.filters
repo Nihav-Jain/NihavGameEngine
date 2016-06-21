@@ -68,6 +68,7 @@
     <ClCompile Include="AsyncBarSubscriber.cpp" />
     <ClCompile Include="AsyncFooSubscriber.cpp" />
     <ClCompile Include="SharedPtrTest.cpp" />
+    <ClCompile Include="UniquePtrTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
