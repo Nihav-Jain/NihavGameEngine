@@ -14,12 +14,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UnitTestApp.xaml.cpp" />
-    <ClCompile Include="UnitTest.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Foo.cpp" />
+    <ClCompile Include="SharedPtrTest.cpp" />
+    <ClCompile Include="UniquePtrTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="UnitTestApp.xaml.h" />
+    <ClInclude Include="Foo.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="UnitTestApp.rd.xml" />

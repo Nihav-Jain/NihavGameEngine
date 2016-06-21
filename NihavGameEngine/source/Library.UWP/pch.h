@@ -7,3 +7,6 @@
 #endif
 
 #include <windows.h>
+
+#include "../Library.Shared/SharedPtr.h"
+#include "../Library.Shared/UniquePtr.h"
