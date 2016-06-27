@@ -295,25 +295,25 @@ namespace UnitTestLibraryDesktop
 			Assert::AreEqual(4U, sector->GetAllEntitiesOfType(SampleEntity::TypeIdClass()).Size());
 		}
 
-		TEST_METHOD(EntityTestLoadSector)
-		{
-			{
-				Game game;
+		//TEST_METHOD(EntityTestLoadSector)
+		//{
+		//	{
+		//		Game game;
 
-				Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_load_sector_test.xml"));
+		//		Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_load_sector_test.xml"));
 
-				game.Start();
-			
-				World& world = game.GetWorld();
-				Sector* sector = world.ActiveSector();
-				Assert::IsNotNull(sector);
-				Assert::IsTrue(sector->Name() == "worldSector2");
+		//		game.Start();
+		//	
+		//		World& world = game.GetWorld();
+		//		Sector* sector = world.ActiveSector();
+		//		Assert::IsNotNull(sector);
+		//		Assert::IsTrue(sector->Name() == "worldSector2");
 
-				game.Update();
-			}
+		//		game.Update();
+		//	}
 
-			Assert::IsTrue(true);
-		}
+		//	Assert::IsTrue(true);
+		//}
 
 #if defined(DEBUG) | defined(_DEBUG)
 		static _CrtMemState sStartMemState;
