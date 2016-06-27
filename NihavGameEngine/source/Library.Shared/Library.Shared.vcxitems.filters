@@ -4,12 +4,24 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{b0813ae3-6d92-4f52-bd77-a689d6908430}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{520c2516-9a06-46d7-a5b7-191957525351}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h">
       <Filter>Memory</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UniquePtr.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CustomHeap.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h">
       <Filter>Memory</Filter>
     </ClInclude>
   </ItemGroup>
@@ -20,5 +32,16 @@
     <None Include="$(MSBuildThisFileDirectory)UniquePtr.inl">
       <Filter>Memory</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CustomHeap.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

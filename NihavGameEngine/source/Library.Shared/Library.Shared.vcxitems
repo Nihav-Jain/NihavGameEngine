@@ -14,11 +14,19 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CustomHeap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UniquePtr.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl" />
     <None Include="$(MSBuildThisFileDirectory)UniquePtr.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CustomHeap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
   </ItemGroup>
 </Project>
