@@ -172,6 +172,8 @@ namespace Library
 	private:
 		void AddParseHelpers();
 
+		DesktopMemory mMemory;
+
 		Renderer* mRenderer;
 
 		GameClock mGameClock;
