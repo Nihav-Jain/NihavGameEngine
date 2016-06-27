@@ -271,6 +271,9 @@
     <ClInclude Include="XmlParseHelperDefineSector.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
+    <ClInclude Include="DesktopMemory.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -495,6 +498,9 @@
     </ClCompile>
     <ClCompile Include="XmlParseHelperDefineSector.cpp">
       <Filter>XmlParseHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="DesktopMemory.cpp">
+      <Filter>Memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
