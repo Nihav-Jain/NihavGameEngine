@@ -17,11 +17,12 @@ namespace Library
 
 		static void CreateHeapManager(Memory& memory);
 		static HeapManager* GetHeapManager();
-		~HeapManager();
+		static void DestroyHeapManager();
 
 		void Init(const std::vector<HeapDef>& heapDefs, std::uint32_t defaultHeapId);
 		std::uint32_t GetHeapSize(std::uint32_t id) const;
 		const std::string& GetHeapName(std::uint32_t id) const;
+		std::uint32_t GetHeapNumBlocks(std::uint32_t id) const;
 
 		void* AllocateBlock(std::uint32_t heapId, std::uint32_t bytes, const std::string& filename, std::uint32_t linenumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment = 4);
 		void FreeBlock(void* ptr);
@@ -30,8 +31,11 @@ namespace Library
 		void RestoreHeapID();
 		//Memory& GetMemoryRef();
 
+		bool IsHeapConsistent(std::uint32_t heapID) const;
+
 	private:
 		HeapManager(Memory& memory);
+		~HeapManager();
 
 		static HeapManager* sInstance;
 

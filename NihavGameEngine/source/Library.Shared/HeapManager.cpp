@@ -60,6 +60,15 @@ namespace Library
 		return sInstance;
 	}
 
+	void HeapManager::DestroyHeapManager()
+	{
+		if(sInstance != nullptr)
+		{
+			delete sInstance;
+			sInstance = nullptr;
+		}
+	}
+
 	HeapManager::~HeapManager()
 	{
 		if (!mHeaps[0]->IsHeapConsistent())
@@ -98,6 +107,11 @@ namespace Library
 		return GetHeap(id).HeapName();
 	}
 
+	std::uint32_t HeapManager::GetHeapNumBlocks(std::uint32_t id) const
+	{
+		return GetHeap(id).NumBlocks();
+	}
+
 	void* HeapManager::AllocateBlock(std::uint32_t heapId, std::uint32_t bytes, const std::string& filename, std::uint32_t linenumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)
 	{
 		return GetHeap(heapId).AllocateBlock(bytes, filename, linenumber, tag, time, alignment);
@@ -119,6 +133,11 @@ namespace Library
 	void HeapManager::RestoreHeapID()
 	{
 		mCurrentHeapID = mOldHeapID;
+	}
+
+	bool HeapManager::IsHeapConsistent(std::uint32_t heapID) const
+	{
+		return GetHeap(heapID).IsHeapConsistent();
 	}
 
 	//Memory& HeapManager::GetMemoryRef()
