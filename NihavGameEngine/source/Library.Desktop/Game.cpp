@@ -8,7 +8,7 @@ namespace Library
 		mSharedData(), mParseMaster(mSharedData),
 		mGameClock(), mGameTime(), mWorld(mGameTime, mParseMaster), mRenderer(nullptr), mAudioManager()
 	{
-		HeapManager::CreateHeapManager(mMemory);
+		//HeapManager::CreateHeapManager(mMemory);
 		mSharedData.SetRootScope(mWorld);
 		AddParseHelpers();
 	}
