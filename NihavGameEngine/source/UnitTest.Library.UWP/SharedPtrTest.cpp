@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "Foo.h"
-
+#include "../Library.Shared/HeapManager.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Library;
@@ -22,6 +22,7 @@ namespace UnitTest_Library_UWP
 
 		TEST_METHOD_CLEANUP(Cleanup)
 		{
+			SmartPtr::ClearStaticMembers();
 			SharedPtr<int>::ClearStaticMembers();
 			SharedPtr<Foo>::ClearStaticMembers();
 

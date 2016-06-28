@@ -22,6 +22,7 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD_CLEANUP(Cleanup)
 		{
+			SmartPtr::ClearStaticMembers();
 			SharedPtr<int>::ClearStaticMembers();
 			SharedPtr<Foo>::ClearStaticMembers();
 

@@ -9,5 +9,6 @@
 #include <ppltasks.h>
 
 #include "UnitTestApp.xaml.h"
+#include "../Library.Shared/HeapManager.h"
 #include "../Library.Shared/SharedPtr.h"
 #include "../Library.Shared/UniquePtr.h"
