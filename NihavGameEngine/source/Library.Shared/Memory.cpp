@@ -4,7 +4,6 @@
 
 //void* operator new(std::uint32_t bytes)
 //{
-//
 //	if (Library::HeapManager::GetHeapManager() == nullptr)
 //		return malloc(bytes);
 //	return Library::HeapManager::GetHeapManager()->AllocateBlock(1, bytes, __FILE__, __LINE__, "Default", std::chrono::high_resolution_clock::now());

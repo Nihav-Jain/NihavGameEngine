@@ -10,7 +10,7 @@ namespace Library
 	template<typename ...ArgTypes>
 	SharedPtr<T> SharedPtr<T>::MakeShared(ArgTypes&& ...Args)
 	{
-		T* ptr = ENGINE_NEW(2, "SHP") T(Args...);
+		T* ptr = NewObject<T>(Args...);
 		SharedPtr<T> sharedPtr(ptr);
 		return sharedPtr;
 	}
@@ -34,7 +34,7 @@ namespace Library
 			if (itr != mReferenceCount[mRawPtr].end())
 				mReferenceCount[mRawPtr].erase(itr);
 			if (mReferenceCount[mRawPtr].size() == 0)
-				ENGINE_DELETE(mRawPtr);
+				DeleteObject(mRawPtr);
 		}
 	}
 
@@ -71,7 +71,7 @@ namespace Library
 			{
 				mReferenceCount[mRawPtr].erase(std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), this));
 				if (mReferenceCount[mRawPtr].size() == 0)
-					ENGINE_DELETE(mRawPtr);
+					DeleteObject(mRawPtr);
 			}
 			if(rhs.mRawPtr != nullptr)
 				mReferenceCount[rhs.mRawPtr].push_back(this);
@@ -94,7 +94,7 @@ namespace Library
 			{
 				mReferenceCount[mRawPtr].erase(std::find(mReferenceCount[mRawPtr].begin(), mReferenceCount[mRawPtr].end(), this));
 				if (mReferenceCount[mRawPtr].size() == 0)
-					ENGINE_DELETE(mRawPtr);
+					DeleteObject(mRawPtr);
 			}
 			mRawPtr = rhs.mRawPtr;
 			rhs.mRawPtr = nullptr;

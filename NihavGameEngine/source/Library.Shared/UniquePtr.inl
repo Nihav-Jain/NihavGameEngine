@@ -10,7 +10,7 @@ namespace Library
 	template<typename ...ArgTypes>
 	UniquePtr<T> UniquePtr<T>::MakeUnique(ArgTypes&& ...Args)
 	{
-		T* ptr = ENGINE_NEW(2, "UNP") T(Args...);
+		T* ptr = NewObject<T>(Args...);
 		UniquePtr<T> uniquePtr(ptr);
 		return uniquePtr;
 	}
@@ -31,7 +31,7 @@ namespace Library
 		if (mRawPtr != nullptr)
 		{
 			mReferences.erase(mRawPtr);
-			ENGINE_DELETE(mRawPtr);
+			DeleteObject(mRawPtr);
 		}
 	}
 
@@ -54,7 +54,7 @@ namespace Library
 	{
 		if (this != &rhs)
 		{
-			ENGINE_DELETE(mRawPtr);
+			DeleteObject(mRawPtr);
 			mRawPtr = rhs.mRawPtr;
 			rhs.mRawPtr = nullptr;
 			if (mRawPtr != nullptr)
