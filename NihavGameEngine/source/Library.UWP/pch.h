@@ -9,5 +9,6 @@
 #include <windows.h>
 #include <assert.h>
 
+#include "../Library.Shared/HeapManager.h"
 #include "../Library.Shared/SharedPtr.h"
 #include "../Library.Shared/UniquePtr.h"
