@@ -9,7 +9,7 @@ using namespace Library;
 namespace UnitTest_Library_UWP
 {
 
-	TEST_CLASS(SharedPtrTest)
+	TEST_CLASS(UWPSharedPtrTest)
 	{
 	public:
 
@@ -36,7 +36,7 @@ namespace UnitTest_Library_UWP
 		}
 #endif
 
-		TEST_METHOD(SharedPtrAlloc)
+		TEST_METHOD(UWP_SharedPtrAlloc)
 		{
 			SharedPtr<int> ptr = SharedPtr<int>::MakeShared();
 			*ptr = 10;
@@ -46,7 +46,7 @@ namespace UnitTest_Library_UWP
 			Assert::AreEqual(1U, SharedPtr<int>::ReferenceCount(ptr));
 		}
 
-		TEST_METHOD(SharedPtrAutoDestruct)
+		TEST_METHOD(UWP_SharedPtrAutoDestruct)
 		{
 			SharedPtr<int> ptr = SharedPtr<int>::MakeShared();
 			*ptr = 10;
@@ -63,7 +63,7 @@ namespace UnitTest_Library_UWP
 			Assert::AreEqual(1U, SharedPtr<int>::ReferenceCount(ptr));
 		}
 
-		TEST_METHOD(SharedPtrParamCtor)
+		TEST_METHOD(UWP_SharedPtrParamCtor)
 		{
 			SharedPtr<int> ptr = SharedPtr<int>::MakeShared(10);
 			Assert::AreEqual(10, *ptr);
@@ -82,6 +82,6 @@ namespace UnitTest_Library_UWP
 	};
 
 #if defined(DEBUG) | defined(_DEBUG)
-	_CrtMemState SharedPtrTest::sStartMemState;
+	_CrtMemState UWPSharedPtrTest::sStartMemState;
 #endif
 }

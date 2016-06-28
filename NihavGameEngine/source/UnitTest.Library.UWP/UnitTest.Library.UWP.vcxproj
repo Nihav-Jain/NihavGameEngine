@@ -249,6 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Foo.cpp" />
+    <ClCompile Include="MemoryManagerTest.cpp" />
     <ClCompile Include="SharedPtrTest.cpp" />
     <ClCompile Include="UniquePtrTest.cpp" />
     <ClCompile Include="UnitTestApp.xaml.cpp">

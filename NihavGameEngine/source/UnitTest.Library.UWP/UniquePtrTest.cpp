@@ -9,7 +9,7 @@ using namespace Library;
 namespace UnitTest_Library_UWP
 {
 
-	TEST_CLASS(UniquePtrTest)
+	TEST_CLASS(UWPUniquePtrTest)
 	{
 	public:
 
@@ -36,7 +36,7 @@ namespace UnitTest_Library_UWP
 		}
 #endif
 
-		TEST_METHOD(UniquePtrAlloc)
+		TEST_METHOD(UWP_UniquePtrAlloc)
 		{
 			UniquePtr<int> ptr = UniquePtr<int>::MakeUnique();
 			*ptr = 10;
@@ -45,7 +45,7 @@ namespace UnitTest_Library_UWP
 			Assert::AreEqual(10, *ptr.RawPtr());
 		}
 
-		TEST_METHOD(UniquePtrAssign)
+		TEST_METHOD(UWP_UniquePtrAssign)
 		{
 			UniquePtr<int> ptr = UniquePtr<int>::MakeUnique(10);
 			UniquePtr<int> anotherPtr = ptr;
@@ -60,6 +60,6 @@ namespace UnitTest_Library_UWP
 	};
 
 #if defined(DEBUG) | defined(_DEBUG)
-	_CrtMemState UniquePtrTest::sStartMemState;
+	_CrtMemState UWPUniquePtrTest::sStartMemState;
 #endif
 }

@@ -16,22 +16,6 @@ namespace Library
 	};
 }
 
-//template <typename T, typename ...ArgTypes>
-//inline static T* NewObject(ArgTypes&& ...Args)
-//{
-//	void* ptr = Library::HeapManager::GetHeapManager().AllocateBlock(1, sizeof(T), __FILE__, __LINE__, "DEF", std::chrono::high_resolution_clock::now(), 4);
-//	T* tPtr = reinterpret_cast<T*>(ptr);
-//	
-//	return tPtr;
-//};
-//
-//template <typename T>
-//inline static void DeleteObject(T* ptr)
-//{
-//	ptr->~T();
-//	Library::HeapManager::GetHeapManager().FreeBlock(ptr);
-//};
-
 #define ENGINE_NEW(heapID, tag) new(heapID, __FILE__, __LINE__, tag, std::chrono::high_resolution_clock::now(), 4)
 #define ENGINE_NEW_ALIGNED(heapID, tag, alignemnt) new(heapID, __FILE__, __LINE__, tag, std::chrono::high_resolution_clock::now(), alignment)
 #define ENGINE_NEW_NOTIMER(heapID, tag) new(heapID, __FILE__, __LINE__, tag, std::chrono::milliseconds(0), 4)

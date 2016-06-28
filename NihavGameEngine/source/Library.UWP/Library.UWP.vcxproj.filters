@@ -9,10 +9,12 @@
   <ItemGroup>
     <ClCompile Include="Library.UWP.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="UWPMemory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library.UWP.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UWPMemory.h" />
   </ItemGroup>
 </Project>
