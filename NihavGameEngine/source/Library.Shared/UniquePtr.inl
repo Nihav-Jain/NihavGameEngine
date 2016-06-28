@@ -10,7 +10,7 @@ namespace Library
 	template<typename ...ArgTypes>
 	UniquePtr<T> UniquePtr<T>::MakeUnique(ArgTypes&& ...Args)
 	{
-		T* ptr = NewObject<T>(Args...);
+		T* ptr = NewObject<T>(std::forward<ArgTypes>(Args)...);
 		UniquePtr<T> uniquePtr(ptr);
 		return uniquePtr;
 	}

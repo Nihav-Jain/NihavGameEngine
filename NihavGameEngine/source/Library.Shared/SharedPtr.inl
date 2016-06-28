@@ -10,7 +10,7 @@ namespace Library
 	template<typename ...ArgTypes>
 	SharedPtr<T> SharedPtr<T>::MakeShared(ArgTypes&& ...Args)
 	{
-		T* ptr = NewObject<T>(Args...);
+		T* ptr = NewObject<T>(std::forward<ArgTypes>(Args)...);
 		SharedPtr<T> sharedPtr(ptr);
 		return sharedPtr;
 	}
