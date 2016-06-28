@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CustomHeap.h"
+#include "SmartPtr.h"
 
 namespace Library
 {
@@ -102,6 +103,52 @@ namespace Library
 		}
 	}
 
+	void CustomHeap::DefragmentHeap()
+	{
+		while (true)
+		{
+			if (mFirstFreeBlock == nullptr)
+				return;
+			if (mFirstFreeBlock->NextBlock == nullptr)
+				return;
+
+			// cache required values
+			//std::size_t sizeOfFirstFreeBlock = BlockSize(*mFirstFreeBlock);
+			MemoryBlock* firstOccupiedBlock = reinterpret_cast<MemoryBlock*>(mFirstFreeBlock->NextBlock);
+			firstOccupiedBlock->PrevBlock = mFirstFreeBlock->PrevBlock;
+			void* occupiedDataPtr = firstOccupiedBlock->DataPtr;
+			std::size_t sizeOfFirstOccupiedBlock = BlockSize(*firstOccupiedBlock);
+			MemoryBlock* nextBlockOfFirstOccupiedBlock = reinterpret_cast<MemoryBlock*>(firstOccupiedBlock->NextBlock);
+
+			// move memory
+			std::memmove(mFirstFreeBlock, firstOccupiedBlock, BlockSize(*firstOccupiedBlock));
+			void* newDataPtrAddress = reinterpret_cast<void*>(reinterpret_cast<std::size_t>(mFirstFreeBlock) + (reinterpret_cast<std::size_t>(occupiedDataPtr) - reinterpret_cast<std::size_t>(firstOccupiedBlock)));
+			mFirstFreeBlock->DataPtr = newDataPtrAddress;
+
+			// update smart pointers
+			std::vector<SmartPtr*>& smartPointerList = SmartPtr::sSmartPointerList[occupiedDataPtr];
+			for (std::uint32_t i = 0; i < smartPointerList.size(); ++i)
+			{
+				smartPointerList[i]->SetRawPtr(newDataPtrAddress);
+			}
+			SmartPtr::sSmartPointerList[newDataPtrAddress] = smartPointerList;
+			SmartPtr::sSmartPointerList.erase(occupiedDataPtr);
+
+			MemoryBlock* newFreeBlock = reinterpret_cast<MemoryBlock*>(reinterpret_cast<std::size_t>(mFirstFreeBlock) + sizeOfFirstOccupiedBlock);
+			newFreeBlock->PrevBlock = mFirstFreeBlock;
+			newFreeBlock->NextBlock = nextBlockOfFirstOccupiedBlock;
+			newFreeBlock->Flags = NULL;
+			SetFlag(FREE_FLAG, *newFreeBlock);
+			newFreeBlock->DataPtr = nullptr;
+			mFirstFreeBlock->NextBlock = newFreeBlock;
+
+			nextBlockOfFirstOccupiedBlock->PrevBlock = newFreeBlock;
+			if (IsBlockFree(*nextBlockOfFirstOccupiedBlock))
+				CombineBlocks(*newFreeBlock, *nextBlockOfFirstOccupiedBlock);
+			mFirstFreeBlock = newFreeBlock;
+		}
+	}
+
 	CustomHeap::MemoryBlock& CustomHeap::MemoryBlockFromPtr(void* ptr)
 	{
 		MemoryBlock* returnVal = nullptr;
@@ -138,6 +185,7 @@ namespace Library
 
 		address.NextBlock = nullptr;
 		address.PrevBlock = nullptr;
+		address.DataPtr = nullptr;
 
 #if _DEBUG
 		//address.Filename = "";
@@ -355,6 +403,7 @@ namespace Library
 			*clearPtr++ = GUARD_VAL;
 		}
 #endif
+		reinterpret_cast<MemoryBlock*>(returnBlock)->DataPtr = reinterpret_cast<void*>(returnPtrVal);
 		return reinterpret_cast<void*>(returnPtrVal);
 	}
 

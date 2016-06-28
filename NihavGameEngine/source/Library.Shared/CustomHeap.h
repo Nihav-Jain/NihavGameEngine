@@ -21,6 +21,7 @@ namespace Library
 			std::uint32_t LineNumber;
 			std::chrono::high_resolution_clock::time_point Time;
 #endif
+			void* DataPtr;
 		};
 
 		CustomHeap();
@@ -41,6 +42,8 @@ namespace Library
 		void FreeBlock(void* ptr);		
 		bool IsHeapConsistent() const;
 		void FreeAllBlocks();
+
+		void DefragmentHeap();
 
 		static MemoryBlock& MemoryBlockFromPtr(void* ptr);
 		static std::uint32_t HeapID(const MemoryBlock& block);

@@ -33,6 +33,8 @@ namespace Library
 
 		bool IsHeapConsistent(std::uint32_t heapID) const;
 
+		void DefragmentHeap(std::uint32_t heapID);
+
 	private:
 		HeapManager(Memory& memory);
 		~HeapManager();

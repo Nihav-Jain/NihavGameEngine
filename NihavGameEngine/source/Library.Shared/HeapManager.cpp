@@ -140,8 +140,8 @@ namespace Library
 		return GetHeap(heapID).IsHeapConsistent();
 	}
 
-	//Memory& HeapManager::GetMemoryRef()
-	//{
-	//	return *mMemory;
-	//}
+	void HeapManager::DefragmentHeap(std::uint32_t heapID)
+	{
+		GetHeap(heapID).DefragmentHeap();
+	}
 }

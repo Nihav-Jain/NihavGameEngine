@@ -26,6 +26,8 @@ namespace Library
 		T* RawPtr();
 		const T* RawPtr() const;
 
+		void Delete();
+
 		virtual void* GetRawPtr() override;
 		virtual void SetRawPtr(void* ptr) override;
 

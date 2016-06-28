@@ -120,6 +120,47 @@ namespace UnitTestLibraryDesktop
 			DeleteObject<Foo>(foo);
 		}
 
+		TEST_METHOD(DefragmentationTest)
+		{
+			std::uint32_t id = 3;
+			SharedPtr<Foo> foo1 = SharedPtr<Foo>::MakeShared(5);
+			SharedPtr<Foo> foo2 = SharedPtr<Foo>::MakeShared(10);
+			SharedPtr<Foo> foo3 = SharedPtr<Foo>::MakeShared(15);
+			SharedPtr<Foo> foo4 = SharedPtr<Foo>::MakeShared(20);
+			SharedPtr<Foo> foo5 = SharedPtr<Foo>::MakeShared(25);
+
+			Assert::IsTrue(HeapManager::GetHeapManager()->IsHeapConsistent(id));
+			Assert::AreEqual(6U, HeapManager::GetHeapManager()->GetHeapNumBlocks(id));
+
+			Assert::AreEqual(5, foo1->GetData());
+			Assert::AreEqual(10, foo2->GetData());
+			Assert::AreEqual(15, foo3->GetData());
+			Assert::AreEqual(20, foo4->GetData());
+			Assert::AreEqual(25, foo5->GetData());
+
+			foo2.Delete();
+
+			Assert::IsTrue(HeapManager::GetHeapManager()->IsHeapConsistent(id));
+			Assert::AreEqual(6U, HeapManager::GetHeapManager()->GetHeapNumBlocks(id));
+
+			auto expression = [&] {foo2->GetData(); };
+			Assert::ExpectException<std::exception>(expression);
+
+			foo4.Delete();
+
+			Assert::IsTrue(HeapManager::GetHeapManager()->IsHeapConsistent(id));
+			Assert::AreEqual(6U, HeapManager::GetHeapManager()->GetHeapNumBlocks(id));
+
+			HeapManager::GetHeapManager()->DefragmentHeap(id);
+
+			Assert::IsTrue(HeapManager::GetHeapManager()->IsHeapConsistent(id));
+			Assert::AreEqual(4U, HeapManager::GetHeapManager()->GetHeapNumBlocks(id));
+
+			Assert::AreEqual(5, foo1->GetData());
+			Assert::AreEqual(15, foo3->GetData());
+			Assert::AreEqual(25, foo5->GetData());
+		}
+
 #if defined(DEBUG) | defined(_DEBUG)
 		static _CrtMemState sStartMemState;
 #endif
