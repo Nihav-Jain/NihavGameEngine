@@ -31,14 +31,12 @@ namespace Library
 
 		template<typename... ArgTypes>
 		static SharedPtr MakeShared(ArgTypes&&... Args);
-		static void ClearStaticMembers();
 		static std::uint32_t ReferenceCount(SharedPtr<T>& sharedPtr);
 
 	private:
 		SharedPtr(T* rawPtr);
 
 		T* mRawPtr;
-		static std::map<void*, std::vector<SmartPtr*>> mReferenceCount;
 	};
 
 

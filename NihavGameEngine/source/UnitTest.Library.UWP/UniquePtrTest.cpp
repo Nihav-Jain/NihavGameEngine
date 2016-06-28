@@ -23,8 +23,6 @@ namespace UnitTest_Library_UWP
 		TEST_METHOD_CLEANUP(Cleanup)
 		{
 			SmartPtr::ClearStaticMembers();
-			UniquePtr<int>::ClearStaticMembers();
-			//UniquePtr<Foo>::ClearStaticMembers();
 
 			_CrtMemState endMemState, diffMemState;
 			_CrtMemCheckpoint(&endMemState);

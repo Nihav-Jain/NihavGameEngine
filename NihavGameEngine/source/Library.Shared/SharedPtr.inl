@@ -4,14 +4,11 @@
 
 namespace Library
 {
-	template <typename T>
-	std::map<void*, std::vector<SmartPtr*>> SharedPtr<T>::mReferenceCount;
 
 	template<typename T>
 	template<typename ...ArgTypes>
 	SharedPtr<T> SharedPtr<T>::MakeShared(ArgTypes&& ...Args)
 	{
-		SmartPtr::sSmartPointerList.insert(&mReferenceCount);
 		T* ptr = NewObject<T>(std::forward<ArgTypes>(Args)...);
 		SharedPtr<T> sharedPtr(ptr);
 		return sharedPtr;
@@ -32,10 +29,10 @@ namespace Library
 	{
 		if (mRawPtr != nullptr)
 		{
-			std::vector<SmartPtr*>::iterator itr = std::find(mReferenceCount[reinterpret_cast<void*>(mRawPtr)].begin(), mReferenceCount[reinterpret_cast<void*>(mRawPtr)].end(), this);
-			if (itr != mReferenceCount[reinterpret_cast<void*>(mRawPtr)].end())
-				mReferenceCount[reinterpret_cast<void*>(mRawPtr)].erase(itr);
-			if (mReferenceCount[reinterpret_cast<void*>(mRawPtr)].size() == 0)
+			std::vector<SmartPtr*>::iterator itr = std::find(SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].begin(), SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].end(), this);
+			if (itr != SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].end())
+				SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].erase(itr);
+			if (SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].size() == 0)
 				DeleteObject(mRawPtr);
 		}
 	}
@@ -45,7 +42,7 @@ namespace Library
 		mRawPtr(rhs.mRawPtr)
 	{
 		if(mRawPtr != nullptr)
-			mReferenceCount[reinterpret_cast<void*>(mRawPtr)].push_back(this);
+			SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].push_back(this);
 	}
 
 	template<typename T>
@@ -56,11 +53,11 @@ namespace Library
 
 		if (mRawPtr != nullptr)
 		{
-			std::vector<SmartPtr*>::iterator itr = std::find(mReferenceCount[reinterpret_cast<void*>(mRawPtr)].begin(), mReferenceCount[reinterpret_cast<void*>(mRawPtr)].end(), &rhs);
-			if (itr != mReferenceCount[reinterpret_cast<void*>(mRawPtr)].end())
-				mReferenceCount[reinterpret_cast<void*>(mRawPtr)].erase(itr);
+			std::vector<SmartPtr*>::iterator itr = std::find(SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].begin(), SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].end(), &rhs);
+			if (itr != SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].end())
+				SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].erase(itr);
 			else
-				mReferenceCount[reinterpret_cast<void*>(mRawPtr)].push_back(this);
+				SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)].push_back(this);
 		}
 	}
 
@@ -72,12 +69,12 @@ namespace Library
 			if (mRawPtr != nullptr)
 			{
 				void* ptr = reinterpret_cast<void*>(mRawPtr);
-				mReferenceCount[ptr].erase(std::find(mReferenceCount[ptr].begin(), mReferenceCount[ptr].end(), this));
-				if (mReferenceCount[ptr].size() == 0)
+				SmartPtr::sSmartPointerList[ptr].erase(std::find(SmartPtr::sSmartPointerList[ptr].begin(), SmartPtr::sSmartPointerList[ptr].end(), this));
+				if (SmartPtr::sSmartPointerList[ptr].size() == 0)
 					DeleteObject(mRawPtr);
 			}
 			if(rhs.mRawPtr != nullptr)
-				mReferenceCount[reinterpret_cast<void*>(rhs.mRawPtr)].push_back(this);
+				SmartPtr::sSmartPointerList[reinterpret_cast<void*>(rhs.mRawPtr)].push_back(this);
 			mRawPtr = rhs.mRawPtr;
 		}
 		return *this;
@@ -91,14 +88,14 @@ namespace Library
 			if (rhs.mRawPtr != nullptr)
 			{
 				void* rhsPtr = reinterpret_cast<void*>(rhs.mRawPtr);
-				mReferenceCount[rhsPtr].erase(std::find(mReferenceCount[rhsPtr].begin(), mReferenceCount[rhsPtr].end(), &rhs));
-				mReferenceCount[rhsPtr].push_back(this);
+				SmartPtr::sSmartPointerList[rhsPtr].erase(std::find(SmartPtr::sSmartPointerList[rhsPtr].begin(), SmartPtr::sSmartPointerList[rhsPtr].end(), &rhs));
+				SmartPtr::sSmartPointerList[rhsPtr].push_back(this);
 			}
 			if (mRawPtr != nullptr)
 			{
 				void* ptr = reinterpret_cast<void*>(mRawPtr);
-				mReferenceCount[ptr].erase(std::find(mReferenceCount[ptr].begin(), mReferenceCount[ptr].end(), this));
-				if (mReferenceCount[ptr].size() == 0)
+				SmartPtr::sSmartPointerList[ptr].erase(std::find(SmartPtr::sSmartPointerList[ptr].begin(), SmartPtr::sSmartPointerList[ptr].end(), this));
+				if (SmartPtr::sSmartPointerList[ptr].size() == 0)
 					DeleteObject(mRawPtr);
 			}
 			mRawPtr = rhs.mRawPtr;
@@ -156,26 +153,16 @@ namespace Library
 	template<typename T>
 	void SharedPtr<T>::SetRawPtr(void* ptr)
 	{
-		mReferenceCount[ptr] = mReferenceCount[reinterpret_cast<void*>(mRawPtr)];
-		mReferenceCount.erase(reinterpret_cast<void*>(mRawPtr));
+		SmartPtr::sSmartPointerList[ptr] = SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)];
+		SmartPtr::sSmartPointerList.erase(reinterpret_cast<void*>(mRawPtr));
 		mRawPtr = reinterpret_cast<T*>(ptr);
-	}
-
-	template<typename T>
-	void SharedPtr<T>::ClearStaticMembers()
-	{
-		for(auto& value : mReferenceCount)
-		{
-			value.second.clear();
-		}
-		mReferenceCount.clear();
 	}
 
 	template<typename T>
 	std::uint32_t SharedPtr<T>::ReferenceCount(SharedPtr<T>& sharedPtr)
 	{
 		if(sharedPtr.RawPtr() != nullptr)
-			return static_cast<std::uint32_t>(mReferenceCount[reinterpret_cast<void*>(sharedPtr.RawPtr())].size());
+			return static_cast<std::uint32_t>(SmartPtr::sSmartPointerList[reinterpret_cast<void*>(sharedPtr.RawPtr())].size());
 		return 0;
 	}
 }

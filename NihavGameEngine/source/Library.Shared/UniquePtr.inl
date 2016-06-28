@@ -3,14 +3,11 @@
 
 namespace Library
 {
-	template <typename T>
-	std::map<void*, std::vector<SmartPtr*>> UniquePtr<T>::mReferences;
 
 	template<typename T>
 	template<typename ...ArgTypes>
 	UniquePtr<T> UniquePtr<T>::MakeUnique(ArgTypes&& ...Args)
 	{
-		SmartPtr::sSmartPointerList.insert(&mReferences);
 		T* ptr = NewObject<T>(std::forward<ArgTypes>(Args)...);
 		UniquePtr<T> uniquePtr(ptr);
 		return uniquePtr;
@@ -31,7 +28,7 @@ namespace Library
 	{
 		if (mRawPtr != nullptr)
 		{
-			mReferences.erase(reinterpret_cast<void*>(mRawPtr));
+			SmartPtr::sSmartPointerList.erase(reinterpret_cast<void*>(mRawPtr));
 			DeleteObject(mRawPtr);
 		}
 	}
@@ -44,10 +41,10 @@ namespace Library
 		if (mRawPtr != nullptr)
 		{
 			void* ptr = reinterpret_cast<void*>(mRawPtr);
-			if (mReferences[ptr].size() == 0)
-				mReferences[ptr].push_back(this);
+			if (SmartPtr::sSmartPointerList[ptr].size() == 0)
+				SmartPtr::sSmartPointerList[ptr].push_back(this);
 			else
-				mReferences[ptr][0] = this;
+				SmartPtr::sSmartPointerList[ptr][0] = this;
 		}
 	}
 
@@ -67,10 +64,10 @@ namespace Library
 			if (mRawPtr != nullptr)
 			{
 				void* ptr = reinterpret_cast<void*>(mRawPtr);
-				if (mReferences[ptr].size() == 0)
-					mReferences[ptr].push_back(this);
+				if (SmartPtr::sSmartPointerList[ptr].size() == 0)
+					SmartPtr::sSmartPointerList[ptr].push_back(this);
 				else
-					mReferences[ptr][0] = this;
+					SmartPtr::sSmartPointerList[ptr][0] = this;
 			}
 		}
 		return *this;
@@ -131,14 +128,8 @@ namespace Library
 	template<typename T>
 	void UniquePtr<T>::SetRawPtr(void* ptr)
 	{
-		mReferences[ptr] = mReferences[reinterpret_cast<void*>(mRawPtr)];
-		mReferences.erase(reinterpret_cast<void*>(mRawPtr));
+		SmartPtr::sSmartPointerList[ptr] = SmartPtr::sSmartPointerList[reinterpret_cast<void*>(mRawPtr)];
+		SmartPtr::sSmartPointerList.erase(reinterpret_cast<void*>(mRawPtr));
 		mRawPtr = reinterpret_cast<T*>(ptr);
-	}
-
-	template<typename T>
-	void UniquePtr<T>::ClearStaticMembers()
-	{
-		mReferences.clear();
 	}
 }

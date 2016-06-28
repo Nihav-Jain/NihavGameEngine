@@ -14,7 +14,7 @@ namespace Library
 		virtual void SetRawPtr(void* ptr) = 0;
 
 		static void ClearStaticMembers();
-		static std::set<std::map<void*, std::vector<SmartPtr*>>*> sSmartPointerList;
+		static std::map<void*, std::vector<SmartPtr*>> sSmartPointerList;
 	};
 }
 

@@ -31,13 +31,11 @@ namespace Library
 
 		template<typename... ArgTypes>
 		static UniquePtr MakeUnique(ArgTypes&&... Args);
-		static void ClearStaticMembers();
 
 	private:
 		UniquePtr(T* rawPtr);
 
 		T* mRawPtr;
-		static std::map<void*, std::vector<SmartPtr*>> mReferences;
 	};
 
 
