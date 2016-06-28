@@ -16,7 +16,7 @@ namespace Library
 		};
 
 		static void CreateHeapManager(Memory& memory);
-		static HeapManager& GetHeapManager();
+		static HeapManager* GetHeapManager();
 		~HeapManager();
 
 		void Init(const std::vector<HeapDef>& heapDefs, std::uint32_t defaultHeapId);
@@ -51,6 +51,7 @@ namespace Library
 
 		static const std::uint32_t HEAP_SIZE = 10240;
 		static const std::string HEAP_HEAP_NAME;
+		static const std::uint32_t HEAP_HEAP_ID = 2U;
 	};
 
 }

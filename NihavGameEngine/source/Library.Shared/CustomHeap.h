@@ -16,8 +16,8 @@ namespace Library
 			void* NextBlock;
 			std::uint32_t Flags;
 #ifdef _DEBUG
-			std::string Filename;
-			std::string Tag;
+			//std::string Filename;
+			//std::string Tag;
 			std::uint32_t LineNumber;
 			std::chrono::high_resolution_clock::time_point Time;
 #endif
@@ -35,10 +35,12 @@ namespace Library
 		std::uint32_t HeapSize() const;
 		std::uint32_t HeapId() const;
 		std::uint32_t NumBlocks() const;
+		void* HeapStart();
 
 		void* AllocateBlock(std::uint32_t bytes, const std::string& filename, std::uint32_t lineNumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment = 4);
-		void FreeBlock(void* ptr);
+		void FreeBlock(void* ptr);		
 		bool IsHeapConsistent() const;
+		void FreeAllBlocks();
 
 		static MemoryBlock& MemoryBlockFromPtr(void* ptr);
 		static std::uint32_t HeapID(const MemoryBlock& block);
@@ -65,6 +67,7 @@ namespace Library
 
 		MemoryBlock& BeginningOfBlockFromPtr(void* ptr) const;
 		void* AllocateBlock(std::uint32_t bytes, std::uint32_t alignment = 4U);
+		void FreeBlock(MemoryBlock& block);
 
 		std::uint32_t NumFreeBlocks() const;
 		std::uint32_t TotalFreeMemory() const;

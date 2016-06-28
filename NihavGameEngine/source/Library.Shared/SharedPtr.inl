@@ -10,7 +10,7 @@ namespace Library
 	template<typename ...ArgTypes>
 	SharedPtr<T> SharedPtr<T>::MakeShared(ArgTypes&& ...Args)
 	{
-		T* ptr = ENGINE_NEW(1, "SharedPtr") T(Args...);
+		T* ptr = ENGINE_NEW(2, "SHP") T(Args...);
 		SharedPtr<T> sharedPtr(ptr);
 		return sharedPtr;
 	}

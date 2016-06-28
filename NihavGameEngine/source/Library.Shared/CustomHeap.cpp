@@ -43,14 +43,21 @@ namespace Library
 		return mNumBlocks;
 	}
 
+	void* CustomHeap::HeapStart()
+	{
+		return mHeapStart;
+	}
+
 	void* CustomHeap::AllocateBlock(std::uint32_t bytes, const std::string& filename, std::uint32_t lineNumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)
 	{
 		void* thisBlock = AllocateBlock(bytes, alignment);
 
 #ifdef _DEBUG
 		MemoryBlock& thisMemoryBlock = BeginningOfBlockFromPtr(thisBlock);
-		thisMemoryBlock.Tag = tag;
-		thisMemoryBlock.Filename = filename;
+		UNREFERENCED_PARAMETER(filename);
+		UNREFERENCED_PARAMETER(tag);
+		//thisMemoryBlock.Tag = tag;
+		//thisMemoryBlock.Filename = filename;
 		thisMemoryBlock.LineNumber = lineNumber;
 		thisMemoryBlock.Time = time;
 #endif
@@ -60,34 +67,7 @@ namespace Library
 	void CustomHeap::FreeBlock(void* ptr)
 	{
 		MemoryBlock& thisBlock = BeginningOfBlockFromPtr(ptr);
-
-		assert(!IsBlockFree(thisBlock));
-
-#ifdef _DEBUG
-#endif
-		MakeBlockFree(thisBlock);
-		if (&thisBlock < mFirstFreeBlock)
-		{
-			mFirstFreeBlock = &thisBlock;
-		}
-
-		MemoryBlock* nextBlock = reinterpret_cast<MemoryBlock*>(thisBlock.NextBlock);
-		if (nextBlock != nullptr)
-		{
-			if (IsBlockFree(*nextBlock))
-				CombineBlocks(thisBlock, *nextBlock);
-		}
-
-		MemoryBlock* prevBlock = reinterpret_cast<MemoryBlock*>(thisBlock.PrevBlock);
-		if (prevBlock != nullptr)
-		{
-			if (IsBlockFree(*prevBlock))
-			{
-				CombineBlocks(*prevBlock, thisBlock);
-				if (prevBlock < mFirstFreeBlock)
-					mFirstFreeBlock = prevBlock;
-			}
-		}
+		FreeBlock(thisBlock);
 	}
 
 	bool CustomHeap::IsHeapConsistent() const
@@ -104,6 +84,20 @@ namespace Library
 			addr = reinterpret_cast<MemoryBlock*>(addr->NextBlock);
 		}
 		return (count == mNumBlocks);
+	}
+
+	void CustomHeap::FreeAllBlocks()
+	{
+		MemoryBlock* addr = reinterpret_cast<MemoryBlock*>(mHeapStart);
+		if (!IsBlockFree(*addr))
+			FreeBlock(*addr);
+
+		addr = reinterpret_cast<MemoryBlock*>(addr->NextBlock);
+		while(!(mNumBlocks == 1 && NumFreeBlocks() == 1 && addr == nullptr))
+		{
+			FreeBlock(*addr);
+			addr = reinterpret_cast<MemoryBlock*>(reinterpret_cast<MemoryBlock*>(mHeapStart)->NextBlock);
+		}
 	}
 
 	CustomHeap::MemoryBlock& CustomHeap::MemoryBlockFromPtr(void* ptr)
@@ -136,7 +130,7 @@ namespace Library
 
 	void CustomHeap::InitFirstBlock()
 	{
-		MemoryBlock& address = *(static_cast<MemoryBlock*>(mHeapStart));
+		MemoryBlock& address = *(reinterpret_cast<MemoryBlock*>(mHeapStart));
 		address.Flags = NULL;
 		SetFlag(FREE_FLAG, address);
 
@@ -144,10 +138,10 @@ namespace Library
 		address.PrevBlock = nullptr;
 
 #if _DEBUG
-		address.Filename = "";
+		//address.Filename = "";
 		address.LineNumber = 0;
 		address.Time = std::chrono::high_resolution_clock::now();
-		address.Tag = "";
+		//address.Tag = "";
 #endif
 
 		mFirstFreeBlock = &address;
@@ -278,6 +272,7 @@ namespace Library
 	void* CustomHeap::AllocateBlock(std::uint32_t bytes, std::uint32_t alignment)
 	{
 		bytes = (bytes + 3)&(0xFFFFFFFF - 3);   //always ask for a multiple of 4 bytes just to simplify life
+		assert(bytes % 4 == 0);
 		bool blockFound = false;
 		void* returnBlock = nullptr;
 
@@ -296,7 +291,7 @@ namespace Library
 					blockFound = true;
 					returnBlock = addr;
 
-					oldNextBlock = reinterpret_cast<MemoryBlock*>(addr->NextBlock);
+					oldNextBlock = (addr->NextBlock != nullptr) ? reinterpret_cast<MemoryBlock*>(addr->NextBlock) : nullptr;
 					addr->NextBlock = reinterpret_cast<void*>(reinterpret_cast<std::uint32_t>(addr) + actualBytesNeeded);
 					
 					ClearFlag(FREE_FLAG, *addr);
@@ -304,10 +299,12 @@ namespace Library
 					
 					assert((oldNextBlock == nullptr) || (reinterpret_cast<std::uint32_t>(oldNextBlock) >= reinterpret_cast<std::uint32_t>(addr->NextBlock)));
 
-					if (reinterpret_cast<std::uint32_t>(oldNextBlock) != reinterpret_cast<std::uint32_t>(addr->NextBlock))
+					if (oldNextBlock == nullptr || reinterpret_cast<std::uint32_t>(oldNextBlock) != reinterpret_cast<std::uint32_t>(addr->NextBlock))
 					{
+
 						addr = reinterpret_cast<MemoryBlock*>(addr->NextBlock);
 						addr->PrevBlock = reinterpret_cast<MemoryBlock*>(returnBlock);
+						addr->NextBlock = oldNextBlock;
 						SetFlag(FREE_FLAG, *addr);
 						if (mFirstFreeBlock == returnBlock)
 						{
@@ -356,7 +353,37 @@ namespace Library
 			*clearPtr++ = GUARD_VAL;
 		}
 #endif
-		return returnBlock;
+		return reinterpret_cast<void*>(returnPtrVal);
+	}
+
+	void CustomHeap::FreeBlock(MemoryBlock& block)
+	{
+		if (IsBlockFree(block))
+			return;
+
+		MakeBlockFree(block);
+		if (&block < mFirstFreeBlock)
+		{
+			mFirstFreeBlock = &block;
+		}
+
+		MemoryBlock* nextBlock = reinterpret_cast<MemoryBlock*>(block.NextBlock);
+		if (nextBlock != nullptr)
+		{
+			if (IsBlockFree(*nextBlock))
+				CombineBlocks(block, *nextBlock);
+		}
+
+		MemoryBlock* prevBlock = reinterpret_cast<MemoryBlock*>(block.PrevBlock);
+		if (prevBlock != nullptr)
+		{
+			if (IsBlockFree(*prevBlock))
+			{
+				CombineBlocks(*prevBlock, block);
+				if (prevBlock < mFirstFreeBlock)
+					mFirstFreeBlock = prevBlock;
+			}
+		}
 	}
 
 	std::uint32_t CustomHeap::NumFreeBlocks() const

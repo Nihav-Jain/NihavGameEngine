@@ -8,21 +8,22 @@ namespace Library
 	const std::string HeapManager::HEAP_HEAP_NAME = "TheHeapHeap";
 
 	HeapManager::HeapManager(Memory& memory) :
-		mMemory(&memory), mHeap()
+		mMemory(&memory), mHeap(), mHeaps()
 	{}
 
 	void HeapManager::InitHeaps(const std::vector<HeapDef>& heapDefs)
 	{
 		void* heapHeapStart = mMemory->OSMalloc(HEAP_SIZE);
-		mHeap.Init(HEAP_HEAP_NAME, heapHeapStart, HEAP_SIZE, 1);
+		mHeap.Init(HEAP_HEAP_NAME, heapHeapStart, HEAP_SIZE, HEAP_HEAP_ID);
 		mHeaps.push_back(&mHeap);
 
 		for (const HeapDef& heapDef : heapDefs)
 		{
-			CustomHeap* thisHeap = ENGINE_NEW(1, heapDef.Name) CustomHeap();
+			CustomHeap* thisHeap = ENGINE_NEW(HEAP_HEAP_ID, "DEF") CustomHeap();
 			mHeaps.push_back(thisHeap);
 			void* startHeapPtr = mMemory->OSMalloc(heapDef.HeapSize);
 			thisHeap->Init(heapDef.Name, startHeapPtr, heapDef.HeapSize, heapDef.HeapID);
+			assert(mHeap.IsHeapConsistent());
 		}
 	}
 
@@ -54,16 +55,27 @@ namespace Library
 			sInstance = new HeapManager(memory);
 	}
 
-	HeapManager& HeapManager::GetHeapManager()
+	HeapManager* HeapManager::GetHeapManager()
 	{
-		if (sInstance == nullptr)
-			throw std::exception("HeapManager not created yet");
-		return *sInstance;
+		return sInstance;
 	}
 
 	HeapManager::~HeapManager()
 	{
-		
+		if (!mHeaps[0]->IsHeapConsistent())
+		{
+			assert(false);
+		}
+
+		std::uint32_t i;
+		for (i = 1; i < mHeaps.size(); ++i)
+		{
+			mHeaps[i]->FreeAllBlocks();
+			mMemory->OSFree(mHeaps[i]->HeapStart());
+			ENGINE_DELETE(mHeaps[i]);
+		}
+		mHeaps[0]->FreeAllBlocks();
+		mMemory->OSFree(mHeaps[0]->HeapStart());
 	}
 
 	void HeapManager::Init(const std::vector<HeapDef>& heapDefs, std::uint32_t defaultHeapId)

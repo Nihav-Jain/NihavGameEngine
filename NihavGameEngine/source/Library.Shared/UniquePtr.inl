@@ -10,7 +10,7 @@ namespace Library
 	template<typename ...ArgTypes>
 	UniquePtr<T> UniquePtr<T>::MakeUnique(ArgTypes&& ...Args)
 	{
-		T* ptr = ENGINE_NEW(1, "Default") T(Args...);
+		T* ptr = ENGINE_NEW(2, "UNP") T(Args...);
 		UniquePtr<T> uniquePtr(ptr);
 		return uniquePtr;
 	}
