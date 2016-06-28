@@ -28,7 +28,7 @@ namespace Library
 		return mHeapName;
 	}
 
-	std::uint32_t CustomHeap::HeapSize() const
+	std::size_t CustomHeap::HeapSize() const
 	{
 		return mHeapSize;
 	}
@@ -48,14 +48,16 @@ namespace Library
 		return mHeapStart;
 	}
 
-	void* CustomHeap::AllocateBlock(std::uint32_t bytes, const std::string& filename, std::uint32_t lineNumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)
+	void* CustomHeap::AllocateBlock(std::size_t bytes, const std::string& filename, std::uint32_t lineNumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)
 	{
 		void* thisBlock = AllocateBlock(bytes, alignment);
 
-#ifdef _DEBUG
-		MemoryBlock& thisMemoryBlock = BeginningOfBlockFromPtr(thisBlock);
 		UNREFERENCED_PARAMETER(filename);
 		UNREFERENCED_PARAMETER(tag);
+		UNREFERENCED_PARAMETER(lineNumber);
+		UNREFERENCED_PARAMETER(time);
+#ifdef _DEBUG
+		MemoryBlock& thisMemoryBlock = BeginningOfBlockFromPtr(thisBlock);
 		//thisMemoryBlock.Tag = tag;
 		//thisMemoryBlock.Filename = filename;
 		thisMemoryBlock.LineNumber = lineNumber;
@@ -103,18 +105,18 @@ namespace Library
 	CustomHeap::MemoryBlock& CustomHeap::MemoryBlockFromPtr(void* ptr)
 	{
 		MemoryBlock* returnVal = nullptr;
-		std::uint32_t* tempPtr = reinterpret_cast<std::uint32_t*>(ptr);
-		if (*(tempPtr - 1) == 0x00000000)
+		std::size_t* tempPtr = reinterpret_cast<std::size_t*>(ptr);
+		if (*(tempPtr - 1) == ALIGNMENT_BYTES)
 		{
 			tempPtr--;
-			while (*tempPtr == 0x00000000)
+			while (*tempPtr == ALIGNMENT_BYTES)
 				tempPtr--;
 			tempPtr++;
-			returnVal = reinterpret_cast<MemoryBlock*>(reinterpret_cast<std::uint32_t>(tempPtr) - FrontBlockOverhead());
+			returnVal = reinterpret_cast<MemoryBlock*>(reinterpret_cast<std::size_t>(tempPtr) - FrontBlockOverhead());
 		}
 		else
 		{
-			returnVal = reinterpret_cast<MemoryBlock*>(reinterpret_cast<std::uint32_t>(ptr) - FrontBlockOverhead());
+			returnVal = reinterpret_cast<MemoryBlock*>(reinterpret_cast<std::size_t>(ptr) - FrontBlockOverhead());
 		}
 		return *returnVal;
 	}
@@ -173,19 +175,19 @@ namespace Library
 		SetFlag(FREE_FLAG, block);
 	}
 
-	std::uint32_t CustomHeap::BlockSize(const MemoryBlock& block) const
+	std::size_t CustomHeap::BlockSize(const MemoryBlock& block) const
 	{
-		std::uint32_t blockSize = 0;
-		std::uint32_t endAddress = 0;
+		std::size_t blockSize = 0;
+		std::size_t endAddress = 0;
 
 		if (block.NextBlock == nullptr)
 		{
-			endAddress = reinterpret_cast<std::uint32_t>(mHeapStart) + mHeapSize;
-			blockSize = endAddress - reinterpret_cast<std::uint32_t>(&block);
+			endAddress = reinterpret_cast<std::size_t>(mHeapStart) + mHeapSize;
+			blockSize = endAddress - reinterpret_cast<std::size_t>(&block);
 		}
 		else
 		{
-			blockSize = reinterpret_cast<std::uint32_t>(block.NextBlock) - reinterpret_cast<std::uint32_t>(&block);
+			blockSize = reinterpret_cast<std::size_t>(block.NextBlock) - reinterpret_cast<std::size_t>(&block);
 		}
 
 		return blockSize;
@@ -193,11 +195,11 @@ namespace Library
 
 	void CustomHeap::ClearBlock(MemoryBlock& block)
 	{
-		void* dataStartAddress = reinterpret_cast<void*>(reinterpret_cast<std::uint32_t>(&block) + FrontBlockOverhead());
+		void* dataStartAddress = reinterpret_cast<void*>(reinterpret_cast<std::size_t>(&block) + FrontBlockOverhead());
 		void* endAddress = nullptr;
 
 		if (block.NextBlock == nullptr)
-			endAddress = reinterpret_cast<void*>(reinterpret_cast<std::uint32_t>(mHeapStart) + mHeapSize);
+			endAddress = reinterpret_cast<void*>(reinterpret_cast<std::size_t>(mHeapStart) + mHeapSize);
 		else
 			endAddress = block.NextBlock;
 		
@@ -213,7 +215,7 @@ namespace Library
 
 	void CustomHeap::CombineBlocks(MemoryBlock& firstBlock, MemoryBlock& secondBlock)
 	{
-		assert(reinterpret_cast<std::uint32_t>(&firstBlock) < reinterpret_cast<std::uint32_t>(&secondBlock));
+		assert(reinterpret_cast<std::size_t>(&firstBlock) < reinterpret_cast<std::size_t>(&secondBlock));
 		assert(firstBlock.NextBlock == &secondBlock);
 		assert(IsBlockFree(firstBlock) && IsBlockFree(secondBlock));
 
@@ -265,19 +267,19 @@ namespace Library
 
 		++tempPtr;
 
-		MemoryBlock* returnBlock = reinterpret_cast<MemoryBlock*>(reinterpret_cast<std::uint32_t>(tempPtr) - FrontBlockOverhead());
+		MemoryBlock* returnBlock = reinterpret_cast<MemoryBlock*>(reinterpret_cast<std::size_t>(tempPtr) - FrontBlockOverhead());
 		return *returnBlock;
 	}
 
-	void* CustomHeap::AllocateBlock(std::uint32_t bytes, std::uint32_t alignment)
+	void* CustomHeap::AllocateBlock(std::size_t bytes, std::uint32_t alignment)
 	{
 		bytes = (bytes + 3)&(0xFFFFFFFF - 3);   //always ask for a multiple of 4 bytes just to simplify life
 		assert(bytes % 4 == 0);
 		bool blockFound = false;
 		void* returnBlock = nullptr;
 
-		std::uint32_t alignmentOffset = (alignment == 4U) ? 0 : PowerOfTwo(alignment);
-		std::uint32_t actualBytesNeeded = bytes + BlockOverhead() + alignmentOffset;
+		std::size_t alignmentOffset = (alignment == 4U) ? 0 : PowerOfTwo(alignment);
+		std::size_t actualBytesNeeded = bytes + BlockOverhead() + alignmentOffset;
 
 		MemoryBlock* addr = mFirstFreeBlock;
 		MemoryBlock* oldNextBlock = nullptr;
@@ -292,14 +294,14 @@ namespace Library
 					returnBlock = addr;
 
 					oldNextBlock = (addr->NextBlock != nullptr) ? reinterpret_cast<MemoryBlock*>(addr->NextBlock) : nullptr;
-					addr->NextBlock = reinterpret_cast<void*>(reinterpret_cast<std::uint32_t>(addr) + actualBytesNeeded);
+					addr->NextBlock = reinterpret_cast<void*>(reinterpret_cast<std::size_t>(addr) + actualBytesNeeded);
 					
 					ClearFlag(FREE_FLAG, *addr);
 					SetHeapID(*addr, mHeapID);
 					
-					assert((oldNextBlock == nullptr) || (reinterpret_cast<std::uint32_t>(oldNextBlock) >= reinterpret_cast<std::uint32_t>(addr->NextBlock)));
+					assert((oldNextBlock == nullptr) || (reinterpret_cast<std::size_t>(oldNextBlock) >= reinterpret_cast<std::size_t>(addr->NextBlock)));
 
-					if (oldNextBlock == nullptr || reinterpret_cast<std::uint32_t>(oldNextBlock) != reinterpret_cast<std::uint32_t>(addr->NextBlock))
+					if (oldNextBlock == nullptr || reinterpret_cast<std::size_t>(oldNextBlock) != reinterpret_cast<std::size_t>(addr->NextBlock))
 					{
 
 						addr = reinterpret_cast<MemoryBlock*>(addr->NextBlock);
@@ -327,18 +329,18 @@ namespace Library
 			}
 		}
 
-		std::uint32_t returnPtrVal = reinterpret_cast<std::uint32_t>(returnBlock) + FrontBlockOverhead();
-		std::uint32_t* origPtr = reinterpret_cast<std::uint32_t*>(returnPtrVal);
+		std::size_t returnPtrVal = reinterpret_cast<std::size_t>(returnBlock) + FrontBlockOverhead();
+		std::size_t* origPtr = reinterpret_cast<std::size_t*>(returnPtrVal);
 
 		if (alignmentOffset != 0)
 		{
 			returnPtrVal += (alignmentOffset - 1);
-			returnPtrVal = returnPtrVal & (0xFFFFFFFF - alignmentOffset + 1);
+			returnPtrVal = returnPtrVal & (ALL_F - alignmentOffset + 1);
 
-			std::uint32_t* newPtrVal = reinterpret_cast<std::uint32_t*>(returnPtrVal);
+			std::size_t* newPtrVal = reinterpret_cast<std::size_t*>(returnPtrVal);
 			while (origPtr != newPtrVal)
 			{
-				*origPtr++ = 0x00000000;
+				*origPtr++ = ALIGNMENT_BYTES;
 			}
 		}
 
@@ -346,7 +348,7 @@ namespace Library
 		MemoryBlock* tempBlock = reinterpret_cast<MemoryBlock*>(returnBlock);
 		tempBlock = reinterpret_cast<MemoryBlock*>(tempBlock->NextBlock);
 
-		std::uint32_t* clearPtr = reinterpret_cast<std::uint32_t*>(tempBlock);
+		std::size_t* clearPtr = reinterpret_cast<std::size_t*>(tempBlock);
 		clearPtr -= NUM_GUARD_LONGS;
 		for (std::uint32_t i = 0; i < NUM_GUARD_LONGS; ++i)
 		{
@@ -401,9 +403,9 @@ namespace Library
 		return count;
 	}
 
-	std::uint32_t CustomHeap::TotalFreeMemory() const
+	std::size_t CustomHeap::TotalFreeMemory() const
 	{
-		std::uint32_t freeBytes = 0;
+		std::size_t freeBytes = 0;
 		MemoryBlock* addr = reinterpret_cast<MemoryBlock*>(mHeapStart);
 		do
 		{
@@ -416,15 +418,15 @@ namespace Library
 		return freeBytes;
 	}
 
-	std::uint32_t CustomHeap::LargestFreeBlockSize() const
+	std::size_t CustomHeap::LargestFreeBlockSize() const
 	{
-		std::uint32_t maxFreeBytes = 0;
+		std::size_t maxFreeBytes = 0;
 		MemoryBlock* addr = reinterpret_cast<MemoryBlock*>(mHeapStart);
 		do
 		{
 			if (IsBlockFree(*addr))
 			{
-				std::uint32_t blockSize = BlockSize(*addr);
+				std::size_t blockSize = BlockSize(*addr);
 				if (blockSize > maxFreeBytes)
 					maxFreeBytes = blockSize;
 			}
@@ -433,13 +435,14 @@ namespace Library
 		return maxFreeBytes;
 	}
 
+#ifdef _DEBUG
 	bool CustomHeap::CheckGuardBytes(const MemoryBlock& block) const
 	{
-		std::uint32_t* checkAddr = nullptr;
+		std::size_t* checkAddr = nullptr;
 		if (block.NextBlock == nullptr)
-			checkAddr = reinterpret_cast<std::uint32_t*>(reinterpret_cast<std::uint32_t>(mHeapStart) + mHeapSize);
+			checkAddr = reinterpret_cast<std::size_t*>(reinterpret_cast<std::size_t>(mHeapStart) + mHeapSize);
 		else
-			checkAddr = reinterpret_cast<std::uint32_t*>(block.NextBlock);
+			checkAddr = reinterpret_cast<std::size_t*>(block.NextBlock);
 
 		checkAddr -= NUM_GUARD_LONGS;
 		for (std::uint32_t i = 0; i < NUM_GUARD_LONGS; ++i)
@@ -449,4 +452,5 @@ namespace Library
 		}
 		return true;
 	}
+#endif
 }

@@ -31,10 +31,11 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 
-#define DeleteObject(object) if((object) != nullptr) { delete object; object = nullptr; }
+//#define DeleteObject(object) if((object) != nullptr) { delete object; object = nullptr; }
 #define DeleteObjects(objects) if((objects) != nullptr) { delete[] objects; objects = nullptr; }
 #define ReleaseObject(object) if((object) != nullptr) { object->Release(); object = nullptr; }
 
+#include "DesktopMemory.h"
 #include "GameException.h"
 
 #pragma region SoundFMOD

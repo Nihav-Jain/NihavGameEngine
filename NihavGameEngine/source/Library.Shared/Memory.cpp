@@ -9,11 +9,11 @@
 //	return Library::HeapManager::GetHeapManager()->AllocateBlock(1, bytes, __FILE__, __LINE__, "Default", std::chrono::high_resolution_clock::now());
 //}
 
-void* operator new(std::uint32_t allocBytes, std::uint32_t heapId, const std::string& filename, std::uint32_t lineNumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)
+void* operator new(std::size_t allocBytes, std::uint32_t heapId, const std::string& filename, std::uint32_t lineNumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)
 {
 	if (Library::HeapManager::GetHeapManager() == nullptr)
 		return ::operator new(allocBytes);
-	return Library::HeapManager::GetHeapManager()->AllocateBlock(heapId, allocBytes, filename, lineNumber, tag, time, alignment);
+	return Library::HeapManager::GetHeapManager()->AllocateBlock(static_cast<std::uint32_t>(heapId), allocBytes, filename, lineNumber, tag, time, alignment);
 }
 
 void operator delete(void* ptr, std::uint32_t heapID, const std::string& filename, std::uint32_t linenumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)

@@ -32,12 +32,12 @@ namespace Library
 		void Init(const std::string& heapName, void* startAddress, std::uint32_t heapSize, std::uint32_t heapId);
 
 		const std::string& HeapName() const;
-		std::uint32_t HeapSize() const;
+		std::size_t HeapSize() const;
 		std::uint32_t HeapId() const;
 		std::uint32_t NumBlocks() const;
 		void* HeapStart();
 
-		void* AllocateBlock(std::uint32_t bytes, const std::string& filename, std::uint32_t lineNumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment = 4);
+		void* AllocateBlock(std::size_t bytes, const std::string& filename, std::uint32_t lineNumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment = 4);
 		void FreeBlock(void* ptr);		
 		bool IsHeapConsistent() const;
 		void FreeAllBlocks();
@@ -54,7 +54,7 @@ namespace Library
 		bool IsBlockFree(const MemoryBlock& block) const;
 		void MakeBlockFree(MemoryBlock& block);
 
-		std::uint32_t BlockSize(const MemoryBlock& block) const;
+		std::size_t BlockSize(const MemoryBlock& block) const;
 		void ClearBlock(MemoryBlock& block);
 		void CombineBlocks(MemoryBlock& firstBlock, MemoryBlock& secondBlock);
 
@@ -66,12 +66,12 @@ namespace Library
 		static std::uint32_t BlockOverhead();
 
 		MemoryBlock& BeginningOfBlockFromPtr(void* ptr) const;
-		void* AllocateBlock(std::uint32_t bytes, std::uint32_t alignment = 4U);
+		void* AllocateBlock(std::size_t bytes, std::uint32_t alignment = 4U);
 		void FreeBlock(MemoryBlock& block);
 
 		std::uint32_t NumFreeBlocks() const;
-		std::uint32_t TotalFreeMemory() const;
-		std::uint32_t LargestFreeBlockSize() const;
+		std::size_t TotalFreeMemory() const;
+		std::size_t LargestFreeBlockSize() const;
 
 #ifdef _DEBUG
 		bool CheckGuardBytes(const MemoryBlock& block) const;
@@ -79,7 +79,7 @@ namespace Library
 
 		std::string mHeapName;
 		void* mHeapStart;
-		std::uint32_t mHeapSize;
+		std::size_t mHeapSize;
 		std::uint32_t mHeapID;
 		std::uint32_t mNumBlocks;
 		MemoryBlock* mFirstFreeBlock;
@@ -88,7 +88,16 @@ namespace Library
 		static const std::uint8_t FREE_FLAG = 0;
 		static const std::uint8_t CLEAR_BYTE = 0xEA;
 		static const std::uint32_t NUM_GUARD_LONGS = 16;
+
+#ifdef _M_X64
+		static const std::uint64_t GUARD_VAL = 0xFACEFACEFACEFACE;
+		static const std::uint64_t ALIGNMENT_BYTES = 0x0000000000000000;
+		static const std::uint64_t ALL_F = 0xFFFFFFFFFFFFFFFF;
+#else
 		static const std::uint32_t GUARD_VAL = 0xFACEFACE;
+		static const std::uint32_t ALIGNMENT_BYTES = 0x00000000;
+		static const std::uint32_t ALL_F = 0xFFFFFFFF;
+#endif
 	};
 }
 

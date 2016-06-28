@@ -93,11 +93,11 @@ namespace Library
 		mCurrentHeapID = mDefaultHeapID;
 		mOldHeapID = mDefaultHeapID;
 
-		mNumHeaps = heapDefs.size();
+		mNumHeaps = static_cast<std::uint32_t>(heapDefs.size());
 		InitHeaps(heapDefs);
 	}
 
-	std::uint32_t HeapManager::GetHeapSize(std::uint32_t id) const
+	std::size_t HeapManager::GetHeapSize(std::uint32_t id) const
 	{
 		return GetHeap(id).HeapSize();
 	}
@@ -112,7 +112,7 @@ namespace Library
 		return GetHeap(id).NumBlocks();
 	}
 
-	void* HeapManager::AllocateBlock(std::uint32_t heapId, std::uint32_t bytes, const std::string& filename, std::uint32_t linenumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)
+	void* HeapManager::AllocateBlock(std::uint32_t heapId, std::size_t bytes, const std::string& filename, std::uint32_t linenumber, const std::string& tag, const std::chrono::high_resolution_clock::time_point& time, std::uint32_t alignment)
 	{
 		return GetHeap(heapId).AllocateBlock(bytes, filename, linenumber, tag, time, alignment);
 	}
