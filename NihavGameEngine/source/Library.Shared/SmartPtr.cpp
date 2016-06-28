@@ -3,11 +3,11 @@
 
 namespace Library
 {
-	SmartPtr::SmartPtr()
-	{
-	}
+	std::set<std::map<void*, std::vector<SmartPtr*>>*> SmartPtr::sSmartPointerList;
 
-	SmartPtr::~SmartPtr()
+	void SmartPtr::ClearStaticMembers()
 	{
+		sSmartPointerList.clear();
 	}
 }
+
