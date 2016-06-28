@@ -1,11 +1,12 @@
 #pragma once
 #include <map>
 #include <list>
+#include "SmartPtr.h"
 
 namespace Library
 {
 	template <typename T>
-	class SharedPtr
+	class SharedPtr : public SmartPtr
 	{
 	public:
 		SharedPtr();
@@ -25,18 +26,19 @@ namespace Library
 		T* RawPtr();
 		const T* RawPtr() const;
 
+		virtual void* GetRawPtr() override;
+		virtual void SetRawPtr(void* ptr) override;
+
 		template<typename... ArgTypes>
 		static SharedPtr MakeShared(ArgTypes&&... Args);
 		static void ClearStaticMembers();
 		static std::uint32_t ReferenceCount(SharedPtr<T>& sharedPtr);
 
 	private:
-		//template<typename... ArgTypes>
-		//SharedPtr(ArgTypes&&... Args);
 		SharedPtr(T* rawPtr);
 
 		T* mRawPtr;
-		static std::map<T*, std::list<SharedPtr<T>*>> mReferenceCount;
+		static std::map<void*, std::vector<SmartPtr*>> mReferenceCount;
 	};
 
 

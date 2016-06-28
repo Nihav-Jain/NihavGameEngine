@@ -4,12 +4,13 @@
 namespace Library
 {
 	template <typename T>
-	std::map<T*, UniquePtr<T>*> UniquePtr<T>::mReferences;
+	std::map<void*, std::vector<SmartPtr*>> UniquePtr<T>::mReferences;
 
 	template<typename T>
 	template<typename ...ArgTypes>
 	UniquePtr<T> UniquePtr<T>::MakeUnique(ArgTypes&& ...Args)
 	{
+		SmartPtr::sSmartPointerList.insert(&mReferences);
 		T* ptr = NewObject<T>(std::forward<ArgTypes>(Args)...);
 		UniquePtr<T> uniquePtr(ptr);
 		return uniquePtr;
@@ -30,7 +31,7 @@ namespace Library
 	{
 		if (mRawPtr != nullptr)
 		{
-			mReferences.erase(mRawPtr);
+			mReferences.erase(reinterpret_cast<void*>(mRawPtr));
 			DeleteObject(mRawPtr);
 		}
 	}
@@ -40,8 +41,14 @@ namespace Library
 		mRawPtr(rhs.mRawPtr)
 	{
 		rhs.mRawPtr = nullptr;
-		if(mRawPtr != nullptr)
-			mReferences[mRawPtr] = this;
+		if (mRawPtr != nullptr)
+		{
+			void* ptr = reinterpret_cast<void*>(mRawPtr);
+			if (mReferences[ptr].size() == 0)
+				mReferences[ptr].push_back(this);
+			else
+				mReferences[ptr][0] = this;
+		}
 	}
 
 	template<typename T>
@@ -58,7 +65,13 @@ namespace Library
 			mRawPtr = rhs.mRawPtr;
 			rhs.mRawPtr = nullptr;
 			if (mRawPtr != nullptr)
-				mReferences[mRawPtr] = this;
+			{
+				void* ptr = reinterpret_cast<void*>(mRawPtr);
+				if (mReferences[ptr].size() == 0)
+					mReferences[ptr].push_back(this);
+				else
+					mReferences[ptr][0] = this;
+			}
 		}
 		return *this;
 	}
@@ -107,6 +120,20 @@ namespace Library
 	const T* UniquePtr<T>::RawPtr() const
 	{
 		return mRawPtr;
+	}
+
+	template<typename T>
+	void* UniquePtr<T>::GetRawPtr()
+	{
+		return reinterpret_cast<void*>(mRawPtr);
+	}
+
+	template<typename T>
+	void UniquePtr<T>::SetRawPtr(void* ptr)
+	{
+		mReferences[ptr] = mReferences[reinterpret_cast<void*>(mRawPtr)];
+		mReferences.erase(reinterpret_cast<void*>(mRawPtr));
+		mRawPtr = reinterpret_cast<T*>(ptr);
 	}
 
 	template<typename T>

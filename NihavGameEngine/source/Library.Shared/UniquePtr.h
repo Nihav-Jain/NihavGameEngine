@@ -1,10 +1,12 @@
 #pragma once
 #include <map>
+#include <vector>
+#include "SmartPtr.h"
 
 namespace Library
 {
 	template <typename T>
-	class UniquePtr
+	class UniquePtr : public SmartPtr
 	{
 	public:
 		UniquePtr();
@@ -24,17 +26,18 @@ namespace Library
 		T* RawPtr();
 		const T* RawPtr() const;
 
+		virtual void* GetRawPtr() override;
+		virtual void SetRawPtr(void* ptr) override;
+
 		template<typename... ArgTypes>
 		static UniquePtr MakeUnique(ArgTypes&&... Args);
 		static void ClearStaticMembers();
 
 	private:
-		//template<typename... ArgTypes>
-		//SharedPtr(ArgTypes&&... Args);
 		UniquePtr(T* rawPtr);
 
 		T* mRawPtr;
-		static std::map<T*, UniquePtr<T>*> mReferences;
+		static std::map<void*, std::vector<SmartPtr*>> mReferences;
 	};
 
 
