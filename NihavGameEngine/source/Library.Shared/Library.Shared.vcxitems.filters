@@ -24,6 +24,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SmartPtr.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -43,5 +44,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SmartPtr.cpp" />
   </ItemGroup>
 </Project>

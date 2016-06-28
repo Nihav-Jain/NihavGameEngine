@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SmartPtr.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UniquePtr.h" />
   </ItemGroup>
   <ItemGroup>
@@ -28,5 +29,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CustomHeap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SmartPtr.cpp" />
   </ItemGroup>
 </Project>
