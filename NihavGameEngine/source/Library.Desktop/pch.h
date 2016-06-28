@@ -21,7 +21,7 @@
 #include <fstream>
 
 #include "DesktopMemory.h"
-#include "HeapManager.h"
+#include "..\Library.Shared\HeapManager.h"
 #include "..\Library.Shared\SharedPtr.h"
 #include "..\Library.Shared\UniquePtr.h"
 #include "RTTI.h"

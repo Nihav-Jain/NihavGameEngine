@@ -1,5 +1,5 @@
 #pragma once
-#include "Memory.h"
+#include "../Library.Shared/Memory.h"
 
 namespace Library
 {
