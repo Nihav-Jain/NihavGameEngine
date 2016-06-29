@@ -37,6 +37,7 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD_CLEANUP(Cleanup)
 		{
+			SmartPtr::ClearStaticMembers();
 			HeapManager::DestroyHeapManager();
 
 			_CrtMemState endMemState, diffMemState;
@@ -44,7 +45,7 @@ namespace UnitTestLibraryDesktop
 			if (_CrtMemDifference(&diffMemState, &sStartMemState, &endMemState))
 			{
 				_CrtMemDumpStatistics(&diffMemState);
-				//Assert::Fail(L"Memory Leaks!");
+				Assert::Fail(L"Memory Leaks!");
 			}
 		}
 #endif

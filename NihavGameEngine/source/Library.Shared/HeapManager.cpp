@@ -81,7 +81,7 @@ namespace Library
 		{
 			mHeaps[i]->FreeAllBlocks();
 			mMemory->OSFree(mHeaps[i]->HeapStart());
-			ENGINE_DELETE(mHeaps[i]);
+			DeleteObject<CustomHeap>(mHeaps[i]);
 		}
 		mHeaps[0]->FreeAllBlocks();
 		mMemory->OSFree(mHeaps[0]->HeapStart());
