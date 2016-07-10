@@ -231,14 +231,11 @@
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="Datum.h" />
     <ClInclude Include="DesktopMemory.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="EngineModule.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventMessageAttributed.h" />
     <ClInclude Include="EventPublisher.h" />
     <ClInclude Include="EventQueue.h" />
-    <ClInclude Include="Factory.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameClock.h" />
@@ -259,7 +256,6 @@
     <ClInclude Include="Reaction.h" />
     <ClInclude Include="ReactionAttributed.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="RTTI.h" />
     <ClInclude Include="Scope.h" />
     <ClInclude Include="Sector.h" />
     <ClInclude Include="Shader.h" />
@@ -322,8 +318,6 @@
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="Datum.cpp" />
     <ClCompile Include="DesktopMemory.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="EngineModule.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EventMessageAttributed.cpp" />
     <ClCompile Include="EventPublisher.cpp" />
@@ -353,7 +347,6 @@
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="ReactionAttributed.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RTTI.cpp" />
     <ClCompile Include="Scope.cpp" />
     <ClCompile Include="Sector.cpp" />
     <ClCompile Include="SharedDataTable.cpp" />
@@ -390,7 +383,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Event.inl" />
-    <None Include="Factory.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

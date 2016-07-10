@@ -17,9 +17,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CustomHeap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultHash.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Engine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SmartPtr.h" />
@@ -28,6 +32,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Factory.inl" />
     <None Include="$(MSBuildThisFileDirectory)Hashmap.inl" />
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl" />
     <None Include="$(MSBuildThisFileDirectory)SList.inl" />
@@ -39,8 +44,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CustomHeap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultHash.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Engine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SmartPtr.cpp" />
   </ItemGroup>
 </Project>

@@ -2,10 +2,8 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="RTTI.h" />
     <ClInclude Include="IXmlParseHelper.h" />
     <ClInclude Include="XmlParseMaster.h" />
-    <ClInclude Include="Factory.h" />
     <ClInclude Include="XmlParseHelperTable.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
@@ -253,8 +251,6 @@
     <ClInclude Include="DesktopMemory.h">
       <Filter>Memory</Filter>
     </ClInclude>
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="EngineModule.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Graph.h">
       <Filter>Containers</Filter>
@@ -426,7 +422,6 @@
     <ClCompile Include="XmlParseHelperOnDestroy.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
-    <ClCompile Include="RTTI.cpp" />
     <ClCompile Include="InputManager.cpp">
       <Filter>Kernel\Input</Filter>
     </ClCompile>
@@ -481,12 +476,9 @@
     <ClCompile Include="DesktopMemory.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="EngineModule.cpp" />
     <ClCompile Include="FileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Factory.inl" />
     <None Include="Event.inl">
       <Filter>Kernel\Event</Filter>
     </None>

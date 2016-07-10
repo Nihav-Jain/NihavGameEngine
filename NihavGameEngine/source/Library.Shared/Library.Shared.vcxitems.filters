@@ -51,6 +51,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.h">
       <Filter>Containers\DefaultAlgos</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -71,6 +83,9 @@
     <None Include="$(MSBuildThisFileDirectory)Hashmap.inl">
       <Filter>Containers</Filter>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)Factory.inl">
+      <Filter>Engine</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp">
@@ -90,6 +105,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.cpp">
       <Filter>Containers\DefaultAlgos</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
