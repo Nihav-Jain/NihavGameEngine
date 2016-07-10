@@ -8,10 +8,16 @@ namespace Library
 	{
 
 	public:
-		static Engine& GetInstance();
-		static void DestroyInstance();
+		static void CreateEngine();
+		static Engine& Get();
+		static void Destroy();
 
 		static Hashmap<const std::uint64_t*, EngineModule**>& ModuleList();
+
+		void Activate();
+		void Deactivate();
+		EngineModule* GetEngineModule(std::uint64_t classTypeId);
+
 	private:
 		static Engine* sInstance;
 		Engine();
@@ -27,6 +33,7 @@ namespace Library
 		};
 
 		static const EngineModuleListDeleter sDeleter;
+		Hashmap<std::uint64_t, EngineModule*> mModules;
 	};
 }
 

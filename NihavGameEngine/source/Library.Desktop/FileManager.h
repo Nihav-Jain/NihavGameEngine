@@ -14,10 +14,14 @@ namespace Library
 
 	public:
 		FileManager();
-		~FileManager();
+		virtual ~FileManager();
 
 		virtual void Activate() override;
 		virtual void Deactivate() override;
+
+		std::int32_t TestValue;
+
+		static FileManager& Get();
 
 	private:
 		static class FileManagerFactory sFactory;

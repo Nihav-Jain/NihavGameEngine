@@ -21,7 +21,7 @@ namespace Library
 	template<typename AbstractProductT>
 	const Factory<AbstractProductT>* const Factory<AbstractProductT>::Find(std::uint64_t classTypeId)
 	{
-		Iterator itr = sFactoriesByTypeId.Find(classTypeId);
+		Hashmap<std::uint64_t, const Factory* const>::Iterator itr = sFactoriesByTypeId.Find(classTypeId);
 		if (itr == sFactoriesByTypeId.end())
 			return nullptr;
 		return (*itr).second;
