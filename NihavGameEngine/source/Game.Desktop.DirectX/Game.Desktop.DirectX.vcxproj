@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\source\Game.Desktop.Shared\;$(SolutionDir)\packages\directxtk_desktop_2015.2016.4.26.1\build\native\include\;$(SolutionDir)\..\external\FMOD\inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)..\source\Library.Shared\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\source\Game.Desktop.Shared\;$(SolutionDir)\packages\directxtk_desktop_2015.2016.4.26.1\build\native\include\;$(SolutionDir)\..\external\FMOD\inc\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4091;4201;4239;4592</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -134,7 +134,7 @@ IF NOT EXIST "$(TargetDir)fmod.dll" xcopy /E /Y "$(SolutionDir)..\external\FMOD\
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\source\Game.Desktop.Shared\;$(SolutionDir)\packages\directxtk_desktop_2015.2016.4.26.1\build\native\include\;$(SolutionDir)\..\external\FMOD\inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)..\source\Library.Shared\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\source\Game.Desktop.Shared\;$(SolutionDir)\packages\directxtk_desktop_2015.2016.4.26.1\build\native\include\;$(SolutionDir)\..\external\FMOD\inc\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4091;4201;4239;4592</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -166,7 +166,7 @@ IF NOT EXIST "$(TargetDir)fmod64.dll" xcopy /E /Y "$(SolutionDir)..\external\FMO
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\source\Game.Desktop.Shared\;$(SolutionDir)\packages\directxtk_desktop_2015.2016.4.26.1\build\native\include\;$(SolutionDir)\..\external\FMOD\inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)..\source\Library.Shared\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\source\Game.Desktop.Shared\;$(SolutionDir)\packages\directxtk_desktop_2015.2016.4.26.1\build\native\include\;$(SolutionDir)\..\external\FMOD\inc\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4091;4201;4239;4592</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -200,7 +200,7 @@ IF NOT EXIST "$(TargetDir)fmod.dll" xcopy /E /Y "$(SolutionDir)..\external\FMOD\
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\source\Game.Desktop.Shared\;$(SolutionDir)\packages\directxtk_desktop_2015.2016.4.26.1\build\native\include\;$(SolutionDir)\..\external\FMOD\inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\..\source\Library.Desktop;$(SolutionDir)..\source\Library.Shared\;$(SolutionDir)\..\external\expat\include\;$(SolutionDir)\..\external\glm\;$(SolutionDir)\..\source\Game.Desktop.Shared\;$(SolutionDir)\packages\directxtk_desktop_2015.2016.4.26.1\build\native\include\;$(SolutionDir)\..\external\FMOD\inc\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4091;4201;4239;4592</DisableSpecificWarnings>
     </ClCompile>
     <Link>
