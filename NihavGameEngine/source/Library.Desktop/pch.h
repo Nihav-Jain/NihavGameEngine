@@ -20,6 +20,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "Engine.h"
+#include "EngineModule.h"
 #include "DesktopMemory.h"
 #include "..\Library.Shared\HeapManager.h"
 #include "..\Library.Shared\SharedPtr.h"

@@ -274,6 +274,9 @@
     <ClInclude Include="DesktopMemory.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="EngineModule.h" />
+    <ClInclude Include="FileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -502,6 +505,9 @@
     <ClCompile Include="DesktopMemory.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="EngineModule.cpp" />
+    <ClCompile Include="FileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Vector.inl">
