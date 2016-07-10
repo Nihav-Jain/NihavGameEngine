@@ -318,9 +318,9 @@ namespace UnitTestLibraryDesktop
 
 		TEST_METHOD(EventTestAsycReEnqueue)
 		{
-			for (std::uint32_t k = 0; k < 200; k++)
+			for (std::uint32_t k = 0; k < 5; k++)
 			{
-				std::uint32_t size = 10;
+				std::uint32_t size = 5;
 				Foo foo(10);
 				Game game;
 				EventQueue& queue = game.GetWorld().GetEventQueue();
