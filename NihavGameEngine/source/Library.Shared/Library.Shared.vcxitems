@@ -15,6 +15,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CustomHeap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultHash.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
@@ -35,6 +37,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)CustomHeap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DefaultHash.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SmartPtr.cpp" />

@@ -230,8 +230,6 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="Datum.h" />
-    <ClInclude Include="DefaultHash.h" />
-    <ClInclude Include="DefaultReserveStrategy.h" />
     <ClInclude Include="DesktopMemory.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineModule.h" />
@@ -323,8 +321,6 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="Datum.cpp" />
-    <ClCompile Include="DefaultHash.cpp" />
-    <ClCompile Include="DefaultReserveStrategy.cpp" />
     <ClCompile Include="DesktopMemory.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EngineModule.cpp" />

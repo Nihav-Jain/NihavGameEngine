@@ -45,6 +45,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultHash.h">
+      <Filter>Containers\DefaultAlgos</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.h">
+      <Filter>Containers\DefaultAlgos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -78,6 +84,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SmartPtr.cpp">
       <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DefaultHash.cpp">
+      <Filter>Containers\DefaultAlgos</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.cpp">
+      <Filter>Containers\DefaultAlgos</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
