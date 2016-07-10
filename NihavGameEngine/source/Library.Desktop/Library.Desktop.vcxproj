@@ -247,7 +247,6 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="Hashmap.h" />
     <ClInclude Include="IEventSubscriber.h" />
     <ClInclude Include="LineParticle.h" />
     <ClInclude Include="ParticleSystem.h" />
@@ -267,12 +266,9 @@
     <ClInclude Include="Sector.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SharedDataTable.h" />
-    <ClInclude Include="SList.h" />
     <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="Stack.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Image.h" />
-    <ClInclude Include="Vector.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldState.h" />
@@ -342,6 +338,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="LineParticle.cpp" />
+    <None Include="Graph.inl" />
     <None Include="ParticleSystem.inl">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -398,11 +395,6 @@
   <ItemGroup>
     <None Include="Event.inl" />
     <None Include="Factory.inl" />
-    <None Include="Graph.inl" />
-    <None Include="Hashmap.inl" />
-    <None Include="SList.inl" />
-    <None Include="Stack.inl" />
-    <None Include="Vector.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,18 +3,6 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="RTTI.h" />
-    <ClInclude Include="Vector.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="SList.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="Hashmap.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
     <ClInclude Include="IXmlParseHelper.h" />
     <ClInclude Include="XmlParseMaster.h" />
     <ClInclude Include="Factory.h" />
@@ -65,9 +53,6 @@
     </ClInclude>
     <ClInclude Include="ActionList.h">
       <Filter>Kernel\Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="Graph.h">
-      <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
@@ -277,6 +262,9 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineModule.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="Graph.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -510,27 +498,15 @@
     <ClCompile Include="FileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Vector.inl">
-      <Filter>Containers</Filter>
-    </None>
-    <None Include="Stack.inl">
-      <Filter>Containers</Filter>
-    </None>
-    <None Include="SList.inl">
-      <Filter>Containers</Filter>
-    </None>
-    <None Include="Hashmap.inl">
-      <Filter>Containers</Filter>
-    </None>
     <None Include="Factory.inl" />
-    <None Include="Graph.inl">
-      <Filter>Containers</Filter>
-    </None>
     <None Include="Event.inl">
       <Filter>Kernel\Event</Filter>
     </None>
     <None Include="ParticleSystem.inl">
       <Filter>Kernel\Graphic</Filter>
+    </None>
+    <None Include="Graph.inl">
+      <Filter>Containers</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

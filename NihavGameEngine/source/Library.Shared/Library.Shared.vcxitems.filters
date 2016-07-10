@@ -7,6 +7,12 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{520c2516-9a06-46d7-a5b7-191957525351}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{f63dc128-887f-4071-96bc-ba7de2f0a4b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers\DefaultAlgos">
+      <UniqueIdentifier>{c7a15c93-6734-4cca-82ae-efc9d31d0bd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h">
@@ -27,6 +33,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SmartPtr.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SList.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stack.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -34,6 +52,18 @@
     </None>
     <None Include="$(MSBuildThisFileDirectory)UniquePtr.inl">
       <Filter>Memory</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)SList.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Vector.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Stack.inl">
+      <Filter>Containers</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Hashmap.inl">
+      <Filter>Containers</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
