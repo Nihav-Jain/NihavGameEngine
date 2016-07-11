@@ -3,6 +3,8 @@
 #include <utility>
 #include <initializer_list>
 #include "DefaultHash.h"
+#include "Vector.h"
+#include "SList.h"
 
 namespace Library
 {
