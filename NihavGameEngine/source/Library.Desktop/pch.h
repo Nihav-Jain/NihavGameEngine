@@ -19,6 +19,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <functional>
 
 #include "Engine.h"
 #include "EngineModule.h"
