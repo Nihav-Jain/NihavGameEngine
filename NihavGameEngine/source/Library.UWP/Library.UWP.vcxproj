@@ -240,6 +240,7 @@
     <ClInclude Include="Library.UWP.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UWPFileManager.h" />
     <ClInclude Include="UWPMemory.h" />
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +253,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UWPFileManager.cpp" />
     <ClCompile Include="UWPMemory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

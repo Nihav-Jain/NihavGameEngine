@@ -13,8 +13,8 @@ namespace Library
 
 		static FileManager& Get();
 
-		virtual FileHandle& OpenFileAsync(const std::string& fileName, FileHandle::FileMode mode = FileHandle::FileMode::READ_ONLY) = 0;
-		virtual FileHandle& CreateFileAsync(const std::string& fileName) = 0;
+		virtual void OpenFileAsync(FileHandle* outFileHandle, const std::string& fileName, FileHandle::FileMode mode = FileHandle::FileMode::READ_ONLY) = 0;
+		virtual void CreateFileAsync(FileHandle* outFileHandle, const std::string& fileName) = 0;
 
 	protected:
 		static FileManager* sInstance;

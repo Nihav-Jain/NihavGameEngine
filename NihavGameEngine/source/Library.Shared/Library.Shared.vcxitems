@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FileManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FileHandle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FileHandle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SmartPtr.cpp" />

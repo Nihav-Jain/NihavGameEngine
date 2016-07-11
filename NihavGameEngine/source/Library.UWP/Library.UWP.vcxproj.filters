@@ -5,16 +5,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Predefined">
+      <UniqueIdentifier>{3098852d-041a-4d43-91b9-c5a8098d44e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Library.UWP.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="UWPMemory.cpp" />
+    <ClCompile Include="UWPMemory.cpp">
+      <Filter>Predefined</Filter>
+    </ClCompile>
+    <ClCompile Include="Library.UWP.cpp">
+      <Filter>Predefined</Filter>
+    </ClCompile>
+    <ClCompile Include="UWPFileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Library.UWP.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="UWPMemory.h" />
+    <ClInclude Include="UWPMemory.h">
+      <Filter>Predefined</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Predefined</Filter>
+    </ClInclude>
+    <ClInclude Include="Library.UWP.h">
+      <Filter>Predefined</Filter>
+    </ClInclude>
+    <ClInclude Include="UWPFileManager.h" />
   </ItemGroup>
 </Project>

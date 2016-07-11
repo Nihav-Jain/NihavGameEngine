@@ -15,4 +15,18 @@ namespace Library
 	DesktopFileManager::~DesktopFileManager()
 	{
 	}
+
+	void DesktopFileManager::OpenFileAsync(FileHandle* outFileHandle, const std::string& fileName, FileHandle::FileMode mode)
+	{
+		UNREFERENCED_PARAMETER(outFileHandle);
+		UNREFERENCED_PARAMETER(fileName);
+		UNREFERENCED_PARAMETER(mode);
+	}
+
+	void DesktopFileManager::CreateFileAsync(FileHandle* outFileHandle, const std::string& fileName)
+	{
+		UNREFERENCED_PARAMETER(outFileHandle);
+		UNREFERENCED_PARAMETER(fileName);
+	}
+
 }

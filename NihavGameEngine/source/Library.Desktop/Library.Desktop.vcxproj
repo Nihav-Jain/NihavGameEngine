@@ -230,6 +230,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="Datum.h" />
+    <ClInclude Include="DesktopFileHandle.h" />
     <ClInclude Include="DesktopFileManager.h" />
     <ClInclude Include="DesktopMemory.h" />
     <ClInclude Include="Entity.h" />
@@ -318,6 +319,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="Datum.cpp" />
+    <ClCompile Include="DesktopFileHandle.cpp" />
     <ClCompile Include="DesktopFileManager.cpp" />
     <ClCompile Include="DesktopMemory.cpp" />
     <ClCompile Include="Entity.cpp" />

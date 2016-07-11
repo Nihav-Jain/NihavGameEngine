@@ -256,6 +256,7 @@
     </ClInclude>
     <ClInclude Include="TestEngineModule.h" />
     <ClInclude Include="DesktopFileManager.h" />
+    <ClInclude Include="DesktopFileHandle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -479,6 +480,7 @@
     </ClCompile>
     <ClCompile Include="TestEngineModule.cpp" />
     <ClCompile Include="DesktopFileManager.cpp" />
+    <ClCompile Include="DesktopFileHandle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Event.inl">
