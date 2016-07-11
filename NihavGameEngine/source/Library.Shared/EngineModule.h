@@ -12,8 +12,8 @@ namespace Library
 		EngineModule();
 		virtual ~EngineModule();
 
-		virtual void Activate() = 0;
-		virtual void Deactivate() = 0;
+		virtual void Activate() {};
+		virtual void Deactivate() {};
 
 		friend class Engine;
 	};
