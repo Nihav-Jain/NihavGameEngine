@@ -251,10 +251,10 @@
     <ClInclude Include="DesktopMemory.h">
       <Filter>Memory</Filter>
     </ClInclude>
-    <ClInclude Include="FileManager.h" />
     <ClInclude Include="Graph.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="TestEngineModule.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -476,7 +476,7 @@
     <ClCompile Include="DesktopMemory.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
-    <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="TestEngineModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Event.inl">

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "FileManager.h"
+#include "TestEngineModule.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Library;
@@ -34,18 +34,18 @@ namespace UnitTestLibraryDesktop
 		TEST_METHOD(ModuleLifecycle)
 		{
 			Engine::CreateEngine();
-			Assert::AreEqual(10, FileManager::Get().TestValue);
+			Assert::AreEqual(10, TestEngineModule::Get().TestValue);
 
 			Engine::Get().Activate();
-			Assert::AreEqual(20, FileManager::Get().TestValue);
+			Assert::AreEqual(20, TestEngineModule::Get().TestValue);
 
 			Engine::Get().Deactivate();
-			Assert::AreEqual(30, FileManager::Get().TestValue);
+			Assert::AreEqual(30, TestEngineModule::Get().TestValue);
 
 			Engine::Destroy();
 
 			auto expression = [&] {
-				FileManager& something = FileManager::Get();
+				TestEngineModule& something = TestEngineModule::Get();
 				UNREFERENCED_PARAMETER(something);
 			};
 			Assert::ExpectException<std::exception>(expression);
