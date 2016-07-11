@@ -255,6 +255,7 @@
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="TestEngineModule.h" />
+    <ClInclude Include="DesktopFileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -477,6 +478,7 @@
       <Filter>Memory</Filter>
     </ClCompile>
     <ClCompile Include="TestEngineModule.cpp" />
+    <ClCompile Include="DesktopFileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Event.inl">
@@ -504,9 +506,6 @@
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{1a8892a5-8c0e-4ec2-9d05-78b2304d8d38}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Containers\DefaultAlgos">
-      <UniqueIdentifier>{12cdb7e0-222a-48dc-a856-d8af539b5712}</UniqueIdentifier>
     </Filter>
     <Filter Include="Kernel\Reaction">
       <UniqueIdentifier>{b81e4602-a96f-4506-9204-cf8ee103b9f4}</UniqueIdentifier>

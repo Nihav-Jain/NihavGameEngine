@@ -20,6 +20,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Engine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FileManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
@@ -46,6 +47,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Engine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FileManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp" />

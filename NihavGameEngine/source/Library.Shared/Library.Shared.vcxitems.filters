@@ -63,6 +63,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -115,5 +116,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FileManager.cpp" />
   </ItemGroup>
 </Project>
