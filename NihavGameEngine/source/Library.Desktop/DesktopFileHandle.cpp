@@ -8,6 +8,7 @@ namespace Library
 	DesktopFileHandle::DesktopFileHandle(std::ifstream& file) :
 		mFile(&file)
 	{
+		bIsOpen = true;
 	}
 
 
@@ -41,9 +42,28 @@ namespace Library
 		UNREFERENCED_PARAMETER(buffer);
 	}
 
+	void DesktopFileHandle::OpenFileAsync()
+	{}
+
 	void DesktopFileHandle::CloseFileAsync()
 	{
 		if (mFile->is_open())
 			mFile->close();
+		bIsOpen = false;
+	}
+
+	std::string DesktopFileHandle::ReadLine()
+	{
+		if (IsEndOfFile())
+			throw std::exception("End of Stream encountered.");
+
+		std::string str;
+		std::getline(*mFile, str);
+		return str;
+	}
+
+	bool DesktopFileHandle::IsEndOfFile() const
+	{
+		return !mFile->good();
 	}
 }

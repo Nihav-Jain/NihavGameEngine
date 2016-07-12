@@ -20,7 +20,12 @@ namespace Library
 		virtual void WriteTextAsync(const std::string& fileText) override;
 		virtual void WriteBufferAsync(const Vector<std::uint8_t>& buffer) override;
 
+		virtual std::string ReadLine() override;
+
+		virtual void OpenFileAsync() override;
 		virtual void CloseFileAsync() override;
+
+		virtual bool IsEndOfFile() const override;
 
 	private:
 		Windows::Storage::StorageFile^ mFile;

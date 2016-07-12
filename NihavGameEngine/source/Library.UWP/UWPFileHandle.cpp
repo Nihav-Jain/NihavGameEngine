@@ -39,8 +39,22 @@ namespace Library
 		UNREFERENCED_PARAMETER(buffer);
 	}
 
+	std::string UWPFileHandle::ReadLine()
+	{
+		return std::string();
+	}
+
+	void UWPFileHandle::OpenFileAsync()
+	{
+	}
+
 	void UWPFileHandle::CloseFileAsync()
 	{
 
+	}
+
+	bool UWPFileHandle::IsEndOfFile() const
+	{
+		return false;
 	}
 }

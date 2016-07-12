@@ -49,7 +49,7 @@ namespace UnitTestLibraryDesktop
 			std::function<void(FileHandle*)> getFileCallback = [&](FileHandle* testXmlFileHandle) {
 				testXml = testXmlFileHandle;
 				Assert::IsNotNull(testXml);
-				Assert::IsFalse(testXml->IsOpen());
+				Assert::IsTrue(testXml->IsOpen());
 				allDone = true;
 			};
 			FileManager::Get().GetFileAsync("test.xml", getFileCallback);
@@ -75,10 +75,40 @@ namespace UnitTestLibraryDesktop
 			std::function<void(FileHandle*)> getFileCallback = [&](FileHandle* testXmlFileHandle) {
 				testXml = testXmlFileHandle;
 				Assert::IsNotNull(testXml);
-				Assert::IsFalse(testXml->IsOpen());
+				Assert::IsTrue(testXml->IsOpen());
 				testXml->ReadTextAsync(readTextCallback);
 			};
 			FileManager::Get().GetFileAsync("test.xml", getFileCallback);
+			while (!allDone)
+			{
+			}
+
+			Engine::Destroy();
+			delete testXml;
+		}
+
+		TEST_METHOD(ReadLineTest)
+		{
+			Engine::CreateEngine();
+
+			bool allDone = false;
+			FileHandle* testXml = nullptr;
+			std::function<void(FileHandle*)> getFileCallback = [&](FileHandle* testXmlFileHandle) {
+				testXml = testXmlFileHandle;
+				Assert::IsNotNull(testXml);
+				Assert::IsTrue(testXml->IsOpen());
+
+				Assert::IsFalse(testXml->IsEndOfFile());
+				Assert::IsTrue("<something></something>" == testXml->ReadLine());
+				Assert::IsFalse(testXml->IsEndOfFile());
+				Assert::IsTrue("<everything></everything>" == testXml->ReadLine());
+				Assert::IsTrue(testXml->IsEndOfFile());
+
+				allDone = true;
+			};
+			FileManager::Get().GetFileAsync("test2.xml", getFileCallback);
+
+
 			while (!allDone)
 			{
 			}
