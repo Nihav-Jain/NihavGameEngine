@@ -53,9 +53,7 @@ namespace UnitTest_Library_UWP
 		{
 			Engine::CreateEngine();
 
-			Assert::IsTrue(FileManager::Get().Is(UWPFileManager::TypeIdClass()));
 			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-
 			while (!fileManager->AssetsFolderFound())
 			{}
 
@@ -66,6 +64,35 @@ namespace UnitTest_Library_UWP
 				Assert::IsNotNull(testXml);
 				Assert::IsFalse(testXml->IsOpen());
 				allDone = true;
+			};
+			FileManager::Get().GetFileAsync("test.xml", getFileCallback);
+			while (!allDone)
+			{}
+
+			Engine::Destroy();
+		}
+
+		TEST_METHOD(UWP_ReadTextAsyncTest)
+		{
+			Engine::CreateEngine();
+
+			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
+			while (!fileManager->AssetsFolderFound())
+			{}
+
+			bool allDone = false;
+			FileHandle* testXml = nullptr;
+			std::string text;
+			std::function<void(std::string)> readTextCallback = [&](std::string textFromCallback) {
+				text = textFromCallback;
+				Assert::IsTrue("<something></something>" == text);
+				allDone = true;
+			};
+			std::function<void(FileHandle*)> getFileCallback = [&](FileHandle* testXmlFileHandle) {
+				testXml = testXmlFileHandle;
+				Assert::IsNotNull(testXml);
+				Assert::IsFalse(testXml->IsOpen());
+				testXml->ReadTextAsync(readTextCallback);
 			};
 			FileManager::Get().GetFileAsync("test.xml", getFileCallback);
 			while (!allDone)
