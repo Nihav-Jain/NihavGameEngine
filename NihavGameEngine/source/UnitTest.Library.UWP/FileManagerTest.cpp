@@ -106,35 +106,38 @@ namespace UnitTest_Library_UWP
 
 		TEST_METHOD(UWP_ReadLineTest)
 		{
-			Engine::CreateEngine();
+				Engine::CreateEngine();
 
-			bool allDone = false;
-			FileHandle* testXml = nullptr;
-			std::function<void(void)> openFileCallback = [&]() {
-				Assert::IsFalse(testXml->IsEndOfFile());
-				Assert::IsTrue("<something></something>" == testXml->ReadLine());
-				Assert::IsFalse(testXml->IsEndOfFile());
-				Assert::IsTrue("<everything></everything>" == testXml->ReadLine());
-				Assert::IsTrue(testXml->IsEndOfFile());
+				UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
+				while (!fileManager->AssetsFolderFound())
+				{}
 
-				allDone = true;
-			};
-			std::function<void(FileHandle*)> getFileCallback = [&](FileHandle* testXmlFileHandle) {
-				testXml = testXmlFileHandle;
-				Assert::IsNotNull(testXml);
-				Assert::IsFalse(testXml->IsOpen());
+				bool allDone = false;
+				FileHandle* testXml = nullptr;
+				std::function<void(void)> openFileCallback = [&]() {
+					Assert::IsFalse(testXml->IsEndOfFile());
+					Assert::IsTrue("<something></something>" == testXml->ReadLine());
+					Assert::IsFalse(testXml->IsEndOfFile());
+					Assert::IsTrue("<everything></everything>" == testXml->ReadLine());
+					Assert::IsTrue(testXml->IsEndOfFile());
 
-				testXml->OpenFileAsync(openFileCallback);
-			};
-			FileManager::Get().GetFileAsync("test2.xml", getFileCallback);
+					allDone = true;
+				};
+				std::function<void(FileHandle*)> getFileCallback = [&](FileHandle* testXmlFileHandle) {
+					testXml = testXmlFileHandle;
+					Assert::IsNotNull(testXml);
+					Assert::IsFalse(testXml->IsOpen());
+
+					testXml->OpenFileAsync(openFileCallback);
+				};
+				FileManager::Get().GetFileAsync("test2.xml", getFileCallback);
 
 
-			while (!allDone)
-			{
-			}
+				while (!allDone)
+				{}
 
-			Engine::Destroy();
-			delete testXml;
+				Engine::Destroy();
+				delete testXml;
 		}
 
 
