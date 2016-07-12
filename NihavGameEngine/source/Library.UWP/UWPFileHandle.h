@@ -10,10 +10,10 @@ namespace Library
 	class UWPFileHandle : public FileHandle
 	{
 	public:
-		UWPFileHandle();
+		UWPFileHandle(Windows::Storage::StorageFile^ file);
 		virtual ~UWPFileHandle();
 
-		virtual void ReadTextAsync(std::string& outFileText) override;
+		virtual void ReadTextAsync(std::function<void(std::string)>& callback) override;
 		virtual void ReadBufferAsync(Vector<std::uint8_t>& outBuffer) override;
 
 		virtual void WriteTextAsync(const std::string& fileText) override;
@@ -22,6 +22,7 @@ namespace Library
 		virtual void CloseFileAsync() override;
 
 	private:
+		Windows::Storage::StorageFile^ mFile;
 	};
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include "Vector.h"
 
 namespace Library
@@ -16,7 +17,7 @@ namespace Library
 
 		virtual ~FileHandle();
 
-		virtual void ReadTextAsync(std::string& outFileText) = 0;
+		virtual void ReadTextAsync(std::function<void(std::string)>& callback) = 0;
 		virtual void ReadBufferAsync(Vector<std::uint8_t>& outBuffer) = 0;
 
 		virtual void WriteTextAsync(const std::string& fileText) = 0;

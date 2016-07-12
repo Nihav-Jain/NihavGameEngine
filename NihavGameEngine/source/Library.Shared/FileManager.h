@@ -1,6 +1,7 @@
 #pragma once
 #include "EngineModule.h"
 #include "FileHandle.h"
+#include <functional>
 
 namespace Library
 {
@@ -13,7 +14,7 @@ namespace Library
 
 		static FileManager& Get();
 
-		virtual void OpenFileAsync(FileHandle* outFileHandle, const std::string& fileName, FileHandle::FileMode mode = FileHandle::FileMode::READ_ONLY) = 0;
+		virtual void GetFileAsync(const std::string& fileName, std::function<void(FileHandle*)>& callback) = 0;
 		virtual void CreateFileAsync(FileHandle* outFileHandle, const std::string& fileName) = 0;
 
 	protected:

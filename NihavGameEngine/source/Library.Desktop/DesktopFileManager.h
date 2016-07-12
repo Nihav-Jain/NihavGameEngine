@@ -11,7 +11,7 @@ namespace Library
 		DesktopFileManager();
 		virtual ~DesktopFileManager();
 
-		virtual void OpenFileAsync(FileHandle* outFileHandle, const std::string& fileName, FileHandle::FileMode mode = FileHandle::FileMode::READ_ONLY) override;
+		virtual void GetFileAsync(const std::string& fileName, std::function<void(FileHandle*)>& callback) override;
 		virtual void CreateFileAsync(FileHandle* outFileHandle, const std::string& fileName) override;
 
 	private:

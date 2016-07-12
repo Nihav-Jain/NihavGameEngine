@@ -30,6 +30,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SmartPtr.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stack.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestEngineModule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UniquePtr.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h" />
   </ItemGroup>
@@ -54,5 +55,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SmartPtr.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TestEngineModule.cpp" />
   </ItemGroup>
 </Project>

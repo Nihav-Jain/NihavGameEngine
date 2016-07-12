@@ -19,6 +19,8 @@
     <ClCompile Include="SharedPtrTest.cpp" />
     <ClCompile Include="UniquePtrTest.cpp" />
     <ClCompile Include="MemoryManagerTest.cpp" />
+    <ClCompile Include="FileManagerTest.cpp" />
+    <ClCompile Include="EngineModuleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -27,6 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="UnitTestApp.rd.xml" />
+    <Xml Include="Assets\test.xml">
+      <Filter>Assets</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

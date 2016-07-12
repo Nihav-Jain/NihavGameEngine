@@ -254,7 +254,6 @@
     <ClInclude Include="Graph.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="TestEngineModule.h" />
     <ClInclude Include="DesktopFileManager.h" />
     <ClInclude Include="DesktopFileHandle.h" />
   </ItemGroup>
@@ -478,7 +477,6 @@
     <ClCompile Include="DesktopMemory.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
-    <ClCompile Include="TestEngineModule.cpp" />
     <ClCompile Include="DesktopFileManager.cpp" />
     <ClCompile Include="DesktopFileHandle.cpp" />
   </ItemGroup>

@@ -248,6 +248,8 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EngineModuleTest.cpp" />
+    <ClCompile Include="FileManagerTest.cpp" />
     <ClCompile Include="Foo.cpp" />
     <ClCompile Include="MemoryManagerTest.cpp" />
     <ClCompile Include="SharedPtrTest.cpp" />
@@ -269,6 +271,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\test.xml" />
     <Xml Include="UnitTestApp.rd.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

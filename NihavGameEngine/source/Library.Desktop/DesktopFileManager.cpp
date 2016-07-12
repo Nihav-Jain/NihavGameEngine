@@ -16,11 +16,10 @@ namespace Library
 	{
 	}
 
-	void DesktopFileManager::OpenFileAsync(FileHandle* outFileHandle, const std::string& fileName, FileHandle::FileMode mode)
+	void DesktopFileManager::GetFileAsync(const std::string& fileName, std::function<void(FileHandle*)>& callback)
 	{
-		UNREFERENCED_PARAMETER(outFileHandle);
 		UNREFERENCED_PARAMETER(fileName);
-		UNREFERENCED_PARAMETER(mode);
+		UNREFERENCED_PARAMETER(callback);
 	}
 
 	void DesktopFileManager::CreateFileAsync(FileHandle* outFileHandle, const std::string& fileName)

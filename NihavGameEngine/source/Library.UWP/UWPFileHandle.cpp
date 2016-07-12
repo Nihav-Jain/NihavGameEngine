@@ -1,19 +1,25 @@
 #include "pch.h"
 #include "UWPFileHandle.h"
 
+using namespace Windows::Storage;
 namespace Library
 {
-	UWPFileHandle::UWPFileHandle()
-	{
-	}
+	UWPFileHandle::UWPFileHandle(Windows::Storage::StorageFile^ file) :
+		mFile(file)
+	{}
 
 	UWPFileHandle::~UWPFileHandle()
 	{
 	}
 
-	void UWPFileHandle::ReadTextAsync(std::string& outFileText)
+	void UWPFileHandle::ReadTextAsync(std::function<void(std::string)>& callback)
 	{
-		UNREFERENCED_PARAMETER(outFileText);
+		concurrency::create_task(FileIO::ReadTextAsync(mFile)).then([&](Platform::String^ fileContent)
+		{
+			std::string str;
+			str.assign(fileContent->Begin(), fileContent->End());
+			callback(str);
+		});
 	}
 
 	void UWPFileHandle::ReadBufferAsync(Vector<std::uint8_t>& outBuffer)

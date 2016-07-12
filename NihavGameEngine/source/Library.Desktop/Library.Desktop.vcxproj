@@ -238,7 +238,6 @@
     <ClInclude Include="EventMessageAttributed.h" />
     <ClInclude Include="EventPublisher.h" />
     <ClInclude Include="EventQueue.h" />
-    <ClInclude Include="TestEngineModule.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameClock.h" />
     <ClInclude Include="GameObject.h" />
@@ -326,7 +325,6 @@
     <ClCompile Include="EventMessageAttributed.cpp" />
     <ClCompile Include="EventPublisher.cpp" />
     <ClCompile Include="EventQueue.cpp" />
-    <ClCompile Include="TestEngineModule.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameClock.cpp" />
     <ClCompile Include="GameObject.cpp" />
