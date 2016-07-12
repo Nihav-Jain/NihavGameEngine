@@ -44,11 +44,11 @@ namespace Library
 		return std::string();
 	}
 
-	void UWPFileHandle::OpenFileAsync()
+	void UWPFileHandle::OpenFileAsync(std::function<void(void)>& callback, FileMode mode)
 	{
 	}
 
-	void UWPFileHandle::CloseFileAsync()
+	void UWPFileHandle::CloseFile()
 	{
 
 	}

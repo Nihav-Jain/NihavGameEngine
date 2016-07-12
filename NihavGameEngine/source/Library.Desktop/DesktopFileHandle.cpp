@@ -5,26 +5,34 @@
 
 namespace Library
 {
-	DesktopFileHandle::DesktopFileHandle(std::ifstream& file) :
-		mFile(&file)
-	{
-		bIsOpen = true;
-	}
-
+	DesktopFileHandle::DesktopFileHandle(const std::string& fileName) :
+		mFileName(fileName), mFile(), mMutex()
+	{}
 
 	DesktopFileHandle::~DesktopFileHandle()
 	{
-		if (mFile->is_open())
-			mFile->close();
-		delete mFile;
+		CloseFile();
 	}
 
 	void DesktopFileHandle::ReadTextAsync(std::function<void(std::string)>& callback)
 	{
-		std::future<void> fut = std::async([&]() {
-			std::string str((std::istreambuf_iterator<char>(*mFile)), (std::istreambuf_iterator<char>()));
+		std::function<void(void)> openCallback = [&]() {
+			std::lock_guard<std::recursive_mutex> recLock(mMutex);
+			std::string str((std::istreambuf_iterator<char>(mFile)), (std::istreambuf_iterator<char>()));
 			callback(str);
-		});
+		};
+
+		bool open = false;
+
+		{
+			std::lock_guard<std::recursive_mutex> recLock(mMutex);
+			open = bIsOpen;
+		}
+
+		if (!open)
+			OpenFileAsync(openCallback, FileMode::READ_ONLY);
+		else
+			std::future<void> fut = std::async(openCallback);
 	}
 
 	void DesktopFileHandle::ReadBufferAsync(Vector<std::uint8_t>& outBuffer)
@@ -42,28 +50,60 @@ namespace Library
 		UNREFERENCED_PARAMETER(buffer);
 	}
 
-	void DesktopFileHandle::OpenFileAsync()
-	{}
-
-	void DesktopFileHandle::CloseFileAsync()
+	void DesktopFileHandle::OpenFileAsync(std::function<void(void)>& callback, FileMode mode)
 	{
-		if (mFile->is_open())
-			mFile->close();
+		std::future<void> fut =  std::async([&]() {
+			{
+				std::lock_guard<std::recursive_mutex> recLock(mMutex);
+				if (bIsOpen)
+					CloseFile();
+
+				switch (mode)
+				{
+				case FileMode::READ_ONLY:
+					mFile.open(mFileName, std::fstream::in);
+					break;
+				case FileMode::WRITE_ONLY:
+					mFile.open(mFileName, std::fstream::out);
+					break;
+				case FileMode::READ_WRITE:
+					mFile.open(mFileName, std::fstream::in | std::fstream::out);
+				default:
+					throw std::exception("Invalid File mode");
+				}
+
+				bIsOpen = true;
+			}
+			callback();
+		});
+	}
+
+	void DesktopFileHandle::CloseFile()
+	{
+		std::lock_guard<std::recursive_mutex> recLock(mMutex);
+		if (mFile.is_open())
+			mFile.close();
 		bIsOpen = false;
 	}
 
 	std::string DesktopFileHandle::ReadLine()
 	{
+		if (!bIsOpen)
+			throw std::exception("File is not open");
 		if (IsEndOfFile())
 			throw std::exception("End of Stream encountered.");
 
 		std::string str;
-		std::getline(*mFile, str);
+		
+		std::lock_guard<std::recursive_mutex> recLock(mMutex);
+		std::getline(mFile, str);
+		
 		return str;
 	}
 
 	bool DesktopFileHandle::IsEndOfFile() const
 	{
-		return !mFile->good();
+		std::lock_guard<std::recursive_mutex> recLock(mMutex);
+		return !mFile.good();
 	}
 }

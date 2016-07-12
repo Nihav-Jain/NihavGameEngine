@@ -22,8 +22,8 @@ namespace Library
 
 		virtual std::string ReadLine() override;
 
-		virtual void OpenFileAsync() override;
-		virtual void CloseFileAsync() override;
+		virtual void OpenFileAsync(std::function<void(void)>& callback, FileMode mode = FileMode::READ_ONLY) override;
+		virtual void CloseFile() override;
 
 		virtual bool IsEndOfFile() const override;
 

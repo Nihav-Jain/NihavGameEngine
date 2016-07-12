@@ -21,9 +21,7 @@ namespace Library
 	void DesktopFileManager::GetFileAsync(const std::string& fileName, std::function<void(FileHandle*)>& callback)
 	{
 		std::future<void> fut = std::async([&]() {
-			std::ifstream* fileStream = new std::ifstream();
-			fileStream->open(ASSETS_FOLDER_PREFIX + fileName, std::ifstream::in);
-			FileHandle* fileHandle = new DesktopFileHandle(*fileStream);
+			FileHandle* fileHandle = new DesktopFileHandle(ASSETS_FOLDER_PREFIX + fileName);
 			callback(fileHandle);
 		});
 	}

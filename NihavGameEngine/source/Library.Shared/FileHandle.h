@@ -25,8 +25,8 @@ namespace Library
 		virtual void WriteTextAsync(const std::string& fileText) = 0;
 		virtual void WriteBufferAsync(const Vector<std::uint8_t>& buffer) = 0;
 
-		virtual void OpenFileAsync() = 0;
-		virtual void CloseFileAsync() = 0;
+		virtual void OpenFileAsync(std::function<void(void)>& callback, FileMode mode = FileMode::READ_ONLY) = 0;
+		virtual void CloseFile() = 0;
 
 		virtual std::string ReadLine() = 0;
 

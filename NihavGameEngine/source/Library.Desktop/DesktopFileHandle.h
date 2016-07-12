@@ -7,7 +7,7 @@ namespace Library
 	class DesktopFileHandle : public FileHandle
 	{
 	public:
-		DesktopFileHandle(std::ifstream& file);
+		DesktopFileHandle(const std::string& fileName);
 		virtual ~DesktopFileHandle();
 
 		virtual void ReadTextAsync(std::function<void(std::string)>& callback) override;
@@ -16,15 +16,18 @@ namespace Library
 		virtual void WriteTextAsync(const std::string& fileText) override;
 		virtual void WriteBufferAsync(const Vector<std::uint8_t>& buffer);
 
-		virtual void OpenFileAsync() override;
-		virtual void CloseFileAsync() override;
+		virtual void OpenFileAsync(std::function<void(void)>& callback, FileMode mode = FileMode::READ_ONLY) override;
+		virtual void CloseFile() override;
 
 		virtual std::string ReadLine() override;
 
 		virtual bool IsEndOfFile() const override;
 
 	private:
-		std::ifstream* mFile;
+		std::fstream mFile;
+		std::string mFileName;
+
+		mutable std::recursive_mutex mMutex;
 	};
 }
 
