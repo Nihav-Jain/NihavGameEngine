@@ -71,6 +71,7 @@
     <ClCompile Include="UniquePtrTest.cpp" />
     <ClCompile Include="MemoryManagerTest.cpp" />
     <ClCompile Include="EngineModuleTest.cpp" />
+    <ClCompile Include="FileManagerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

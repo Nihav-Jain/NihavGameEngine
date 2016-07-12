@@ -1,17 +1,16 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "FileManager.h"
-#include "FileHandle.h"
+#include "DesktopFileManager.h"
+#include "DesktopFileHandle.h"
 #include "Engine.h"
-#include "UWPFileManager.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Library;
 
-namespace UnitTest_Library_UWP
+namespace UnitTestLibraryDesktop
 {
 
-	TEST_CLASS(UWPFileManagerTest)
+	TEST_CLASS(FileManagerTest)
 	{
 	public:
 
@@ -24,38 +23,26 @@ namespace UnitTest_Library_UWP
 
 		TEST_METHOD_CLEANUP(Cleanup)
 		{
-
 			_CrtMemState endMemState, diffMemState;
 			_CrtMemCheckpoint(&endMemState);
 			if (_CrtMemDifference(&diffMemState, &sStartMemState, &endMemState))
 			{
 				_CrtMemDumpStatistics(&diffMemState);
-				//Assert::Fail(L"Memory Leaks!");
+				Assert::Fail(L"Memory Leaks!");
 			}
 		}
 #endif
 
-		TEST_METHOD(UWP_FileManagerCtorTest)
+		TEST_METHOD(FileManagerCtorTest)
 		{
 			Engine::CreateEngine();
-
-			Assert::IsTrue(FileManager::Get().Is(UWPFileManager::TypeIdClass()));
-
-			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-
-			while(!fileManager->AssetsFolderFound())
-			{ }
-
+			Assert::IsTrue(FileManager::Get().Is(DesktopFileManager::TypeIdClass()));
 			Engine::Destroy();
 		}
 
-		TEST_METHOD(UWP_GetFileAsyncTest)
+		TEST_METHOD(GetFileAsyncTest)
 		{
 			Engine::CreateEngine();
-
-			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-			while (!fileManager->AssetsFolderFound())
-			{}
 
 			bool allDone = false;
 			FileHandle* testXml = nullptr;
@@ -73,13 +60,9 @@ namespace UnitTest_Library_UWP
 			delete testXml;
 		}
 
-		TEST_METHOD(UWP_ReadTextAsyncTest)
+		TEST_METHOD(ReadTextAsyncTest)
 		{
 			Engine::CreateEngine();
-
-			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-			while (!fileManager->AssetsFolderFound())
-			{}
 
 			bool allDone = false;
 			FileHandle* testXml = nullptr;
@@ -97,7 +80,8 @@ namespace UnitTest_Library_UWP
 			};
 			FileManager::Get().GetFileAsync("test.xml", getFileCallback);
 			while (!allDone)
-			{}
+			{
+			}
 
 			Engine::Destroy();
 			delete testXml;
@@ -109,6 +93,6 @@ namespace UnitTest_Library_UWP
 	};
 
 #if defined(DEBUG) | defined(_DEBUG)
-	_CrtMemState UWPFileManagerTest::sStartMemState;
+	_CrtMemState FileManagerTest::sStartMemState;
 #endif
 }

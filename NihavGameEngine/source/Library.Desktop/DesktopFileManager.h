@@ -16,6 +16,7 @@ namespace Library
 
 	private:
 		static class DesktopFileManagerFactory sFactory;
+		static const std::string ASSETS_FOLDER_PREFIX;
 	};
 
 	CONCRETE_MODULE_FACTORY(DesktopFileManager);

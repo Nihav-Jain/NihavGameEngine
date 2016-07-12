@@ -266,6 +266,7 @@ IF NOT EXIST "$(TargetDir)fmod64.dll" xcopy /E /Y "$(SolutionDir)..\external\FMO
     <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="EventTest.cpp" />
     <ClCompile Include="FactoryTest.cpp" />
+    <ClCompile Include="FileManagerTest.cpp" />
     <ClCompile Include="Foo.cpp" />
     <ClCompile Include="FooRTTI.cpp" />
     <ClCompile Include="FooSubscriber.cpp" />
