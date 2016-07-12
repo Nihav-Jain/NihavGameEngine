@@ -66,6 +66,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FileManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileHandle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestEngineModule.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graph.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -89,6 +90,7 @@
     <None Include="$(MSBuildThisFileDirectory)Factory.inl">
       <Filter>Engine</Filter>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)Graph.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp">

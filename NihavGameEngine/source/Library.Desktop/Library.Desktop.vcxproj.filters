@@ -251,9 +251,6 @@
     <ClInclude Include="DesktopMemory.h">
       <Filter>Memory</Filter>
     </ClInclude>
-    <ClInclude Include="Graph.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
     <ClInclude Include="DesktopFileManager.h" />
     <ClInclude Include="DesktopFileHandle.h" />
   </ItemGroup>
@@ -486,9 +483,6 @@
     </None>
     <None Include="ParticleSystem.inl">
       <Filter>Kernel\Graphic</Filter>
-    </None>
-    <None Include="Graph.inl">
-      <Filter>Containers</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -242,7 +242,6 @@
     <ClInclude Include="GameClock.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
-    <ClInclude Include="Graph.h" />
     <ClInclude Include="IEventSubscriber.h" />
     <ClInclude Include="LineParticle.h" />
     <ClInclude Include="ParticleSystem.h" />
@@ -330,7 +329,6 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="LineParticle.cpp" />
-    <None Include="Graph.inl" />
     <None Include="ParticleSystem.inl">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

@@ -24,12 +24,12 @@
 #include "Engine.h"
 #include "EngineModule.h"
 #include "DesktopMemory.h"
-#include "..\Library.Shared\HeapManager.h"
-#include "..\Library.Shared\SharedPtr.h"
-#include "..\Library.Shared\UniquePtr.h"
+#include "HeapManager.h"
+#include "SharedPtr.h"
+#include "UniquePtr.h"
 #include "RTTI.h"
 #include "glm\glm.hpp"
-#include <expat.h>
+#include "expat.h"
 
 #pragma region Containers
 

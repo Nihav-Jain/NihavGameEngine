@@ -1,5 +1,6 @@
 #pragma once
 #include "XmlParseMaster.h"
+#include "Graph.h"
 
 namespace Library
 {

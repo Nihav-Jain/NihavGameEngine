@@ -4,16 +4,9 @@
 #include "Vector.h"
 #include "Stack.h"
 #include "Hashmap.h"
-#include "Graph.h"
 
 #include "GameClock.h"
 #include "GameTime.h"
-
-#include "Renderer.h"
-#include "RenderDevice.h"
-#include "Animator.h"
-#include "AnimationState.h"
-#include "AnimationFrame.h"
 
 #include "RTTI.h"
 #include "Datum.h"
@@ -22,6 +15,13 @@
 #include "Sector.h"
 #include "Entity.h"
 #include "GameObject.h"
+
+#include "Renderer.h"
+#include "RenderDevice.h"
+#include "Animator.h"
+#include "AnimationState.h"
+#include "AnimationFrame.h"
+
 
 #include "Action.h"
 #include "Event.h"

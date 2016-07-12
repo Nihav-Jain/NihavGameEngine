@@ -13,23 +13,45 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 #endif
+#ifndef UNREFERENCED_PARAMETER
+#define UNREFERENCED_PARAMETER(P)          (P)
+#endif
 
 #include <exception>
-#include <iostream>
 #include <cstdint>
 #include <utility>
 #include <string>
 
-//#include "RTTI.h"
+#include <iostream>
+#include <fstream>
+#include <functional>
+
+#include "RTTI.h"
+#include "Engine.h"
+#include "EngineModule.h"
+#include "DesktopMemory.h"
+#include "HeapManager.h"
+#include "SharedPtr.h"
+#include "UniquePtr.h"
+#include "glm\glm.hpp"
+#include "expat.h"
+
+#pragma region Containers
+
 #include "SList.h"
 #include "Vector.h"
 #include "Stack.h"
 #include "Hashmap.h"
 #include "Graph.h"
 
+#pragma endregion
+
 #include "Datum.h"
 #include "Scope.h"
 #include "Attributed.h"
+#include "Entity.h"
+#include "Sector.h"
+#include "World.h"
 
 #include "Foo.h"
 #include "FooRTTI.h"
@@ -38,7 +60,5 @@
 #include "AttributedNative.h"
 #include "AudioManager.h"
 
-#ifndef UNREFERENCED_PARAMETER
-#define UNREFERENCED_PARAMETER(P)          (P)
-#endif
+
 

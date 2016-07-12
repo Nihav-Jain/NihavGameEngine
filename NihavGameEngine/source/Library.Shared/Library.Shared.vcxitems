@@ -21,6 +21,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graph.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileHandle.h" />
@@ -36,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Factory.inl" />
+    <None Include="$(MSBuildThisFileDirectory)Graph.inl" />
     <None Include="$(MSBuildThisFileDirectory)Hashmap.inl" />
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl" />
     <None Include="$(MSBuildThisFileDirectory)SList.inl" />
