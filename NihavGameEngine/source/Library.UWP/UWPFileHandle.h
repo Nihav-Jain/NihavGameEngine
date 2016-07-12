@@ -9,6 +9,7 @@ namespace Library
 {
 	class UWPFileHandle : public FileHandle
 	{
+		RTTI_DECLARATIONS(UWPFileHandle, FileHandle);
 	public:
 		UWPFileHandle(Windows::Storage::StorageFile^ file);
 		virtual ~UWPFileHandle();

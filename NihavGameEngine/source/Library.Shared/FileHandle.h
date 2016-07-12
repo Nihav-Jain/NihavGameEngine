@@ -1,13 +1,15 @@
 #pragma once
 #include <functional>
 #include "Vector.h"
+#include "RTTI.h"
 
 namespace Library
 {
-	class FileHandle
+	class FileHandle : public RTTI
 	{
-	public:
+		RTTI_DECLARATIONS(FileHandle, RTTI);
 
+	public:
 		enum class FileMode
 		{
 			READ_ONLY,

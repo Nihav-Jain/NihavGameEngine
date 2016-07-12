@@ -3,6 +3,8 @@
 
 namespace Library
 {
+	RTTI_DEFINITIONS(FileHandle, RTTI);
+
 	FileHandle::FileHandle() :
 		bIsOpen(false)
 	{

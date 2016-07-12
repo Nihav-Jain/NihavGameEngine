@@ -4,6 +4,8 @@
 using namespace Windows::Storage;
 namespace Library
 {
+	RTTI_DEFINITIONS(UWPFileHandle, FileHandle);
+
 	UWPFileHandle::UWPFileHandle(Windows::Storage::StorageFile^ file) :
 		mFile(file)
 	{}
