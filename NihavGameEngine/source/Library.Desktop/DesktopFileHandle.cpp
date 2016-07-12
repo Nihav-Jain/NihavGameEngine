@@ -88,8 +88,12 @@ namespace Library
 
 	std::string DesktopFileHandle::ReadLine()
 	{
-		if (!bIsOpen)
-			throw std::exception("File is not open");
+		{
+			std::lock_guard<std::recursive_mutex> recLock(mMutex);
+			if (!bIsOpen)
+				throw std::exception("File is not open");
+		}
+
 		if (IsEndOfFile())
 			throw std::exception("End of Stream encountered.");
 
