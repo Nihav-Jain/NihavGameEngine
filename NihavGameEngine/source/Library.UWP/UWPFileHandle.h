@@ -2,6 +2,7 @@
 #include <ppltasks.h>
 #include <string>
 #include <memory>
+#include <mutex>
 #include "FileHandle.h"
 
 
@@ -29,6 +30,9 @@ namespace Library
 
 	private:
 		Windows::Storage::StorageFile^ mFile;
+		Vector<std::string> mFileLines;
+		Vector<std::string>::Iterator mLineItr;
+		std::recursive_mutex mMutex;
 	};
 }
 

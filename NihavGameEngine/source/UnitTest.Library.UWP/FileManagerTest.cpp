@@ -101,7 +101,42 @@ namespace UnitTest_Library_UWP
 
 			Engine::Destroy();
 			delete testXml;
+
 		}
+
+		TEST_METHOD(UWP_ReadLineTest)
+		{
+			Engine::CreateEngine();
+
+			bool allDone = false;
+			FileHandle* testXml = nullptr;
+			std::function<void(void)> openFileCallback = [&]() {
+				Assert::IsFalse(testXml->IsEndOfFile());
+				Assert::IsTrue("<something></something>" == testXml->ReadLine());
+				Assert::IsFalse(testXml->IsEndOfFile());
+				Assert::IsTrue("<everything></everything>" == testXml->ReadLine());
+				Assert::IsTrue(testXml->IsEndOfFile());
+
+				allDone = true;
+			};
+			std::function<void(FileHandle*)> getFileCallback = [&](FileHandle* testXmlFileHandle) {
+				testXml = testXmlFileHandle;
+				Assert::IsNotNull(testXml);
+				Assert::IsFalse(testXml->IsOpen());
+
+				testXml->OpenFileAsync(openFileCallback);
+			};
+			FileManager::Get().GetFileAsync("test2.xml", getFileCallback);
+
+
+			while (!allDone)
+			{
+			}
+
+			Engine::Destroy();
+			delete testXml;
+		}
+
 
 #if defined(DEBUG) | defined(_DEBUG)
 		static _CrtMemState sStartMemState;

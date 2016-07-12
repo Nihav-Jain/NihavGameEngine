@@ -32,6 +32,9 @@
     <Xml Include="Assets\test.xml">
       <Filter>Assets</Filter>
     </Xml>
+    <Xml Include="Assets\test2.xml">
+      <Filter>Assets</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
