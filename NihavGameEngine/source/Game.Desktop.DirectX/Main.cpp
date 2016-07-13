@@ -1,4 +1,6 @@
 #include "pch.h"
+#include "Engine.h"
+#include "DesktopFileManager.h"
 #include "Game.h"
 //#include "PolygonRenderer.h"
 #include "ReactionAttributed.h"
@@ -38,7 +40,11 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	UNREFERENCED_PARAMETER(commandLine);
 	UNREFERENCED_PARAMETER(showCommand);
 
+	const std::pair<const std::uint64_t*, EngineModule**> ptr = *DesktopFileManager::Itr;
+	UNREFERENCED_PARAMETER(ptr);
+
 	Engine::CreateEngine();
+	Engine::Get().Activate();
 
 	XBoxControllerHandlerFactory xchf;
 	ActionDebugFactory adf;
@@ -87,6 +93,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 
 	Shutdown(windowClassName);
 
+	Engine::Get().Deactivate();
 	Engine::Destroy();
 	return 0;
 }
