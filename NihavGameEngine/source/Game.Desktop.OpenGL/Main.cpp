@@ -23,6 +23,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	UNREFERENCED_PARAMETER(commandLine);
 	UNREFERENCED_PARAMETER(showCommand);
 
+	Engine::CreateEngine();
+
 	OpenGLRenderDevice renderDevice;
 
 	/// Game-specific factories that cannot live as members in the Game class ///
@@ -44,7 +46,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	/// Game ///
 	Game game;
 	game.SetRenderer(renderer);
-	game.Start("Content/config/geometrywars_test.xml");
+	game.Start("config/geometrywars_test.xml");
 	renderDevice.InitOpenGl("Geometry Wars", game.GetWorld().GetWidth(), game.GetWorld().GetHeight());
 
 #pragma warning(push)
@@ -55,6 +57,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 		game.Update();
 	}
 
+	Engine::Destroy();
 	return 0;
 }
 

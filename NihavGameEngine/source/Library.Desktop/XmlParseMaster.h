@@ -4,6 +4,9 @@
 #include "Vector.h"
 #include "Hashmap.h"
 #include "Stack.h"
+#include "FileHandle.h"
+#include <mutex>
+#include <functional>
 
 struct XML_ParserStruct;
 typedef struct XML_ParserStruct *XML_Parser;
@@ -149,7 +152,7 @@ namespace Library
 		 *	@param path to the file containg the XML
 		 *	@return true if parsing was successful, false if there was an error
 		 */
-		bool ParseFromFile(const std::string& fileName);
+		void ParseFromFileAsync(const std::string& fileName, const std::function<void(bool)>& callback);
 
 		/**
 		 *	Accessor for the file name parsed by this parse master
@@ -226,10 +229,10 @@ namespace Library
 		 */
 		std::string& TrimInplace(std::string& s, const std::string& delimiters = " \f\n\r\t\v");
 
-		void OpenFileHandle(const std::string& fileName);
+		void OpenFileHandleAsync(const std::string& fileName, const std::function<void(void)>& callback);
 		void CloseTopFileHandle();
 
-		Stack<std::ifstream*> mFileHandles;
+		Stack<FileHandle*> mFileHandles;
 		std::uint32_t mFileHandleCounter;
 
 		SharedData* mSharedData;
@@ -240,6 +243,8 @@ namespace Library
 
 		std::string mFileName;
 		XML_Parser mXmlParser;
+
+		std::recursive_mutex mMutex;
 	};
 }
 

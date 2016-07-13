@@ -38,6 +38,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	UNREFERENCED_PARAMETER(commandLine);
 	UNREFERENCED_PARAMETER(showCommand);
 
+	Engine::CreateEngine();
+
 	XBoxControllerHandlerFactory xchf;
 	ActionDebugFactory adf;
 	PlayerFactory mPlayerFactory;
@@ -60,7 +62,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 
 	Game game;
 	game.SetRenderer(renderer);
-	game.Start("Content/config/geometrywars_test.xml");
+	game.Start("config/geometrywars_test.xml");
 
 	mScreenWidth = game.GetWorld().GetWidth();
 	mScreenHeight = game.GetWorld().GetHeight();
@@ -84,6 +86,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	}
 
 	Shutdown(windowClassName);
+
+	Engine::Destroy();
 	return 0;
 }
 

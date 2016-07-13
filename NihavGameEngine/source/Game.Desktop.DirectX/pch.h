@@ -37,6 +37,7 @@
 
 #include "DesktopMemory.h"
 #include "GameException.h"
+#include "Engine.h"
 
 #pragma region SoundFMOD
 

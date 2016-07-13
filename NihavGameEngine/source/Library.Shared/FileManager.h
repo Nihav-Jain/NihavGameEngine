@@ -14,7 +14,7 @@ namespace Library
 
 		static FileManager& Get();
 
-		virtual void GetFileAsync(const std::string& fileName, std::function<void(FileHandle*)>& callback) = 0;
+		virtual void GetFileAsync(const std::string& fileName, const std::function<void(FileHandle*)>& callback) = 0;
 		virtual void CreateFileAsync(FileHandle* outFileHandle, const std::string& fileName) = 0;
 
 	protected:

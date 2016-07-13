@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "XmlParseMaster.h"
 #include "IXmlParseHelper.h"
+#include "FileManager.h"
 
 namespace Library
 {
 	XmlParseMaster::XmlParseMaster(SharedData& sharedData) :
 		mSharedData(&sharedData), mHelpers(), mLastClonedHelper(0), mIsCloned(false), mFileName(std::string()), mXmlParser(nullptr),
-		mFileHandles(), mFileHandleCounter(0)
+		mFileHandles(), mFileHandleCounter(0), mMutex()
 	{
 		mSharedData->SetXmlParseMaster(this);
 	}
@@ -74,37 +75,38 @@ namespace Library
 		return true;
 	}
 
-	bool XmlParseMaster::ParseFromFile(const std::string& fileName)
+	void XmlParseMaster::ParseFromFileAsync(const std::string& fileName, const std::function<void(bool)>& callback)
 	{
 		mFileName = fileName;
 
-		OpenFileHandle(fileName);
+		OpenFileHandleAsync(fileName, [&]() {
+			bool isFirstChunk = true;
+			bool isLastChunk = false;
 
-		bool isFirstChunk = true;
-		bool isLastChunk = false;
-
-		std::string fileData;
-		while (!mFileHandles.IsEmpty())
-		{
-			while (mFileHandles.Top()->good())
+			std::string fileData;
+			while (!mFileHandles.IsEmpty())
 			{
-				std::getline(*mFileHandles.Top(), fileData);
-
-				std::uint32_t fileLength = static_cast<std::uint32_t>(fileData.length());
-
-				if (mFileHandleCounter == 1)
-					isLastChunk = !mFileHandles.Top()->good();
-
-				if (!Parse(fileData.c_str(), fileLength, isFirstChunk, isLastChunk))
+				while (!mFileHandles.Top()->IsEndOfFile())
 				{
-					CloseTopFileHandle();
-					return false;
+					fileData = mFileHandles.Top()->ReadLine();
+
+					std::uint32_t fileLength = static_cast<std::uint32_t>(fileData.length());
+
+					if (mFileHandleCounter == 1)
+						isLastChunk = mFileHandles.Top()->IsEndOfFile();
+
+					if (!Parse(fileData.c_str(), fileLength, isFirstChunk, isLastChunk))
+					{
+						CloseTopFileHandle();
+						callback(false);
+					}
+					isFirstChunk = false;
 				}
-				isFirstChunk = false;
+				CloseTopFileHandle();
 			}
-			CloseTopFileHandle();
-		}
-		return true;
+			callback(true);
+		});
+
 	}
 
 	const std::string& XmlParseMaster::GetFileName() const
@@ -149,9 +151,12 @@ namespace Library
 		{
 			if (!attributeMap.ContainsKey("file"))
 				throw std::exception("<include> tag has missing attribute: file");
+			bool done = false;
+			xmlParseMaster->OpenFileHandleAsync(attributeMap["file"], [&]() {
+				done = true;
+			});
 
-			xmlParseMaster->OpenFileHandle(attributeMap["file"]);
-
+			while(!done){}
 			return;
 		}
 
@@ -225,25 +230,22 @@ namespace Library
 		return TrimLeftInplace(TrimRightInplace(s, delimiters), delimiters);
 	}
 
-	void XmlParseMaster::OpenFileHandle(const std::string& fileName)
+	void XmlParseMaster::OpenFileHandleAsync(const std::string& fileName, const std::function<void(void)>& callback)
 	{
-		std::ifstream* fileInputStream = new std::ifstream();
-		mFileHandles.Push(fileInputStream);
-		mFileHandleCounter++;
-
-		fileInputStream->open(fileName);
-
-		if (!fileInputStream->is_open())
-		{
-			std::stringstream str;
-			str << "Error in opening file " << fileName;
-			throw std::exception(str.str().c_str());
-		}
+		FileManager::Get().GetFileAsync(fileName, [&](FileHandle* handle) {
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				mFileHandles.Push(handle);
+				mFileHandleCounter++;
+			}
+			handle->OpenFileAsync(callback);
+		});
 	}
 
 	void XmlParseMaster::CloseTopFileHandle()
 	{
-		mFileHandles.Top()->close();
+		std::lock_guard<std::recursive_mutex> lock(mMutex);
+		mFileHandles.Top()->CloseFile();
 		delete mFileHandles.Top();
 		mFileHandles.Pop();
 		mFileHandleCounter--;

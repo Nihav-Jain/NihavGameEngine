@@ -15,7 +15,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include "Engine.h"
 #include "DesktopMemory.h"
+
 #pragma region SoundFMOD
 
 #include <fstream>

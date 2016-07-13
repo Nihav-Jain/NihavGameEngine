@@ -172,6 +172,8 @@ namespace Library
 	private:
 		void AddParseHelpers();
 
+		bool mLoadingLevel;
+
 		DesktopMemory mMemory;
 
 		Renderer* mRenderer;

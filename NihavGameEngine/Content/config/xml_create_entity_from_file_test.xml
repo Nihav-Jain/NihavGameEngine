@@ -1,7 +1,7 @@
 <root>
 	
 <define>
-	<include file="Content\config\sample_entity_xml_class.xml" />
+	<include file="config\sample_entity_xml_class.xml" />
 </define>
 
 <world name="world">

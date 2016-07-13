@@ -29,10 +29,15 @@ namespace UnitTestLibraryDesktop
 		{
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
 			_CrtMemCheckpoint(&sStartMemState);
+
+			Engine::CreateEngine();
+			Engine::Get().Activate();
 		}
 
 		TEST_METHOD_CLEANUP(Cleanup)
 		{
+			Engine::Get().Deactivate();
+			Engine::Destroy();
 			_CrtMemState endMemState, diffMemState;
 			_CrtMemCheckpoint(&endMemState);
 			if (_CrtMemDifference(&diffMemState, &sStartMemState, &endMemState))
@@ -47,133 +52,154 @@ namespace UnitTestLibraryDesktop
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_action_test.xml"));
-			game.Start();
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_action_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
+				game.Start();
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Entity* entity = sector->FindEntity("actor");
-			Assert::IsNotNull(entity);
-			Action* action = entity->FindAction("exp1");
-			Assert::IsNotNull(action);
-			ActionExpression* exp = action->As<ActionExpression>();
-			Assert::IsNotNull(exp);
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Entity* entity = sector->FindEntity("actor");
+				Assert::IsNotNull(entity);
+				Action* action = entity->FindAction("exp1");
+				Assert::IsNotNull(action);
+				ActionExpression* exp = action->As<ActionExpression>();
+				Assert::IsNotNull(exp);
 
-			Datum* boolResult = entity->Find("boolResult");
-			Assert::IsNotNull(boolResult);
-			Assert::IsFalse(boolResult->Get<bool>());
-			
-			Datum* boolResult2 = entity->Find("boolResult2");
-			Assert::IsNotNull(boolResult2);
-			Assert::IsTrue(boolResult2->Get<bool>());
+				Datum* boolResult = entity->Find("boolResult");
+				Assert::IsNotNull(boolResult);
+				Assert::IsFalse(boolResult->Get<bool>());
 
-			Datum* someVector = sector->Find("someVector");
-			Assert::IsNotNull(someVector);
-			Assert::IsTrue(*someVector == glm::vec4(0, 0, 0, 0));
+				Datum* boolResult2 = entity->Find("boolResult2");
+				Assert::IsNotNull(boolResult2);
+				Assert::IsTrue(boolResult2->Get<bool>());
 
-			Datum* worldResult = world.Find("worldResult");
-			Assert::IsNotNull(worldResult);
-			Assert::AreEqual(0, worldResult->Get<std::int32_t>());
+				Datum* someVector = sector->Find("someVector");
+				Assert::IsNotNull(someVector);
+				Assert::IsTrue(*someVector == glm::vec4(0, 0, 0, 0));
 
-			Datum* appendString = entity->Find("appendString");
-			Assert::IsNotNull(appendString);
-			Assert::IsTrue("somestring" == appendString->Get<std::string>());
+				Datum* worldResult = world.Find("worldResult");
+				Assert::IsNotNull(worldResult);
+				Assert::AreEqual(0, worldResult->Get<std::int32_t>());
 
-			Datum* arrResult1 = entity->Find("arrResult1");
-			Assert::IsNotNull(arrResult1);
-			Assert::AreEqual(0, arrResult1->Get<std::int32_t>());
+				Datum* appendString = entity->Find("appendString");
+				Assert::IsNotNull(appendString);
+				Assert::IsTrue("somestring" == appendString->Get<std::string>());
 
-			Datum* arrResult2 = entity->Find("arrResult2");
-			Assert::IsNotNull(arrResult2);
-			Assert::AreEqual(0, arrResult2->Get<std::int32_t>());
+				Datum* arrResult1 = entity->Find("arrResult1");
+				Assert::IsNotNull(arrResult1);
+				Assert::AreEqual(0, arrResult1->Get<std::int32_t>());
 
-			Datum* arrResult3 = entity->Find("arrResult3");
-			Assert::IsNotNull(arrResult3);
-			Assert::AreEqual(0, arrResult3->Get<std::int32_t>());
+				Datum* arrResult2 = entity->Find("arrResult2");
+				Assert::IsNotNull(arrResult2);
+				Assert::AreEqual(0, arrResult2->Get<std::int32_t>());
 
-			Datum* arrSize = entity->Find("arrSize");
-			Assert::IsNotNull(arrSize);
-			Assert::AreEqual(0, arrSize->Get<std::int32_t>());
+				Datum* arrResult3 = entity->Find("arrResult3");
+				Assert::IsNotNull(arrResult3);
+				Assert::AreEqual(0, arrResult3->Get<std::int32_t>());
 
-			game.Update();
+				Datum* arrSize = entity->Find("arrSize");
+				Assert::IsNotNull(arrSize);
+				Assert::AreEqual(0, arrSize->Get<std::int32_t>());
 
-			Datum* result = entity->Find("result");
-			Assert::IsNotNull(result);
-			std::int32_t res = result->Get<std::int32_t>();
-			Assert::IsTrue(res == 19);
+				game.Update();
 
-			Datum* result2 = entity->Find("result2");
-			Assert::IsNotNull(result2);
-			Assert::IsTrue(*result2 == 15);
+				Datum* result = entity->Find("result");
+				Assert::IsNotNull(result);
+				std::int32_t res = result->Get<std::int32_t>();
+				Assert::IsTrue(res == 19);
 
-			Assert::IsTrue(boolResult->Get<bool>());
-			Assert::IsFalse(boolResult2->Get<bool>());
+				Datum* result2 = entity->Find("result2");
+				Assert::IsNotNull(result2);
+				Assert::IsTrue(*result2 == 15);
 
-			Assert::IsTrue(*someVector == glm::vec4(20, 40, 60, 80));
-			Assert::AreEqual(3, worldResult->Get<std::int32_t>());
+				Assert::IsTrue(boolResult->Get<bool>());
+				Assert::IsFalse(boolResult2->Get<bool>());
 
-			Assert::IsTrue(appendString->Get<std::string>() == "somestring = 10");
+				Assert::IsTrue(*someVector == glm::vec4(20, 40, 60, 80));
+				Assert::AreEqual(3, worldResult->Get<std::int32_t>());
 
-			Assert::AreEqual(10, arrResult1->Get<std::int32_t>());
-			Assert::AreEqual(20, arrResult2->Get<std::int32_t>());
-			Assert::AreEqual(30, arrResult3->Get<std::int32_t>());
-			Assert::AreEqual(4, arrSize->Get<std::int32_t>());
+				Assert::IsTrue(appendString->Get<std::string>() == "somestring = 10");
+
+				Assert::AreEqual(10, arrResult1->Get<std::int32_t>());
+				Assert::AreEqual(20, arrResult2->Get<std::int32_t>());
+				Assert::AreEqual(30, arrResult3->Get<std::int32_t>());
+				Assert::AreEqual(4, arrSize->Get<std::int32_t>());
+
+				allDone = true;
+			});
+
+			while(!allDone){}
 		}
 
 		TEST_METHOD(ActionTestIfThenElse)
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_if_else_test.xml"));
-			game.Start();
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_if_else_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
+				game.Start();
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Entity* entity = sector->FindEntity("actor");
-			Assert::IsNotNull(entity);
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Entity* entity = sector->FindEntity("actor");
+				Assert::IsNotNull(entity);
 
-			Datum* result = entity->Find("result");
-			Assert::IsNotNull(result);
-			Assert::AreEqual(0, result->Get<std::int32_t>());
+				Datum* result = entity->Find("result");
+				Assert::IsNotNull(result);
+				Assert::AreEqual(0, result->Get<std::int32_t>());
 
-			Datum* result2 = entity->Find("result2");
-			Assert::IsNotNull(result2);
-			Assert::AreEqual(0, result2->Get<std::int32_t>());
+				Datum* result2 = entity->Find("result2");
+				Assert::IsNotNull(result2);
+				Assert::AreEqual(0, result2->Get<std::int32_t>());
 
-			Datum* result3 = entity->Find("result3");
-			Assert::IsNotNull(result3);
-			Assert::AreEqual(0, result3->Get<std::int32_t>());
+				Datum* result3 = entity->Find("result3");
+				Assert::IsNotNull(result3);
+				Assert::AreEqual(0, result3->Get<std::int32_t>());
 
-			game.Update();
+				game.Update();
 
-			Assert::AreEqual(10, result->Get<std::int32_t>());
-			Assert::AreEqual(15, result2->Get<std::int32_t>());
-			Assert::AreEqual(0, result3->Get<std::int32_t>());
+				Assert::AreEqual(10, result->Get<std::int32_t>());
+				Assert::AreEqual(15, result2->Get<std::int32_t>());
+				Assert::AreEqual(0, result3->Get<std::int32_t>());
+
+				allDone = true;
+			});
+
+			while(!allDone){}
 		}
 
 		TEST_METHOD(ActionTestWhile)
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_while_test.xml"));
-			game.Start();
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_while_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
+				game.Start();
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Entity* entity = sector->FindEntity("actor");
-			Assert::IsNotNull(entity);
-			Assert::IsNotNull(entity);
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Entity* entity = sector->FindEntity("actor");
+				Assert::IsNotNull(entity);
+				Assert::IsNotNull(entity);
 
-			Datum* result = entity->Find("result");
-			Assert::IsNotNull(result);
-			Assert::AreEqual(0, result->Get<std::int32_t>());
+				Datum* result = entity->Find("result");
+				Assert::IsNotNull(result);
+				Assert::AreEqual(0, result->Get<std::int32_t>());
 
-			game.Update();
+				game.Update();
 
-			Assert::AreEqual(10, result->Get<std::int32_t>());
+				Assert::AreEqual(10, result->Get<std::int32_t>());
+
+				allDone = true;
+			});
+
+			while(!allDone) {}
 		}
 
 		TEST_METHOD(ActionTestExpressionFunctionCalls)
@@ -188,125 +214,143 @@ namespace UnitTestLibraryDesktop
 				return result;
 			}));
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_function_test.xml"));
-			game.Start();
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_function_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
+				game.Start();
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Entity* entity = sector->FindEntity("actor");
-			Assert::IsNotNull(entity);
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Entity* entity = sector->FindEntity("actor");
+				Assert::IsNotNull(entity);
 
-			Datum* result = entity->Find("result");
-			Assert::IsNotNull(result);
-			Assert::AreEqual(0, result->Get<std::int32_t>());
+				Datum* result = entity->Find("result");
+				Assert::IsNotNull(result);
+				Assert::AreEqual(0, result->Get<std::int32_t>());
 
-			Datum* minResult = entity->Find("minResult");
-			Assert::IsNotNull(minResult);
-			Assert::AreEqual(0, minResult->Get<std::int32_t>());
+				Datum* minResult = entity->Find("minResult");
+				Assert::IsNotNull(minResult);
+				Assert::AreEqual(0, minResult->Get<std::int32_t>());
 
-			Datum* intArr = entity->Find("intArr");
-			Assert::IsNotNull(intArr);
-			Assert::AreEqual(4U, intArr->Size());
-			Assert::AreEqual(30, intArr->Get<std::int32_t>(2));
+				Datum* intArr = entity->Find("intArr");
+				Assert::IsNotNull(intArr);
+				Assert::AreEqual(4U, intArr->Size());
+				Assert::AreEqual(30, intArr->Get<std::int32_t>(2));
 
-			game.Update();
+				game.Update();
 
-			Assert::AreEqual(10, result->Get<std::int32_t>());
-			Assert::AreEqual(1, minResult->Get<std::int32_t>());
-			Assert::AreEqual(100, intArr->Get<std::int32_t>(2));
+				Assert::AreEqual(10, result->Get<std::int32_t>());
+				Assert::AreEqual(1, minResult->Get<std::int32_t>());
+				Assert::AreEqual(100, intArr->Get<std::int32_t>(2));
+
+				allDone = true;
+			});
+			while(!allDone){}
 		}
 
 		TEST_METHOD(ActionTestBeginPlay)
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_beginplay_test.xml"));
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_beginplay_test.xml", [&](bool parsed) {
+				UNREFERENCED_PARAMETER(parsed);
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Entity* entity = sector->FindEntity("actor");
+				Assert::IsNotNull(entity);
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Entity* entity = sector->FindEntity("actor");
-			Assert::IsNotNull(entity);
+				Datum* worldResult = world.Find("worldInt1");
+				Assert::IsNotNull(worldResult);
+				Assert::AreEqual(2, worldResult->Get<std::int32_t>());
 
-			Datum* worldResult = world.Find("worldInt1");
-			Assert::IsNotNull(worldResult);
-			Assert::AreEqual(2, worldResult->Get<std::int32_t>());
+				Datum* sectorResult = sector->Find("sectorInt1");
+				Assert::IsNotNull(sectorResult);
+				Assert::AreEqual(2, sectorResult->Get<std::int32_t>());
 
-			Datum* sectorResult = sector->Find("sectorInt1");
-			Assert::IsNotNull(sectorResult);
-			Assert::AreEqual(2, sectorResult->Get<std::int32_t>());
+				Datum* entityResult = entity->Find("entityInt1");
+				Assert::IsNotNull(entityResult);
+				Assert::AreEqual(2, entityResult->Get<std::int32_t>());
 
-			Datum* entityResult = entity->Find("entityInt1");
-			Assert::IsNotNull(entityResult);
-			Assert::AreEqual(2, entityResult->Get<std::int32_t>());
+				game.Start();
 
-			game.Start();
+				Assert::AreEqual(4, worldResult->Get<std::int32_t>());
+				Assert::AreEqual(4, sectorResult->Get<std::int32_t>());
+				Assert::AreEqual(4, entityResult->Get<std::int32_t>());
 
-			Assert::AreEqual(4, worldResult->Get<std::int32_t>());
-			Assert::AreEqual(4, sectorResult->Get<std::int32_t>());
-			Assert::AreEqual(4, entityResult->Get<std::int32_t>());
+				Datum* result = entity->Find("result");
+				Assert::IsNotNull(result);
+				Assert::AreEqual(0, result->Get<std::int32_t>());
 
-			Datum* result = entity->Find("result");
-			Assert::IsNotNull(result);
-			Assert::AreEqual(0, result->Get<std::int32_t>());
+				game.Update();
 
-			game.Update();
+				Assert::AreEqual(4, worldResult->Get<std::int32_t>());
+				Assert::AreEqual(4, sectorResult->Get<std::int32_t>());
+				Assert::AreEqual(4, entityResult->Get<std::int32_t>());
 
-			Assert::AreEqual(4, worldResult->Get<std::int32_t>());
-			Assert::AreEqual(4, sectorResult->Get<std::int32_t>());
-			Assert::AreEqual(4, entityResult->Get<std::int32_t>());
+				Assert::AreEqual(10, result->Get<std::int32_t>());
 
-			Assert::AreEqual(10, result->Get<std::int32_t>());
+				allDone = true;
+			});
+
+			while (!allDone){}
 		}
 
 		TEST_METHOD(ActionTestExpressionLiteral)
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_literal_test.xml"));
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_literal_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Entity* entity = sector->FindEntity("actor");
-			Assert::IsNotNull(entity);
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Entity* entity = sector->FindEntity("actor");
+				Assert::IsNotNull(entity);
 
-			game.Start();
+				game.Start();
 
-			Datum* result = entity->Find("intResult");
-			Assert::IsNotNull(result);
-			Assert::AreEqual(0, result->Get<std::int32_t>());
+				Datum* result = entity->Find("intResult");
+				Assert::IsNotNull(result);
+				Assert::AreEqual(0, result->Get<std::int32_t>());
 
-			Datum* floatResult = entity->Find("floatResult");
-			Assert::IsNotNull(floatResult);
-			Assert::AreEqual(0.0f, floatResult->Get<std::float_t>());
+				Datum* floatResult = entity->Find("floatResult");
+				Assert::IsNotNull(floatResult);
+				Assert::AreEqual(0.0f, floatResult->Get<std::float_t>());
 
-			Datum* stringResult = entity->Find("strResult");
-			Assert::IsNotNull(stringResult);
-			Assert::IsTrue("asclkn" == stringResult->Get<std::string>());
+				Datum* stringResult = entity->Find("strResult");
+				Assert::IsNotNull(stringResult);
+				Assert::IsTrue("asclkn" == stringResult->Get<std::string>());
 
-			Datum* vecResult = entity->Find("vecResult");
-			Assert::IsNotNull(vecResult);
-			Assert::IsTrue(glm::vec4(0, 0, 0, 0) == vecResult->Get<glm::vec4>());
+				Datum* vecResult = entity->Find("vecResult");
+				Assert::IsNotNull(vecResult);
+				Assert::IsTrue(glm::vec4(0, 0, 0, 0) == vecResult->Get<glm::vec4>());
 
-			Datum* matResult = entity->Find("matResult");
-			Assert::IsNotNull(matResult);
-			Assert::IsTrue(glm::mat4x4(0) == matResult->Get<glm::mat4>());
+				Datum* matResult = entity->Find("matResult");
+				Assert::IsNotNull(matResult);
+				Assert::IsTrue(glm::mat4x4(0) == matResult->Get<glm::mat4>());
 
-			Datum* intResult2 = entity->Find("intResult2");
-			Assert::IsNotNull(intResult2);
-			Assert::AreEqual(0, intResult2->Get<std::int32_t>());
+				Datum* intResult2 = entity->Find("intResult2");
+				Assert::IsNotNull(intResult2);
+				Assert::AreEqual(0, intResult2->Get<std::int32_t>());
 
-			game.Update();
+				game.Update();
 
-			Assert::AreEqual(100, result->Get<std::int32_t>());
-			Assert::AreEqual(10.12f, floatResult->Get<std::float_t>());
-			Assert::IsTrue("some string" == stringResult->Get<std::string>());
-			Assert::IsTrue(glm::vec4(10, 20, 30, 40) == vecResult->Get<glm::vec4>());
-			Assert::IsTrue(glm::mat4x4(10) == matResult->Get<glm::mat4>());
-			Assert::AreEqual(135, intResult2->Get<std::int32_t>());
+				Assert::AreEqual(100, result->Get<std::int32_t>());
+				Assert::AreEqual(10.12f, floatResult->Get<std::float_t>());
+				Assert::IsTrue("some string" == stringResult->Get<std::string>());
+				Assert::IsTrue(glm::vec4(10, 20, 30, 40) == vecResult->Get<glm::vec4>());
+				Assert::IsTrue(glm::mat4x4(10) == matResult->Get<glm::mat4>());
+				Assert::AreEqual(135, intResult2->Get<std::int32_t>());
 
+				allDone = true;
+			});
+
+			while(!allDone){}
 		}
 
 		TEST_METHOD(ActionTestCreateEntity)
@@ -314,141 +358,166 @@ namespace UnitTestLibraryDesktop
 			SampleEntityFactory sampleEntityFactory;
 
 			Game game;
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_create_entity_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_create_entity_test.xml"));
+				game.Start();
 
-			game.Start();
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			
-			Assert::AreEqual(1U, sector->Entities().Size());
+				Assert::AreEqual(1U, sector->Entities().Size());
 
-			game.Update();
-			Assert::AreEqual(3U, sector->Entities().Size());
+				game.Update();
+				Assert::AreEqual(3U, sector->Entities().Size());
 
-			Entity* sampleEntity = sector->FindEntity("sampleEntity");
-			Assert::IsNotNull(sampleEntity);
-			Assert::IsTrue(sampleEntity->Is(SampleEntity::TypeIdClass()));
+				Entity* sampleEntity = sector->FindEntity("sampleEntity");
+				Assert::IsNotNull(sampleEntity);
+				Assert::IsTrue(sampleEntity->Is(SampleEntity::TypeIdClass()));
 
-			Datum* someInt = sampleEntity->Find("someInt");
-			Assert::IsNotNull(someInt);
-			Assert::AreEqual(0, someInt->Get<std::int32_t>());
+				Datum* someInt = sampleEntity->Find("someInt");
+				Assert::IsNotNull(someInt);
+				Assert::AreEqual(0, someInt->Get<std::int32_t>());
 
-			game.Update();
+				game.Update();
 
-			Assert::AreEqual(10, someInt->Get<std::int32_t>());
+				Assert::AreEqual(10, someInt->Get<std::int32_t>());
+
+				allDone = true;
+			});
+
+			while(!allDone){}
 		}
 
 		TEST_METHOD(ActionTestDestroyEntity)
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_destroy_entity_test.xml"));
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_destroy_entity_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
 
-			game.Start();
+				game.Start();
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Assert::AreEqual(2U, sector->Entities().Size());
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Assert::AreEqual(2U, sector->Entities().Size());
 
-			Entity* anotherEntity = sector->FindEntity("anotherEntity");
-			Assert::IsNotNull(anotherEntity);
-			Datum* anotherInt = anotherEntity->Find("anotherInt");
-			Assert::IsNotNull(anotherInt);
-			Assert::AreEqual(10, anotherInt->Get<std::int32_t>());
+				Entity* anotherEntity = sector->FindEntity("anotherEntity");
+				Assert::IsNotNull(anotherEntity);
+				Datum* anotherInt = anotherEntity->Find("anotherInt");
+				Assert::IsNotNull(anotherInt);
+				Assert::AreEqual(10, anotherInt->Get<std::int32_t>());
 
-			game.Update();
+				game.Update();
 
-			Assert::AreEqual(2U, sector->Entities().Size());
-			Assert::AreEqual(20, anotherInt->Get<std::int32_t>());
+				Assert::AreEqual(2U, sector->Entities().Size());
+				Assert::AreEqual(20, anotherInt->Get<std::int32_t>());
 
-			game.Update();
-			Assert::AreEqual(2U, sector->Entities().Size());
-			Assert::AreEqual(40, anotherInt->Get<std::int32_t>());
+				game.Update();
+				Assert::AreEqual(2U, sector->Entities().Size());
+				Assert::AreEqual(40, anotherInt->Get<std::int32_t>());
 
-			game.Update();
-			Assert::AreEqual(1U, sector->Entities().Size());
-			anotherEntity = sector->FindEntity("anotherEntity");
-			Assert::IsNull(anotherEntity);
+				game.Update();
+				Assert::AreEqual(1U, sector->Entities().Size());
+				anotherEntity = sector->FindEntity("anotherEntity");
+				Assert::IsNull(anotherEntity);
+
+				allDone = true;
+			});
+
+			while(!allDone){}
 		}
 
 		TEST_METHOD(ActionTestCanEverTick)
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_canevertick_test.xml"));
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_canevertick_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Entity* entity = sector->FindEntity("actor");
-			Assert::IsNotNull(entity);
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Entity* entity = sector->FindEntity("actor");
+				Assert::IsNotNull(entity);
 
-			game.Start();
+				game.Start();
 
-			Datum* result = entity->Find("intResult");
-			Assert::IsNotNull(result);
-			Assert::AreEqual(0, result->Get<std::int32_t>());
+				Datum* result = entity->Find("intResult");
+				Assert::IsNotNull(result);
+				Assert::AreEqual(0, result->Get<std::int32_t>());
 
-			Datum* floatResult = entity->Find("floatResult");
-			Assert::IsNotNull(floatResult);
-			Assert::AreEqual(0.0f, floatResult->Get<std::float_t>());
+				Datum* floatResult = entity->Find("floatResult");
+				Assert::IsNotNull(floatResult);
+				Assert::AreEqual(0.0f, floatResult->Get<std::float_t>());
 
-			game.Update();
+				game.Update();
 
-			Assert::AreEqual(0, result->Get<std::int32_t>());
-			Assert::AreEqual(10.12f, floatResult->Get<std::float_t>());
+				Assert::AreEqual(0, result->Get<std::int32_t>());
+				Assert::AreEqual(10.12f, floatResult->Get<std::float_t>());
 
+				allDone = true;
+			});
+			while(!allDone) {}
 		}
 
 		TEST_METHOD(ActionTestExpressionRefs)
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_expression_ref_test.xml"));
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_expression_ref_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			Entity* entity = sector->FindEntity("actor");
-			Assert::IsNotNull(entity);
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
+				Entity* entity = sector->FindEntity("actor");
+				Assert::IsNotNull(entity);
 
-			game.Start();
+				game.Start();
 
-			Datum* result = entity->Find("intResult");
-			Assert::IsNotNull(result);
-			Assert::AreEqual(0, result->Get<std::int32_t>());
+				Datum* result = entity->Find("intResult");
+				Assert::IsNotNull(result);
+				Assert::AreEqual(0, result->Get<std::int32_t>());
 
-			Datum* someInt = entity->Find("someInt");
-			Assert::IsNotNull(someInt);
-			Assert::AreEqual(10, someInt->Get<std::int32_t>());
+				Datum* someInt = entity->Find("someInt");
+				Assert::IsNotNull(someInt);
+				Assert::AreEqual(10, someInt->Get<std::int32_t>());
 
-			Datum* someIntPtr = entity->Find("someIntPtr");
-			Assert::IsNotNull(someIntPtr);
-			Assert::IsTrue(someInt == &someIntPtr->Get<Datum>());
+				Datum* someIntPtr = entity->Find("someIntPtr");
+				Assert::IsNotNull(someIntPtr);
+				Assert::IsTrue(someInt == &someIntPtr->Get<Datum>());
 
-			Datum* anotherResult = entity->Find("anotherResult");
-			Assert::IsNotNull(anotherResult);
-			Assert::AreEqual(0, anotherResult->Get<std::int32_t>());
+				Datum* anotherResult = entity->Find("anotherResult");
+				Assert::IsNotNull(anotherResult);
+				Assert::AreEqual(0, anotherResult->Get<std::int32_t>());
 
-			Datum* someResult = entity->Find("someResult");
-			Assert::IsNotNull(someResult);
-			Assert::AreEqual(0, someResult->Get<std::int32_t>());
+				Datum* someResult = entity->Find("someResult");
+				Assert::IsNotNull(someResult);
+				Assert::AreEqual(0, someResult->Get<std::int32_t>());
 
-			Datum* refResult = entity->Find("refResult");
-			Assert::IsNotNull(refResult);
-			Assert::AreEqual(0, refResult->Get<std::int32_t>());
+				Datum* refResult = entity->Find("refResult");
+				Assert::IsNotNull(refResult);
+				Assert::AreEqual(0, refResult->Get<std::int32_t>());
 
-			game.Update();
+				game.Update();
 
-			Assert::AreEqual(110, result->Get<std::int32_t>());
-			Assert::AreEqual(100, someInt->Get<std::int32_t>());
-			Assert::AreEqual(120, anotherResult->Get<std::int32_t>());
-			Assert::AreEqual(200, someResult->Get<std::int32_t>());
-			Assert::AreEqual(125, refResult->Get<std::int32_t>());
+				Assert::AreEqual(110, result->Get<std::int32_t>());
+				Assert::AreEqual(100, someInt->Get<std::int32_t>());
+				Assert::AreEqual(120, anotherResult->Get<std::int32_t>());
+				Assert::AreEqual(200, someResult->Get<std::int32_t>());
+				Assert::AreEqual(125, refResult->Get<std::int32_t>());
+
+				allDone = true;
+			});
+
+			while (!allDone){}
 		}
 
 		TEST_METHOD(ActionTestCreateEntityFromFile)
@@ -456,39 +525,44 @@ namespace UnitTestLibraryDesktop
 			SampleEntityFactory sampleEntityFactory;
 
 			Game game;
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_create_entity_from_file_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
+				game.Start();
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_create_entity_from_file_test.xml"));
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
 
-			game.Start();
+				Assert::AreEqual(1U, sector->Entities().Size());
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
+				game.Update();
+				Assert::AreEqual(3U, sector->Entities().Size());
 
-			Assert::AreEqual(1U, sector->Entities().Size());
+				Entity* sampleEntity = sector->FindEntity("sampleEntity");
+				Assert::IsNotNull(sampleEntity);
+				Assert::IsTrue(sampleEntity->Is(SampleEntity::TypeIdClass()));
 
-			game.Update();
-			Assert::AreEqual(3U, sector->Entities().Size());
+				Datum* someInt = sampleEntity->Find("someInt");
+				Assert::IsNotNull(someInt);
+				Assert::AreEqual(0, someInt->Get<std::int32_t>());
 
-			Entity* sampleEntity = sector->FindEntity("sampleEntity");
-			Assert::IsNotNull(sampleEntity);
-			Assert::IsTrue(sampleEntity->Is(SampleEntity::TypeIdClass()));
+				Entity* newEntity = sector->FindEntity("newEntity");
+				Assert::IsNotNull(newEntity);
 
-			Datum* someInt = sampleEntity->Find("someInt");
-			Assert::IsNotNull(someInt);
-			Assert::AreEqual(0, someInt->Get<std::int32_t>());
+				Datum* newSomeInt = newEntity->Find("someInt1");
+				Assert::IsNotNull(newSomeInt);
+				Assert::AreEqual(0, newSomeInt->Get<std::int32_t>());
 
-			Entity* newEntity = sector->FindEntity("newEntity");
-			Assert::IsNotNull(newEntity);
+				game.Update();
 
-			Datum* newSomeInt = newEntity->Find("someInt1");
-			Assert::IsNotNull(newSomeInt);
-			Assert::AreEqual(0, newSomeInt->Get<std::int32_t>());
+				Assert::AreEqual(10, someInt->Get<std::int32_t>());
+				Assert::AreEqual(20, newSomeInt->Get<std::int32_t>());
 
-			game.Update();
+				allDone = true;
+			});
 
-			Assert::AreEqual(10, someInt->Get<std::int32_t>());
-			Assert::AreEqual(20, newSomeInt->Get<std::int32_t>());
+			while (!allDone) {}
 		}
 
 		TEST_METHOD(ActionTestCopySemantics)

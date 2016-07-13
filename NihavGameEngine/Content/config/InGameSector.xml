@@ -23,21 +23,21 @@
 	
 	</gameobject>
 	
-	<include file="Content\config\player1.xml" />
+	<include file="config\player1.xml" />
 	<expression name="playerRefSetter">
 		<string name="expression">Player1.Input = XBoxControllerManager.PlayerOneState</string>
 	</expression>
 
 	<!-- TODO: Spawn enemies randomly on escalating intervals -->
-	<include file="Content\config\enemy_spawner.xml" />
+	<include file="config\enemy_spawner.xml" />
 	
 	
-	<include file="Content\config\enemy_diamond.xml" />
-	<include file="Content\config\enemy_cube.xml" />	
-	<include file="Content\config\enemy_square.xml" />	
+	<include file="config\enemy_diamond.xml" />
+	<include file="config\enemy_cube.xml" />	
+	<include file="config\enemy_square.xml" />	
 	
-	<include file="Content\config\enemy_arrow.xml" />
+	<include file="config\enemy_arrow.xml" />
 	
-	<include file="Content\config\bullet.xml" />
+	<include file="config\bullet.xml" />
 	
 </sector>

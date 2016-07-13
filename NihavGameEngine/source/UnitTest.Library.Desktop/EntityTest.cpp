@@ -37,12 +37,17 @@ namespace UnitTestLibraryDesktop
 		{
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
 			_CrtMemCheckpoint(&sStartMemState);
+
+			Engine::CreateEngine();
+			Engine::Get().Activate();
 		}
 
 		TEST_METHOD_CLEANUP(Cleanup)
 		{
 			SharedDataTable::ClearStateGraph();
 			Attributed::ClearStaticMembers();
+			Engine::Get().Deactivate();
+			Engine::Destroy();
 
 			_CrtMemState endMemState, diffMemState;
 			_CrtMemCheckpoint(&endMemState);
@@ -144,39 +149,41 @@ namespace UnitTestLibraryDesktop
 			master.AddHelper(primitivesParser);
 			master.AddHelper(nameValueParser);
 
-			Assert::IsTrue(master.ParseFromFile("Content/config/xml_entity_test.xml"));
+			bool allDone = false;
+			master.ParseFromFileAsync("config/xml_entity_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
 
-			World* world = &completeWorld;
+				World* world = &completeWorld;
 
-			Assert::IsTrue(world->Name() == "NihavWorld");
-			Assert::IsTrue(world->IsPrescribedAttribute("sectors"));
+				Assert::IsTrue(world->Name() == "NihavWorld");
+				Assert::IsTrue(world->IsPrescribedAttribute("sectors"));
 
-			Assert::IsTrue(world->IsAuxiliaryAttribute("worldInt1"));
-			Assert::IsTrue(world->IsAuxiliaryAttribute("worldInt2"));
-			Assert::IsTrue(world->IsAuxiliaryAttribute("worldInt3"));
+				Assert::IsTrue(world->IsAuxiliaryAttribute("worldInt1"));
+				Assert::IsTrue(world->IsAuxiliaryAttribute("worldInt2"));
+				Assert::IsTrue(world->IsAuxiliaryAttribute("worldInt3"));
 
-			Assert::AreEqual(10, world->operator[]("worldInt1").Get<std::int32_t>());
-			Assert::AreEqual(20, world->operator[]("worldInt2").Get<std::int32_t>());
-			Assert::AreEqual(30, world->operator[]("worldInt3").Get<std::int32_t>());
+				Assert::AreEqual(10, world->operator[]("worldInt1").Get<std::int32_t>());
+				Assert::AreEqual(20, world->operator[]("worldInt2").Get<std::int32_t>());
+				Assert::AreEqual(30, world->operator[]("worldInt3").Get<std::int32_t>());
 
-			Assert::IsTrue(world->IsAuxiliaryAttribute("worldScope"));
+				Assert::IsTrue(world->IsAuxiliaryAttribute("worldScope"));
 
-			Scope& worldNestedScope = world->operator[]("worldScope").Get<Scope>();
-			Assert::IsNotNull(worldNestedScope.Find("worldScopeFloat"));
-			Assert::IsNotNull(worldNestedScope.Find("worldScopeString"));
-			Assert::IsNotNull(worldNestedScope.Find("worldScopeVector"));
+				Scope& worldNestedScope = world->operator[]("worldScope").Get<Scope>();
+				Assert::IsNotNull(worldNestedScope.Find("worldScopeFloat"));
+				Assert::IsNotNull(worldNestedScope.Find("worldScopeString"));
+				Assert::IsNotNull(worldNestedScope.Find("worldScopeVector"));
 
-			Assert::AreEqual(10.10f, worldNestedScope["worldScopeFloat"].Get<std::float_t>());
-			Assert::IsTrue("scopestring" == worldNestedScope["worldScopeString"].Get<std::string>());
-			Assert::IsTrue(worldNestedScope["worldScopeVector"].Get<glm::vec4>() == glm::vec4(10, 20, 30, 40));
-			Assert::IsNotNull(worldNestedScope.Find("worldScopeBool"));
-			Assert::IsTrue(worldNestedScope["worldScopeBool"].Get<bool>());
+				Assert::AreEqual(10.10f, worldNestedScope["worldScopeFloat"].Get<std::float_t>());
+				Assert::IsTrue("scopestring" == worldNestedScope["worldScopeString"].Get<std::string>());
+				Assert::IsTrue(worldNestedScope["worldScopeVector"].Get<glm::vec4>() == glm::vec4(10, 20, 30, 40));
+				Assert::IsNotNull(worldNestedScope.Find("worldScopeBool"));
+				Assert::IsTrue(worldNestedScope["worldScopeBool"].Get<bool>());
 
-			Assert::IsFalse(world->IsAttribute("worldSector1"));
+				Assert::IsFalse(world->IsAttribute("worldSector1"));
 
-			Datum& worldSectors = world->Sectors();
-			Assert::AreEqual(2U, worldSectors.Size());
-			
+				Datum& worldSectors = world->Sectors();
+				Assert::AreEqual(2U, worldSectors.Size());
+
 				Sector* worldSector1 = worldSectors.Get<Scope>(0).As<Sector>();
 				Assert::IsNotNull(worldSector1);
 				Assert::IsTrue(worldSector1->Name() == "worldSector1");
@@ -199,80 +206,92 @@ namespace UnitTestLibraryDesktop
 				Datum& sector1Entities = worldSector1->Entities();
 				Assert::AreEqual(2U, sector1Entities.Size());
 
-					Entity* sector1Entity = sector1Entities.Get<Scope>(0).As<Entity>();
-					Assert::IsNotNull(sector1Entity);
-					Assert::IsTrue(sector1Entity->Name() == "sector1Entity1");
+				Entity* sector1Entity = sector1Entities.Get<Scope>(0).As<Entity>();
+				Assert::IsNotNull(sector1Entity);
+				Assert::IsTrue(sector1Entity->Name() == "sector1Entity1");
 
-					Assert::IsTrue(sector1Entity->IsAuxiliaryAttribute("entity1Str"));
-					Assert::IsTrue(sector1Entity->IsAuxiliaryAttribute("entity1Scope"));
+				Assert::IsTrue(sector1Entity->IsAuxiliaryAttribute("entity1Str"));
+				Assert::IsTrue(sector1Entity->IsAuxiliaryAttribute("entity1Scope"));
 
-					Assert::IsTrue(sector1Entity->operator[]("entity1Str") == "stringvalue");
-					Scope& sector1Entity1Scope = sector1Entity->operator[]("entity1Scope").Get<Scope>();
-					Assert::IsNotNull(sector1Entity1Scope.Find("entity1Int"));
-					Assert::AreEqual(50, sector1Entity1Scope.Find("entity1Int")->Get<std::int32_t>());
+				Assert::IsTrue(sector1Entity->operator[]("entity1Str") == "stringvalue");
+				Scope& sector1Entity1Scope = sector1Entity->operator[]("entity1Scope").Get<Scope>();
+				Assert::IsNotNull(sector1Entity1Scope.Find("entity1Int"));
+				Assert::AreEqual(50, sector1Entity1Scope.Find("entity1Int")->Get<std::int32_t>());
 
-					Entity* sector1Entity2 = sector1Entities.Get<Scope>(1).As<Entity>();
-					Assert::IsNotNull(sector1Entity2);
-					Assert::IsTrue(sector1Entity2->Is(ActorEntity::TypeIdClass()));
-					Assert::IsTrue(sector1Entity2->IsPrescribedAttribute("position"));
+				Entity* sector1Entity2 = sector1Entities.Get<Scope>(1).As<Entity>();
+				Assert::IsNotNull(sector1Entity2);
+				Assert::IsTrue(sector1Entity2->Is(ActorEntity::TypeIdClass()));
+				Assert::IsTrue(sector1Entity2->IsPrescribedAttribute("position"));
 
-					std::int32_t positionIteration = sector1Entity2->operator[]("positionIteration").Get<std::int32_t>();
-					Assert::AreEqual(3, positionIteration);
+				std::int32_t positionIteration = sector1Entity2->operator[]("positionIteration").Get<std::int32_t>();
+				Assert::AreEqual(3, positionIteration);
 
 				Sector* worldSector2 = worldSectors.Get<Scope>(1).As<Sector>();
 				Assert::IsNotNull(worldSector2);
 				Assert::AreEqual(1U, worldSector2->Entities().Size());
-					Entity* sector2Entity = worldSector2->Entities().Get<Scope>().As<Entity>();
-					Assert::IsNotNull(sector2Entity);
-					Assert::IsTrue(sector2Entity->Is(ActorEntity::TypeIdClass()));
-					Assert::IsTrue(sector2Entity->IsPrescribedAttribute("position"));
+				Entity* sector2Entity = worldSector2->Entities().Get<Scope>().As<Entity>();
+				Assert::IsNotNull(sector2Entity);
+				Assert::IsTrue(sector2Entity->Is(ActorEntity::TypeIdClass()));
+				Assert::IsTrue(sector2Entity->IsPrescribedAttribute("position"));
 
-					std::int32_t positionIteration2 = sector2Entity->operator[]("positionIteration").Get<std::int32_t>();
-					Assert::AreEqual(5, positionIteration2);
+				std::int32_t positionIteration2 = sector2Entity->operator[]("positionIteration").Get<std::int32_t>();
+				Assert::AreEqual(5, positionIteration2);
 
-					world->BeginPlay();
-			while (positionIteration > 0)
-			{
-				world->Update();
-				positionIteration--;
-				positionIteration2--;
-			}
-			Assert::IsTrue(sector1Entity2->operator[]("position").Get<glm::vec4>() == glm::vec4(30, 0, 0, 0));
-			while (positionIteration2 > 0)
-			{
-				world->Update();
-				positionIteration2--;
-			}
-			Assert::IsFalse(sector2Entity->operator[]("position").Get<glm::vec4>() == glm::vec4(50, 0, 0, 0));
+				world->BeginPlay();
+				while (positionIteration > 0)
+				{
+					world->Update();
+					positionIteration--;
+					positionIteration2--;
+				}
+				Assert::IsTrue(sector1Entity2->operator[]("position").Get<glm::vec4>() == glm::vec4(30, 0, 0, 0));
+				while (positionIteration2 > 0)
+				{
+					world->Update();
+					positionIteration2--;
+				}
+				Assert::IsFalse(sector2Entity->operator[]("position").Get<glm::vec4>() == glm::vec4(50, 0, 0, 0));
+
+				allDone = true;
+			});
+
+			while(!allDone){}
 		}
 
 		TEST_METHOD(EntityTestSameNameEntities)
 		{
 			Game game;
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_multi_entity_test.xml"));
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_multi_entity_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
 
-			game.Start();
+				game.Start();
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
-			
-			Vector<Entity*> listOfEntities = sector->FindAllEntities("actor");
-			Assert::AreEqual(2U, listOfEntities.Size());
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
 
-			Datum* intResult = listOfEntities[0]->Find("intResult");
-			Assert::IsNotNull(intResult);
-			Assert::AreEqual(0, intResult->Get<std::int32_t>());
+				Vector<Entity*> listOfEntities = sector->FindAllEntities("actor");
+				Assert::AreEqual(2U, listOfEntities.Size());
 
-			Datum* floatResult = listOfEntities[1]->Find("floatResult");
-			Assert::IsNotNull(floatResult);
-			Assert::AreEqual(0.0f, floatResult->Get<std::float_t>());
+				Datum* intResult = listOfEntities[0]->Find("intResult");
+				Assert::IsNotNull(intResult);
+				Assert::AreEqual(0, intResult->Get<std::int32_t>());
 
-			game.Update();
+				Datum* floatResult = listOfEntities[1]->Find("floatResult");
+				Assert::IsNotNull(floatResult);
+				Assert::AreEqual(0.0f, floatResult->Get<std::float_t>());
 
-			Assert::AreEqual(100, intResult->Get<std::int32_t>());
-			Assert::AreEqual(10.12f, floatResult->Get<std::float_t>());
+				game.Update();
+
+				Assert::AreEqual(100, intResult->Get<std::int32_t>());
+				Assert::AreEqual(10.12f, floatResult->Get<std::float_t>());
+
+				allDone = true;
+			});
+
+			while(!allDone) {}
 		}
 
 		TEST_METHOD(EntityTestSectorEntityList)
@@ -281,18 +300,24 @@ namespace UnitTestLibraryDesktop
 			SampleEntityFactory sFac;
 
 			Game game;
+			bool allDone = false;
+			game.ParseMaster().ParseFromFileAsync("config/xml_entitylist_test.xml", [&](bool parsed) {
+				Assert::IsTrue(parsed);
 
-			Assert::IsTrue(game.ParseMaster().ParseFromFile("Content/config/xml_entitylist_test.xml"));
+				game.Start();
 
-			game.Start();
+				World& world = game.GetWorld();
+				Sector* sector = world.FindSector("worldSector");
+				Assert::IsNotNull(sector);
 
-			World& world = game.GetWorld();
-			Sector* sector = world.FindSector("worldSector");
-			Assert::IsNotNull(sector);
+				Assert::AreEqual(8U, sector->GetAllEntitiesOfType(Entity::TypeIdClass()).Size());
+				Assert::AreEqual(3U, sector->GetAllEntitiesOfType(ActorEntity::TypeIdClass()).Size());
+				Assert::AreEqual(4U, sector->GetAllEntitiesOfType(SampleEntity::TypeIdClass()).Size());
 
-			Assert::AreEqual(8U, sector->GetAllEntitiesOfType(Entity::TypeIdClass()).Size());
-			Assert::AreEqual(3U, sector->GetAllEntitiesOfType(ActorEntity::TypeIdClass()).Size());
-			Assert::AreEqual(4U, sector->GetAllEntitiesOfType(SampleEntity::TypeIdClass()).Size());
+				allDone = true;
+			});
+
+			while(!allDone) {}
 		}
 
 		//TEST_METHOD(EntityTestLoadSector)

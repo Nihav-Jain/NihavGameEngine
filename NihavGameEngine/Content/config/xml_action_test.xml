@@ -6,7 +6,7 @@
 			<float name="switchFloat" value="10.10" />
 			<action class="ActionList" name="actionList"/>
 
-			<include file="Content\config\xml_action_switch_case.xml" />
+			<include file="config\xml_action_switch_case.xml" />
 			
 			<switch name="vecSwitch" switchValue="sectorCorners">
 				<case name="case1" caseValue="vec4(20, 30, 40, 10)" break="true">

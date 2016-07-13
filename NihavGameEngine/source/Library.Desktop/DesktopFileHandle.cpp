@@ -14,7 +14,7 @@ namespace Library
 		CloseFile();
 	}
 
-	void DesktopFileHandle::ReadTextAsync(std::function<void(std::string)>& callback)
+	void DesktopFileHandle::ReadTextAsync(const std::function<void(std::string)>& callback)
 	{
 		std::function<void(void)> openCallback = [&]() {
 			std::lock_guard<std::recursive_mutex> recLock(mMutex);
@@ -50,7 +50,7 @@ namespace Library
 		UNREFERENCED_PARAMETER(buffer);
 	}
 
-	void DesktopFileHandle::OpenFileAsync(std::function<void(void)>& callback, FileMode mode)
+	void DesktopFileHandle::OpenFileAsync(const std::function<void(void)>& callback, FileMode mode)
 	{
 		std::future<void> fut =  std::async([&]() {
 			{
@@ -71,6 +71,9 @@ namespace Library
 				default:
 					throw std::exception("Invalid File mode");
 				}
+
+				if (!mFile.good())
+					throw std::exception("Error opening file.");
 
 				bIsOpen = true;
 			}
