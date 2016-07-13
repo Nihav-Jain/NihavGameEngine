@@ -20,7 +20,7 @@ namespace Library
 
 #define CONCRETE_MODULE_FACTORY(ConcreteModuleType) CONCRETE_FACTORY(ConcreteModuleType, EngineModule);
 #define ENGINE_MODULE_DECLARATIONS()										\
-private:																	\
+public:																	\
 	static const Library::Hashmap<const std::uint64_t*, EngineModule**>::Iterator Itr;
 
 #define ENGINE_MODULE_DEFINITIONS(ModuleType, PointerToTypeId, PointerToSingletonPtr)	\

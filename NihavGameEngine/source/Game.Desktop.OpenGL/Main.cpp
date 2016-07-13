@@ -1,4 +1,7 @@
 #include "pch.h"
+#include "Engine.h"
+#include "EngineModule.h"
+#include "DesktopFileManager.h"
 #include "Game.h"
 #include "InputManager.h"
 #include "ActionDebug.h"
@@ -22,8 +25,12 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	UNREFERENCED_PARAMETER(previousInstance);
 	UNREFERENCED_PARAMETER(commandLine);
 	UNREFERENCED_PARAMETER(showCommand);
+	
+	const std::pair<const std::uint64_t*, EngineModule**> ptr = *DesktopFileManager::Itr;
+	UNREFERENCED_PARAMETER(ptr);
 
 	Engine::CreateEngine();
+	Engine::Get().Activate();
 
 	OpenGLRenderDevice renderDevice;
 
@@ -57,6 +64,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 		game.Update();
 	}
 
+	Engine::Get().Deactivate();
 	Engine::Destroy();
 	return 0;
 }

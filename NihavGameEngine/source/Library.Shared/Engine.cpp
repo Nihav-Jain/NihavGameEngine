@@ -40,8 +40,8 @@ namespace Library
 
 	Hashmap<const std::uint64_t*, EngineModule**>& Engine::ModuleList()
 	{
-		static Hashmap<const std::uint64_t*, EngineModule**>* map = new Hashmap<const std::uint64_t*, EngineModule**>();
-		return *map;
+		static Hashmap<const std::uint64_t*, EngineModule**>* engineModuleMap = new Hashmap<const std::uint64_t*, EngineModule**>();
+		return *engineModuleMap;
 	}
 
 	void Engine::Activate()

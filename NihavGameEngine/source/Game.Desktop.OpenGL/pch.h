@@ -16,6 +16,8 @@
 #include <glm/glm.hpp>
 
 #include "Engine.h"
+#include "EngineModule.h"
+#include "DesktopFileManager.h"
 #include "DesktopMemory.h"
 
 #pragma region SoundFMOD
