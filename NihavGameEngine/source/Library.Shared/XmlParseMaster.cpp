@@ -10,6 +10,45 @@ namespace Library
 		mFileHandles(), mFileHandleCounter(0), mMutex()
 	{
 		mSharedData->SetXmlParseMaster(this);
+
+		fOpenFileCallback = [this]() {
+			bool isFirstChunk = true;
+			bool isLastChunk = false;
+
+			std::string fileData;
+			while (!mFileHandles.IsEmpty())
+			{
+				while (!mFileHandles.Top()->IsEndOfFile())
+				{
+					fileData = mFileHandles.Top()->ReadLine();
+
+					std::uint32_t fileLength = static_cast<std::uint32_t>(fileData.length());
+
+					if (mFileHandleCounter == 1)
+						isLastChunk = mFileHandles.Top()->IsEndOfFile();
+
+					if (!Parse(fileData.c_str(), fileLength, isFirstChunk, isLastChunk))
+					{
+						CloseTopFileHandle();
+						fParseFromFileCallback(false);
+					}
+					isFirstChunk = false;
+				}
+				CloseTopFileHandle();
+			}
+			fParseFromFileCallback(true);
+		};
+
+		fGetFileCallback = [this](FileHandle* handle) {
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				mFileHandles.Push(handle);
+				mFileHandleCounter++;
+			}
+			handle->OpenFileAsync(fOpenFileCallback);
+		};
+
+
 	}
 
 	XmlParseMaster::~XmlParseMaster()
@@ -78,35 +117,8 @@ namespace Library
 	void XmlParseMaster::ParseFromFileAsync(const std::string& fileName, const std::function<void(bool)>& callback)
 	{
 		mFileName = fileName;
-
-		OpenFileHandleAsync(fileName, [&]() {
-			bool isFirstChunk = true;
-			bool isLastChunk = false;
-
-			std::string fileData;
-			while (!mFileHandles.IsEmpty())
-			{
-				while (!mFileHandles.Top()->IsEndOfFile())
-				{
-					fileData = mFileHandles.Top()->ReadLine();
-
-					std::uint32_t fileLength = static_cast<std::uint32_t>(fileData.length());
-
-					if (mFileHandleCounter == 1)
-						isLastChunk = mFileHandles.Top()->IsEndOfFile();
-
-					if (!Parse(fileData.c_str(), fileLength, isFirstChunk, isLastChunk))
-					{
-						CloseTopFileHandle();
-						callback(false);
-					}
-					isFirstChunk = false;
-				}
-				CloseTopFileHandle();
-			}
-			callback(true);
-		});
-
+		fParseFromFileCallback = callback;
+		OpenFileHandleAsync(fileName, fOpenFileCallback);
 	}
 
 	const std::string& XmlParseMaster::GetFileName() const
@@ -232,14 +244,8 @@ namespace Library
 
 	void XmlParseMaster::OpenFileHandleAsync(const std::string& fileName, const std::function<void(void)>& callback)
 	{
-		FileManager::Get().GetFileAsync(fileName, [&](FileHandle* handle) {
-			{
-				std::lock_guard<std::recursive_mutex> lock(mMutex);
-				mFileHandles.Push(handle);
-				mFileHandleCounter++;
-			}
-			handle->OpenFileAsync(callback);
-		});
+		UNREFERENCED_PARAMETER(callback);
+		FileManager::Get().GetFileAsync(fileName, fGetFileCallback);
 	}
 
 	void XmlParseMaster::CloseTopFileHandle()

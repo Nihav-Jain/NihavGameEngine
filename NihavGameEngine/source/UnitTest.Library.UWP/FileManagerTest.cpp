@@ -73,6 +73,31 @@ namespace UnitTest_Library_UWP
 			delete testXml;
 		}
 
+		TEST_METHOD(UWP_GetNestedFileAsyncTest)
+		{
+			Engine::CreateEngine();
+
+			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
+			while (!fileManager->AssetsFolderFound())
+			{
+			}
+
+			bool allDone = false;
+			FileHandle* testXml = nullptr;
+			std::function<void(FileHandle*)> getFileCallback = [&](FileHandle* testXmlFileHandle) {
+				testXml = testXmlFileHandle;
+				Assert::IsNotNull(testXml);
+				Assert::IsFalse(testXml->IsOpen());
+				allDone = true;
+			};
+			FileManager::Get().GetFileAsync("config\\angrybirds_small.xml", getFileCallback);
+			while (!allDone)
+			{}
+
+			Engine::Destroy();
+			delete testXml;
+		}
+
 		TEST_METHOD(UWP_ReadTextAsyncTest)
 		{
 			Engine::CreateEngine();

@@ -245,6 +245,10 @@ namespace Library
 		XML_Parser mXmlParser;
 
 		std::recursive_mutex mMutex;
+
+		std::function<void(bool)> fParseFromFileCallback;
+		std::function<void(void)> fOpenFileCallback;
+		std::function<void(FileHandle*)> fGetFileCallback;
 	};
 }
 
