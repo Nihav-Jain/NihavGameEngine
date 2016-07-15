@@ -16,11 +16,13 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Action.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionCreateEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionCreateEntityFromFile.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionDestroyEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionExpression.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionIfThenElse.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionListSwitch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionLoadSector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionWhileLoop.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CustomHeap.h" />
@@ -73,11 +75,13 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionCreateEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionCreateEntityFromFile.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionDestroyEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionExpression.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionIfThenElse.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionListSwitch.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionLoadSector.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionWhileLoop.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CustomHeap.cpp" />

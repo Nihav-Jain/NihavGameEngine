@@ -162,6 +162,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TestEngineModule.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionCreateEntityFromFile.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionLoadSector.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -291,6 +297,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionCreateEntityFromFile.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionLoadSector.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

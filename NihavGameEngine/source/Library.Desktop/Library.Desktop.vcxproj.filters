@@ -123,9 +123,6 @@
     <ClInclude Include="XmlParseHelperCircleColliderComponent.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
-    <ClInclude Include="ActionCreateEntityFromFile.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
     <ClInclude Include="XmlParseHelperDefine.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
@@ -173,9 +170,6 @@
     </ClInclude>
     <ClInclude Include="LineParticle.h">
       <Filter>Kernel\Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionLoadSector.h">
-      <Filter>Kernel\Actions</Filter>
     </ClInclude>
     <ClInclude Include="XmlParseHelperDefineSector.h">
       <Filter>XmlParseHelpers</Filter>
@@ -297,9 +291,6 @@
     <ClCompile Include="XmlParseHelperCircleColliderComponent.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
-    <ClCompile Include="ActionCreateEntityFromFile.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
     <ClCompile Include="XmlParseHelperDefine.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
@@ -335,9 +326,6 @@
     </ClCompile>
     <ClCompile Include="PolygonRenderer.cpp">
       <Filter>Kernel\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionLoadSector.cpp">
-      <Filter>Kernel\Actions</Filter>
     </ClCompile>
     <ClCompile Include="XmlParseHelperDefineSector.cpp">
       <Filter>XmlParseHelpers</Filter>

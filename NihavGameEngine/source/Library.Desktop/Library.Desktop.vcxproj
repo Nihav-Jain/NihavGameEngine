@@ -207,10 +207,8 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ActionCreateEntityFromFile.h" />
     <ClInclude Include="ActionEvent.h" />
     <ClInclude Include="ActionLoadMusic.h" />
-    <ClInclude Include="ActionLoadSector.h" />
     <ClInclude Include="ActionPlayMusic.h" />
     <ClInclude Include="ActionStopMusic.h" />
     <ClInclude Include="ActionTogglePauseMusic.h" />
@@ -270,10 +268,8 @@
     <ClInclude Include="XmlParseHelperTable.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ActionCreateEntityFromFile.cpp" />
     <ClCompile Include="ActionEvent.cpp" />
     <ClCompile Include="ActionLoadMusic.cpp" />
-    <ClCompile Include="ActionLoadSector.cpp" />
     <ClCompile Include="ActionPlayMusic.cpp" />
     <ClCompile Include="ActionStopMusic.cpp" />
     <ClCompile Include="ActionTogglePauseMusic.cpp" />
