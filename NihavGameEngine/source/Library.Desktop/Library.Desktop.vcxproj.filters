@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="IXmlParseHelper.h" />
-    <ClInclude Include="XmlParseMaster.h" />
     <ClInclude Include="XmlParseHelperTable.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
@@ -25,9 +23,6 @@
     <ClInclude Include="XmlParseHelperAction.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
-    <ClInclude Include="Datum.h">
-      <Filter>Kernel</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Kernel</Filter>
     </ClInclude>
@@ -35,9 +30,6 @@
       <Filter>Kernel</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
-      <Filter>Kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="Scope.h">
       <Filter>Kernel</Filter>
     </ClInclude>
     <ClInclude Include="Sector.h">
@@ -256,7 +248,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="XmlParseMaster.cpp" />
     <ClCompile Include="XmlParseHelperTable.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
@@ -278,9 +269,6 @@
     <ClCompile Include="XmlParseHelperAction.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
-    <ClCompile Include="Datum.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
@@ -288,9 +276,6 @@
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Scope.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Sector.cpp">

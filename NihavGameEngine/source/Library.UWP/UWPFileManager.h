@@ -12,7 +12,7 @@ namespace Library
 		UWPFileManager();
 		virtual ~UWPFileManager();
 
-		virtual void GetFileAsync(const std::string& fileName, std::function<void(FileHandle*)>& callback) override;
+		virtual void GetFileAsync(const std::string& fileName, const std::function<void(FileHandle*)>& callback) override;
 		virtual void CreateFileAsync(FileHandle* outFileHandle, const std::string& fileName) override;
 
 		bool AssetsFolderFound() const;

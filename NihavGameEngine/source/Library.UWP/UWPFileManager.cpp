@@ -35,7 +35,7 @@ namespace Library
 		delete mAssetsFolder;
 	}
 
-	void UWPFileManager::GetFileAsync(const std::string& fileName, std::function<void(FileHandle*)>& callback)
+	void UWPFileManager::GetFileAsync(const std::string& fileName, const std::function<void(FileHandle*)>& callback)
 	{
 		{
 			std::lock_guard<std::mutex> lock(mMutex);

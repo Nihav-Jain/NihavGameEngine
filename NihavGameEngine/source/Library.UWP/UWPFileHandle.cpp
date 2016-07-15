@@ -18,7 +18,7 @@ namespace Library
 		CloseFile();
 	}
 
-	void UWPFileHandle::ReadTextAsync(std::function<void(std::string)>& callback)
+	void UWPFileHandle::ReadTextAsync(const std::function<void(std::string)>& callback)
 	{
 		concurrency::create_task(FileIO::ReadTextAsync(mFile)).then([&](Platform::String^ fileContent)
 		{
@@ -52,7 +52,7 @@ namespace Library
 		return *(mLineItr++);
 	}
 
-	void UWPFileHandle::OpenFileAsync(std::function<void(void)>& callback, FileMode mode)
+	void UWPFileHandle::OpenFileAsync(const std::function<void(void)>& callback, FileMode mode)
 	{
 		if (bIsOpen)
 			CloseFile();

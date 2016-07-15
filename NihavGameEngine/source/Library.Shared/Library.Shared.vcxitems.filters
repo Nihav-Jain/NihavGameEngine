@@ -67,6 +67,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FileHandle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestEngineModule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graph.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -123,5 +127,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FileManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileHandle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TestEngineModule.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
   </ItemGroup>
 </Project>

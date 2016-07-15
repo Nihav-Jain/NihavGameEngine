@@ -229,7 +229,6 @@
     <ClInclude Include="BloomPostProcessing.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CircleColliderComponent.h" />
-    <ClInclude Include="Datum.h" />
     <ClInclude Include="DesktopFileHandle.h" />
     <ClInclude Include="DesktopFileManager.h" />
     <ClInclude Include="DesktopMemory.h" />
@@ -251,12 +250,10 @@
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="RenderDevice.h" />
-    <ClInclude Include="IXmlParseHelper.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Reaction.h" />
     <ClInclude Include="ReactionAttributed.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Scope.h" />
     <ClInclude Include="Sector.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SharedDataTable.h" />
@@ -290,7 +287,6 @@
     <ClInclude Include="XmlParseHelperSector.h" />
     <ClInclude Include="XmlParseHelperSprite.h" />
     <ClInclude Include="XmlParseHelperWorld.h" />
-    <ClInclude Include="XmlParseMaster.h" />
     <ClInclude Include="XmlParseHelperTable.h" />
   </ItemGroup>
   <ItemGroup>
@@ -316,7 +312,6 @@
     <ClCompile Include="BloomPostProcessing.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
-    <ClCompile Include="Datum.cpp" />
     <ClCompile Include="DesktopFileHandle.cpp" />
     <ClCompile Include="DesktopFileManager.cpp" />
     <ClCompile Include="DesktopMemory.cpp" />
@@ -347,7 +342,6 @@
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="ReactionAttributed.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Scope.cpp" />
     <ClCompile Include="Sector.cpp" />
     <ClCompile Include="SharedDataTable.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -378,7 +372,6 @@
     <ClCompile Include="XmlParseHelperSector.cpp" />
     <ClCompile Include="XmlParseHelperSprite.cpp" />
     <ClCompile Include="XmlParseHelperWorld.cpp" />
-    <ClCompile Include="XmlParseMaster.cpp" />
     <ClCompile Include="XmlParseHelperTable.cpp" />
   </ItemGroup>
   <ItemGroup>

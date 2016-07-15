@@ -8,6 +8,12 @@
       <UniqueIdentifier>a2cd6218-c928-47d0-8312-87097d69dda6</UniqueIdentifier>
       <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
     </Filter>
+    <Filter Include="TestHelpers">
+      <UniqueIdentifier>{eb2c15bd-8482-493a-a128-8bd8d2c5343b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\config">
+      <UniqueIdentifier>{a08a5096-b885-4268-9a35-99e3e906c8ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="UnitTestApp.xaml" />
@@ -21,11 +27,36 @@
     <ClCompile Include="MemoryManagerTest.cpp" />
     <ClCompile Include="FileManagerTest.cpp" />
     <ClCompile Include="EngineModuleTest.cpp" />
+    <ClCompile Include="AngryBirdsSharedData.cpp">
+      <Filter>TestHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="AngryBirdsXmlParseHelper.cpp">
+      <Filter>TestHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSharedData.cpp">
+      <Filter>TestHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParseHelper.cpp">
+      <Filter>TestHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParseMasterTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="UnitTestApp.xaml.h" />
     <ClInclude Include="Foo.h" />
+    <ClInclude Include="AngryBirdsSharedData.h">
+      <Filter>TestHelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="AngryBirdsXmlParseHelper.h">
+      <Filter>TestHelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSharedData.h">
+      <Filter>TestHelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlParseHelper.h">
+      <Filter>TestHelpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="UnitTestApp.rd.xml" />
@@ -34,6 +65,12 @@
     </Xml>
     <Xml Include="Assets\test2.xml">
       <Filter>Assets</Filter>
+    </Xml>
+    <Xml Include="Assets\config\angrybirds_small_include.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\angrybirds_small.xml">
+      <Filter>Assets\config</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

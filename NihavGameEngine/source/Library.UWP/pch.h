@@ -13,9 +13,9 @@
 #include <string>
 #include <functional>
 
-#include "../Library.Shared/HeapManager.h"
-#include "../Library.Shared/SharedPtr.h"
-#include "../Library.Shared/UniquePtr.h"
+#include "HeapManager.h"
+#include "SharedPtr.h"
+#include "UniquePtr.h"
 
 #include "RTTI.h"
 
@@ -23,6 +23,13 @@
 #include "Vector.h"
 #include "Stack.h"
 #include "Hashmap.h"
+#include "Graph.h"
 
 #include "Engine.h"
 #include "EngineModule.h"
+
+#include "expat.h"
+#include "glm\glm.hpp"
+
+#include "Datum.h"
+#include "Scope.h"
