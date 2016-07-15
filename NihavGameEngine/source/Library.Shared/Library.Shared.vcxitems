@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionCreateEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionCreateEntityFromFile.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionDestroyEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionExpression.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionIfThenElse.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventMessageAttributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EventPublisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
@@ -46,6 +48,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IEventSubscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Reaction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReactionAttributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h" />
@@ -59,6 +63,22 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)World.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperActionEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperActionExpression.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperActionIf.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperActionSwitch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperActionWhile.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperBeginPlay.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperDefine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperDefineSector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperNameValue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperOnDestroy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperPrimitives.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperSector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperTable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperWorld.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +97,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionCreateEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionCreateEntityFromFile.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionDestroyEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionEvent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionExpression.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionIfThenElse.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
@@ -91,6 +112,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Engine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventMessageAttributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileManager.cpp" />
@@ -99,6 +121,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileHandle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Reaction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ReactionAttributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp" />
@@ -107,6 +131,22 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TestEngineModule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)World.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperAction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperActionEvent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperActionExpression.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperActionIf.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperActionSwitch.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperActionWhile.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperBeginPlay.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperDefine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperDefineSector.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperNameValue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperOnDestroy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperPrimitives.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperSector.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperTable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperWorld.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
   </ItemGroup>
 </Project>

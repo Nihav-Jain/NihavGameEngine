@@ -2,58 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="XmlParseHelperTable.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperPrimitives.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperNameValue.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperWorld.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperSector.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperEntity.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperAction.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="XmlParseHelperActionSwitch.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperActionExpression.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Reaction.h">
-      <Filter>Kernel\Reaction</Filter>
-    </ClInclude>
-    <ClInclude Include="ReactionAttributed.h">
-      <Filter>Kernel\Reaction</Filter>
-    </ClInclude>
-    <ClInclude Include="EventMessageAttributed.h">
-      <Filter>Kernel\Reaction</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionEvent.h">
-      <Filter>Kernel\Reaction</Filter>
-    </ClInclude>
     <ClInclude Include="XmlParseHelperReaction.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperActionEvent.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperActionIf.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperActionWhile.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
     <ClInclude Include="XmlParseHelperSprite.h">
@@ -80,9 +32,6 @@
     </ClInclude>
     <ClInclude Include="ActionStopMusic.h">
       <Filter>Kernel\Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperBeginPlay.h">
-      <Filter>XmlParseHelpers</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Game</Filter>
@@ -114,16 +63,10 @@
     <ClInclude Include="XmlParseHelperPolygon.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
-    <ClInclude Include="XmlParseHelperOnDestroy.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Kernel\Input</Filter>
     </ClInclude>
     <ClInclude Include="XmlParseHelperCircleColliderComponent.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperDefine.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
     <ClInclude Include="PolygonRenderer.h">
@@ -171,9 +114,6 @@
     <ClInclude Include="LineParticle.h">
       <Filter>Kernel\Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="XmlParseHelperDefineSector.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
     <ClInclude Include="DesktopMemory.h">
       <Filter>Memory</Filter>
     </ClInclude>
@@ -182,58 +122,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="XmlParseHelperTable.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperPrimitives.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperNameValue.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperWorld.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperSector.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperEntity.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperAction.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="XmlParseHelperActionSwitch.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperActionExpression.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Reaction.cpp">
-      <Filter>Kernel\Reaction</Filter>
-    </ClCompile>
-    <ClCompile Include="ReactionAttributed.cpp">
-      <Filter>Kernel\Reaction</Filter>
-    </ClCompile>
-    <ClCompile Include="EventMessageAttributed.cpp">
-      <Filter>Kernel\Reaction</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionEvent.cpp">
-      <Filter>Kernel\Reaction</Filter>
-    </ClCompile>
     <ClCompile Include="XmlParseHelperReaction.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperActionEvent.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperActionIf.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperActionWhile.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
     <ClCompile Include="XmlParseHelperSprite.cpp">
@@ -241,9 +133,6 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Kernel\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperBeginPlay.cpp">
-      <Filter>XmlParseHelpers</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Game</Filter>
@@ -282,16 +171,10 @@
     <ClCompile Include="ActionTogglePauseMusic.cpp">
       <Filter>Kernel\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="XmlParseHelperOnDestroy.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Kernel\Input</Filter>
     </ClCompile>
     <ClCompile Include="XmlParseHelperCircleColliderComponent.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperDefine.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
@@ -326,9 +209,6 @@
     </ClCompile>
     <ClCompile Include="PolygonRenderer.cpp">
       <Filter>Kernel\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperDefineSector.cpp">
-      <Filter>XmlParseHelpers</Filter>
     </ClCompile>
     <ClCompile Include="DesktopMemory.cpp">
       <Filter>Memory</Filter>

@@ -207,7 +207,6 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ActionEvent.h" />
     <ClInclude Include="ActionLoadMusic.h" />
     <ClInclude Include="ActionPlayMusic.h" />
     <ClInclude Include="ActionStopMusic.h" />
@@ -221,7 +220,6 @@
     <ClInclude Include="DesktopFileHandle.h" />
     <ClInclude Include="DesktopFileManager.h" />
     <ClInclude Include="DesktopMemory.h" />
-    <ClInclude Include="EventMessageAttributed.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="LineParticle.h" />
@@ -233,42 +231,23 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="RenderDevice.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Reaction.h" />
-    <ClInclude Include="ReactionAttributed.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="FrameBuffer.h" />
-    <ClInclude Include="XmlParseHelperAction.h" />
-    <ClInclude Include="XmlParseHelperActionEvent.h" />
-    <ClInclude Include="XmlParseHelperActionExpression.h" />
-    <ClInclude Include="XmlParseHelperActionIf.h" />
-    <ClInclude Include="XmlParseHelperActionSwitch.h" />
-    <ClInclude Include="XmlParseHelperActionWhile.h" />
     <ClInclude Include="XmlParseHelperAnimationFrame.h" />
     <ClInclude Include="XmlParseHelperAnimationState.h" />
     <ClInclude Include="XmlParseHelperAnimator.h" />
-    <ClInclude Include="XmlParseHelperBeginPlay.h" />
     <ClInclude Include="XmlParseHelperCircleColliderComponent.h" />
-    <ClInclude Include="XmlParseHelperDefine.h" />
-    <ClInclude Include="XmlParseHelperDefineSector.h" />
-    <ClInclude Include="XmlParseHelperEntity.h" />
     <ClInclude Include="XmlParseHelperGameObject.h" />
     <ClInclude Include="XmlParseHelperImage.h" />
-    <ClInclude Include="XmlParseHelperNameValue.h" />
     <ClInclude Include="XmlParseHelperPolygon.h" />
-    <ClInclude Include="XmlParseHelperOnDestroy.h" />
-    <ClInclude Include="XmlParseHelperPrimitives.h" />
     <ClInclude Include="XmlParseHelperReaction.h" />
-    <ClInclude Include="XmlParseHelperSector.h" />
     <ClInclude Include="XmlParseHelperSprite.h" />
-    <ClInclude Include="XmlParseHelperWorld.h" />
-    <ClInclude Include="XmlParseHelperTable.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ActionEvent.cpp" />
     <ClCompile Include="ActionLoadMusic.cpp" />
     <ClCompile Include="ActionPlayMusic.cpp" />
     <ClCompile Include="ActionStopMusic.cpp" />
@@ -282,7 +261,6 @@
     <ClCompile Include="DesktopFileHandle.cpp" />
     <ClCompile Include="DesktopFileManager.cpp" />
     <ClCompile Include="DesktopMemory.cpp" />
-    <ClCompile Include="EventMessageAttributed.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="LineParticle.cpp" />
@@ -301,36 +279,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Reaction.cpp" />
-    <ClCompile Include="ReactionAttributed.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Image.cpp" />
-    <ClCompile Include="XmlParseHelperAction.cpp" />
-    <ClCompile Include="XmlParseHelperActionEvent.cpp" />
-    <ClCompile Include="XmlParseHelperActionExpression.cpp" />
-    <ClCompile Include="XmlParseHelperActionIf.cpp" />
-    <ClCompile Include="XmlParseHelperActionSwitch.cpp" />
-    <ClCompile Include="XmlParseHelperActionWhile.cpp" />
     <ClCompile Include="XmlParseHelperAnimationFrame.cpp" />
     <ClCompile Include="XmlParseHelperAnimationState.cpp" />
     <ClCompile Include="XmlParseHelperAnimator.cpp" />
-    <ClCompile Include="XmlParseHelperBeginPlay.cpp" />
     <ClCompile Include="XmlParseHelperCircleColliderComponent.cpp" />
-    <ClCompile Include="XmlParseHelperDefine.cpp" />
-    <ClCompile Include="XmlParseHelperDefineSector.cpp" />
-    <ClCompile Include="XmlParseHelperEntity.cpp" />
     <ClCompile Include="XmlParseHelperGameObject.cpp" />
     <ClCompile Include="XmlParseHelperImage.cpp" />
-    <ClCompile Include="XmlParseHelperNameValue.cpp" />
     <ClCompile Include="XmlParseHelperPolygon.cpp" />
-    <ClCompile Include="XmlParseHelperOnDestroy.cpp" />
-    <ClCompile Include="XmlParseHelperPrimitives.cpp" />
     <ClCompile Include="XmlParseHelperReaction.cpp" />
-    <ClCompile Include="XmlParseHelperSector.cpp" />
     <ClCompile Include="XmlParseHelperSprite.cpp" />
-    <ClCompile Include="XmlParseHelperWorld.cpp" />
-    <ClCompile Include="XmlParseHelperTable.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
