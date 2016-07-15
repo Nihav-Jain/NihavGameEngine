@@ -15,10 +15,11 @@ namespace Library
 
 	void ActionLoadMusic::Update(WorldState & worldState)
 	{
+		UNREFERENCED_PARAMETER(worldState);
 		std::uint32_t totalMusicFiles = (*this)[ATTRIBUTE_NAME].Size();
 		for (std::uint32_t currentMusic = 0; currentMusic < totalMusicFiles; ++currentMusic)
 		{
-			worldState.world->GetAudioManager().LoadMusic((*this)[ATTRIBUTE_NAME].Get<std::string>(currentMusic));
+			AudioManager::Get().LoadMusic((*this)[ATTRIBUTE_NAME].Get<std::string>(currentMusic));
 		}
 	}
 }

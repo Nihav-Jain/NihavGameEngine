@@ -34,3 +34,6 @@
 #include "Datum.h"
 #include "Scope.h"
 #include "Attributed.h"
+#include "Entity.h"
+#include "Sector.h"
+#include "World.h"

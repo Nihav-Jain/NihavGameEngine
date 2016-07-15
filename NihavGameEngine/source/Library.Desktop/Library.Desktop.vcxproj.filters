@@ -23,59 +23,14 @@
     <ClInclude Include="XmlParseHelperAction.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="Action.h">
-      <Filter>Kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="Sector.h">
-      <Filter>Kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldState.h">
-      <Filter>Kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionList.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GameClock.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GameTime.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedDataTable.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionListSwitch.h">
-      <Filter>Kernel\Actions</Filter>
     </ClInclude>
     <ClInclude Include="XmlParseHelperActionSwitch.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
     <ClInclude Include="XmlParseHelperActionExpression.h">
       <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionExpression.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="IEventSubscriber.h">
-      <Filter>Kernel\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="EventPublisher.h">
-      <Filter>Kernel\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Kernel\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="EventQueue.h">
-      <Filter>Kernel\Event</Filter>
     </ClInclude>
     <ClInclude Include="Reaction.h">
       <Filter>Kernel\Reaction</Filter>
@@ -95,14 +50,8 @@
     <ClInclude Include="XmlParseHelperActionEvent.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
-    <ClInclude Include="ActionIfThenElse.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
     <ClInclude Include="XmlParseHelperActionIf.h">
       <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionWhileLoop.h">
-      <Filter>Kernel\Actions</Filter>
     </ClInclude>
     <ClInclude Include="XmlParseHelperActionWhile.h">
       <Filter>XmlParseHelpers</Filter>
@@ -164,12 +113,6 @@
     </ClInclude>
     <ClInclude Include="XmlParseHelperPolygon.h">
       <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionCreateEntity.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionDestroyEntity.h">
-      <Filter>Kernel\Actions</Filter>
     </ClInclude>
     <ClInclude Include="XmlParseHelperOnDestroy.h">
       <Filter>XmlParseHelpers</Filter>
@@ -266,53 +209,14 @@
     <ClCompile Include="XmlParseHelperAction.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Action.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Sector.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="WorldState.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionList.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameClock.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameTime.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SharedDataTable.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionListSwitch.cpp">
-      <Filter>Kernel\Actions</Filter>
     </ClCompile>
     <ClCompile Include="XmlParseHelperActionSwitch.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
     <ClCompile Include="XmlParseHelperActionExpression.cpp">
       <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionExpression.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
-    <ClCompile Include="EventPublisher.cpp">
-      <Filter>Kernel\Event</Filter>
-    </ClCompile>
-    <ClCompile Include="EventQueue.cpp">
-      <Filter>Kernel\Event</Filter>
     </ClCompile>
     <ClCompile Include="Reaction.cpp">
       <Filter>Kernel\Reaction</Filter>
@@ -332,14 +236,8 @@
     <ClCompile Include="XmlParseHelperActionEvent.cpp">
       <Filter>XmlParseHelpers</Filter>
     </ClCompile>
-    <ClCompile Include="ActionIfThenElse.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
     <ClCompile Include="XmlParseHelperActionIf.cpp">
       <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionWhileLoop.cpp">
-      <Filter>Kernel\Actions</Filter>
     </ClCompile>
     <ClCompile Include="XmlParseHelperActionWhile.cpp">
       <Filter>XmlParseHelpers</Filter>
@@ -388,12 +286,6 @@
       <Filter>Kernel\Actions</Filter>
     </ClCompile>
     <ClCompile Include="ActionTogglePauseMusic.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionCreateEntity.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionDestroyEntity.cpp">
       <Filter>Kernel\Actions</Filter>
     </ClCompile>
     <ClCompile Include="XmlParseHelperOnDestroy.cpp">
@@ -457,9 +349,6 @@
     <ClCompile Include="DesktopFileHandle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Event.inl">
-      <Filter>Kernel\Event</Filter>
-    </None>
     <None Include="ParticleSystem.inl">
       <Filter>Kernel\Graphic</Filter>
     </None>

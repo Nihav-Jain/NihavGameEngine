@@ -443,14 +443,14 @@ namespace Library
 		}
 	}
 
-	void World::SetAudioManager(AudioManager & audioManager)
-	{
-		mAudioManager = &audioManager;
-	}
+	//void World::SetAudioManager(AudioManager & audioManager)
+	//{
+	//	mAudioManager = &audioManager;
+	//}
 
-	AudioManager & World::GetAudioManager()
-	{
-		return (*mAudioManager);
-	}
+	//AudioManager & World::GetAudioManager()
+	//{
+	//	return (*mAudioManager);
+	//}
 
 }

@@ -5,7 +5,7 @@
 #include "GameTime.h"
 #include "EventQueue.h"
 #include "ActionList.h"
-#include "AudioManager.h"
+//#include "AudioManager.h"
 #include "XmlParseMaster.h"
 
 namespace Library
@@ -136,13 +136,13 @@ namespace Library
 		/**
 		 *	SetAudioManager - Set the address of contained variableof audio manager
 		 */
-		void SetAudioManager(AudioManager &audioManager);
+		//void SetAudioManager(AudioManager &audioManager);
 
 		/**
 		 *	GetAudioManager - Get the reference to contained variableof audio manager
 		 *	@return reference to the contained variable of audio manager
 		 */
-		AudioManager& GetAudioManager();
+		//AudioManager& GetAudioManager();
 		
 		/**
 		 *	Used to search for dot referenced attribtues though World, Sector, Entities and Actions 
@@ -233,7 +233,7 @@ namespace Library
 		std::int32_t mWidth;
 		std::int32_t mHeight;
 
-		AudioManager *mAudioManager;
+		//AudioManager *mAudioManager;
 
 		static const std::string ATTRIBUTE_NAME;
 

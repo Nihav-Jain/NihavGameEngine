@@ -14,6 +14,14 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Action.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionCreateEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionDestroyEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionExpression.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionIfThenElse.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionListSwitch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionWhileLoop.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CustomHeap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
@@ -21,16 +29,25 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Engine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventPublisher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graph.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Hashmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HeapManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileHandle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IEventSubscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedDataTable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SList.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SmartPtr.h" />
@@ -38,9 +55,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TestEngineModule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UniquePtr.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Vector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)World.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Event.inl" />
     <None Include="$(MSBuildThisFileDirectory)Factory.inl" />
     <None Include="$(MSBuildThisFileDirectory)Graph.inl" />
     <None Include="$(MSBuildThisFileDirectory)Hashmap.inl" />
@@ -51,6 +71,14 @@
     <None Include="$(MSBuildThisFileDirectory)Vector.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionCreateEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionDestroyEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionExpression.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionIfThenElse.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionListSwitch.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionWhileLoop.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CustomHeap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
@@ -58,14 +86,23 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Engine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileHandle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SharedDataTable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SmartPtr.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TestEngineModule.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)World.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
   </ItemGroup>
 </Project>

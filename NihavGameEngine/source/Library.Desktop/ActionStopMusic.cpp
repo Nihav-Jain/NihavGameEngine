@@ -21,7 +21,8 @@ namespace Library
 
 	void ActionStopMusic::Update(WorldState & worldState)
 	{
-		worldState.world->GetAudioManager().StopMusic((*this)[ATTRIBUTE_NAME].Get<std::string>());
+		UNREFERENCED_PARAMETER(worldState);
+		AudioManager::Get().StopMusic((*this)[ATTRIBUTE_NAME].Get<std::string>());
 	}
 }
 

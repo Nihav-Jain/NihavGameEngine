@@ -2,6 +2,15 @@
 
 namespace Library
 {
+	AudioManager* AudioManager::sInstance = nullptr;
+	AudioManagerFactory AudioManager::sFactory;
+	RTTI_DEFINITIONS(AudioManager, EngineModule);
+	ENGINE_MODULE_DEFINITIONS(AudioManager, &AudioManager::sRunTimeTypeId, &AudioManager::sInstance);
+
+	AudioManager& AudioManager::Get()
+	{
+		return *sInstance;
+	}
 
 	AudioManager::AudioManager() :
 		mAudioMap(5),

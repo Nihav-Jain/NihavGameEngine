@@ -5,6 +5,8 @@
 #pragma warning(disable: 4505)
 #include "fmod.hpp"
 #include "fmod_errors.h"
+#include "RTTI.h"
+#include "EngineModule.h"
 
 namespace Library
 {
@@ -13,10 +15,14 @@ namespace Library
 	/**
 	 *	Class AudioManager
 	 */
-	class AudioManager
+	class AudioManager : public EngineModule
 	{
+		RTTI_DECLARATIONS(AudioManager, EngineModule);
+		ENGINE_MODULE_DECLARATIONS();
 
 	public:
+
+		static AudioManager& Get();
 
 		AudioManager();
 		~AudioManager();
@@ -81,7 +87,7 @@ namespace Library
 		void Update();
 	
 	private:
-
+		static AudioManager* sInstance;
 		void CreateMusic(const std::string& audioNameWithExtension);
 	
 		const std::string PATH = "Content/Music/";
@@ -96,7 +102,10 @@ namespace Library
 		int mChannelCount;
 
 		Hashmap <std::string, AudioData> mAudioMap;
+		static class AudioManagerFactory sFactory;
+
 	};
+	CONCRETE_MODULE_FACTORY(AudioManager);
 
 }
 

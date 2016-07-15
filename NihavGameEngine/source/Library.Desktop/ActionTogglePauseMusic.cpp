@@ -21,7 +21,8 @@ namespace Library
 
 	void ActionTogglePauseMusic::Update(WorldState & worldState)
 	{
-		worldState.world->GetAudioManager().TogglePauseMusic((*this)[ATTRIBUTE_NAME].Get<std::string>());
+		UNREFERENCED_PARAMETER(worldState);
+		AudioManager::Get().TogglePauseMusic((*this)[ATTRIBUTE_NAME].Get<std::string>());
 	}
 }
 

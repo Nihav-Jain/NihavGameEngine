@@ -181,7 +181,7 @@ namespace Library
 		GameClock mGameClock;
 		GameTime mGameTime;
 		World mWorld;
-		AudioManager mAudioManager;
+		//AudioManager mAudioManager;
 		
 		SharedDataTable mSharedData;
 		XmlParseMaster mParseMaster;

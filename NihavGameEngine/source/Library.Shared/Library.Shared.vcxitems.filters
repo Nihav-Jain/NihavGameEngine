@@ -19,6 +19,15 @@
     <Filter Include="Engine\File Handling">
       <UniqueIdentifier>{613bc8fa-b0f0-4abd-996b-3e1a26bec040}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Game">
+      <UniqueIdentifier>{dd469816-daba-4684-b0c0-23fd6b032ec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Event">
+      <UniqueIdentifier>{5f685e24-0b54-4381-83bc-80c45c6c5e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Kernel\Actions">
+      <UniqueIdentifier>{4245651f-a25c-4bd4-80e5-5de1045112ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h">
@@ -57,9 +66,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.h">
       <Filter>Containers\DefaultAlgos</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TestEngineModule.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graph.h">
       <Filter>Containers</Filter>
     </ClInclude>
@@ -90,6 +96,72 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h">
       <Filter>Engine\Kernel</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Action.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sector.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)World.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WorldState.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameTime.h">
+      <Filter>Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameClock.h">
+      <Filter>Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedDataTable.h">
+      <Filter>Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event.h">
+      <Filter>Engine\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventPublisher.h">
+      <Filter>Engine\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EventQueue.h">
+      <Filter>Engine\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IEventSubscriber.h">
+      <Filter>Engine\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionCreateEntity.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionDestroyEntity.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionExpression.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionIfThenElse.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionList.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionListSwitch.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionWhileLoop.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestEngineModule.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -116,6 +188,9 @@
     <None Include="$(MSBuildThisFileDirectory)Factory.inl">
       <Filter>Engine\Kernel</Filter>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)Event.inl">
+      <Filter>Engine\Event</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp">
@@ -136,8 +211,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.cpp">
       <Filter>Containers\DefaultAlgos</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TestEngineModule.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp">
       <Filter>Engine\Kernel</Filter>
     </ClCompile>
@@ -161,6 +234,63 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp">
       <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Action.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sector.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)World.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WorldState.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameClock.cpp">
+      <Filter>Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameTime.cpp">
+      <Filter>Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SharedDataTable.cpp">
+      <Filter>Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventPublisher.cpp">
+      <Filter>Engine\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EventQueue.cpp">
+      <Filter>Engine\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionCreateEntity.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionDestroyEntity.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionExpression.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionIfThenElse.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionList.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionListSwitch.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionWhileLoop.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TestEngineModule.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ namespace Library
 
 	Game::Game() :
 		mSharedData(), mParseMaster(mSharedData),
-		mGameClock(), mGameTime(), mWorld(mGameTime, mParseMaster), mRenderer(nullptr), mAudioManager(),
+		mGameClock(), mGameTime(), mWorld(mGameTime, mParseMaster), mRenderer(nullptr),
 		mLoadingLevel(false)
 	{
 		//HeapManager::CreateHeapManager(mMemory);
@@ -40,7 +40,7 @@ namespace Library
 	{
 		mGameClock.Reset();
 		mGameClock.UpdateGameTime(mGameTime); 
-		mWorld.SetAudioManager(mAudioManager);
+		//mWorld.SetAudioManager(mAudioManager);
 		mWorld.BeginPlay();
 	}
 
@@ -52,7 +52,7 @@ namespace Library
 				throw std::exception("Error while parsing Level");
 			mGameClock.Reset();
 			mGameClock.UpdateGameTime(mGameTime);
-			mWorld.SetAudioManager(mAudioManager);
+			//mWorld.SetAudioManager(mAudioManager);
 			mWorld.BeginPlay();
 			mLoadingLevel = false;
 		});
@@ -67,7 +67,7 @@ namespace Library
 		mWorld.Update();
 		if (mRenderer != nullptr)
 			mRenderer->Update();
-		mAudioManager.Update();
+		AudioManager::Get().Update();
 	}
 
 	void Game::SetRenderer(Renderer* renderer)

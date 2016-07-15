@@ -207,21 +207,13 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Action.h" />
-    <ClInclude Include="ActionCreateEntity.h" />
     <ClInclude Include="ActionCreateEntityFromFile.h" />
-    <ClInclude Include="ActionDestroyEntity.h" />
     <ClInclude Include="ActionEvent.h" />
-    <ClInclude Include="ActionExpression.h" />
-    <ClInclude Include="ActionIfThenElse.h" />
-    <ClInclude Include="ActionList.h" />
-    <ClInclude Include="ActionListSwitch.h" />
     <ClInclude Include="ActionLoadMusic.h" />
     <ClInclude Include="ActionLoadSector.h" />
     <ClInclude Include="ActionPlayMusic.h" />
     <ClInclude Include="ActionStopMusic.h" />
     <ClInclude Include="ActionTogglePauseMusic.h" />
-    <ClInclude Include="ActionWhileLoop.h" />
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="AnimationState.h" />
     <ClInclude Include="Animator.h" />
@@ -231,16 +223,9 @@
     <ClInclude Include="DesktopFileHandle.h" />
     <ClInclude Include="DesktopFileManager.h" />
     <ClInclude Include="DesktopMemory.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="Event.h" />
     <ClInclude Include="EventMessageAttributed.h" />
-    <ClInclude Include="EventPublisher.h" />
-    <ClInclude Include="EventQueue.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameClock.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameTime.h" />
-    <ClInclude Include="IEventSubscriber.h" />
     <ClInclude Include="LineParticle.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PolygonRenderer.h" />
@@ -253,15 +238,11 @@
     <ClInclude Include="Reaction.h" />
     <ClInclude Include="ReactionAttributed.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Sector.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="SharedDataTable.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="FrameBuffer.h" />
-    <ClInclude Include="World.h" />
-    <ClInclude Include="WorldState.h" />
     <ClInclude Include="XmlParseHelperAction.h" />
     <ClInclude Include="XmlParseHelperActionEvent.h" />
     <ClInclude Include="XmlParseHelperActionExpression.h" />
@@ -289,21 +270,13 @@
     <ClInclude Include="XmlParseHelperTable.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Action.cpp" />
-    <ClCompile Include="ActionCreateEntity.cpp" />
     <ClCompile Include="ActionCreateEntityFromFile.cpp" />
-    <ClCompile Include="ActionDestroyEntity.cpp" />
     <ClCompile Include="ActionEvent.cpp" />
-    <ClCompile Include="ActionExpression.cpp" />
-    <ClCompile Include="ActionIfThenElse.cpp" />
-    <ClCompile Include="ActionList.cpp" />
-    <ClCompile Include="ActionListSwitch.cpp" />
     <ClCompile Include="ActionLoadMusic.cpp" />
     <ClCompile Include="ActionLoadSector.cpp" />
     <ClCompile Include="ActionPlayMusic.cpp" />
     <ClCompile Include="ActionStopMusic.cpp" />
     <ClCompile Include="ActionTogglePauseMusic.cpp" />
-    <ClCompile Include="ActionWhileLoop.cpp" />
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationState.cpp" />
     <ClCompile Include="Animator.cpp" />
@@ -313,14 +286,9 @@
     <ClCompile Include="DesktopFileHandle.cpp" />
     <ClCompile Include="DesktopFileManager.cpp" />
     <ClCompile Include="DesktopMemory.cpp" />
-    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EventMessageAttributed.cpp" />
-    <ClCompile Include="EventPublisher.cpp" />
-    <ClCompile Include="EventQueue.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameClock.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="LineParticle.cpp" />
     <None Include="ParticleSystem.inl">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -340,12 +308,8 @@
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="ReactionAttributed.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Sector.cpp" />
-    <ClCompile Include="SharedDataTable.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Image.cpp" />
-    <ClCompile Include="World.cpp" />
-    <ClCompile Include="WorldState.cpp" />
     <ClCompile Include="XmlParseHelperAction.cpp" />
     <ClCompile Include="XmlParseHelperActionEvent.cpp" />
     <ClCompile Include="XmlParseHelperActionExpression.cpp" />
@@ -371,9 +335,6 @@
     <ClCompile Include="XmlParseHelperSprite.cpp" />
     <ClCompile Include="XmlParseHelperWorld.cpp" />
     <ClCompile Include="XmlParseHelperTable.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Event.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

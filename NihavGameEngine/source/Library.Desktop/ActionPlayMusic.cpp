@@ -24,8 +24,8 @@ namespace Library
 
 	void ActionPlayMusic::Update(WorldState & worldState)
 	{
-			worldState.world->
-			GetAudioManager().PlayMusic(
+		UNREFERENCED_PARAMETER(worldState);
+			AudioManager::Get().PlayMusic(
 			(*this)[ATTRIBUTE_NAME].Get<std::string>(),
 			(*this)[ATTRIBUTE_LOOP].Get<std::int32_t>(),
 			(*this)[ATTRIBUTE_VOLUME].Get<std::float_t>());
