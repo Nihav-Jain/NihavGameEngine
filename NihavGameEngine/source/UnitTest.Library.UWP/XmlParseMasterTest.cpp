@@ -103,59 +103,28 @@ namespace UnitTest_Library_UWP
 			bool allDone1 = false;
 			//bool allDone2 = false;
 
-			//angryBirdsParser.AddHelper(angrybirdsParseHelper);
+			angryBirdsParser.AddHelper(angrybirdsParseHelper);
 			angryBirdsParser.ParseFromFileAsync("config\\angrybirds_small.xml", [&](bool parsed) {
 				Assert::IsTrue(parsed);
 				Assert::AreEqual(0U, angryBirdsData.Depth());
-				//Assert::IsTrue(angryBirdsParser.GetFileName() == "config\\angrybirds_small.xml");
-				//{
-				//	Datum* angrybirds = angryBirdsData.mAngryBirdsData.Find("angrybirds");
-				//	Assert::IsNotNull(angrybirds);
+				Assert::IsTrue(angryBirdsParser.GetFileName() == "config\\angrybirds_small.xml");
+				{
+					Datum* angrybirds = angryBirdsData.mAngryBirdsData.Find("angrybirds");
+					Assert::IsNotNull(angrybirds);
 
-				//	Scope& birds = ((angrybirds->Get<Scope>())["birds"].Get<Scope>());
-				//	Datum* src = birds.Find("src");
-				//	Datum* imageWidth = birds.Find("imageWidth");
-				//	Datum* imageHeight = birds.Find("imageHeight");
+					Scope& birds = ((angrybirds->Get<Scope>())["birds"].Get<Scope>());
+					Datum* src = birds.Find("src");
+					Datum* imageWidth = birds.Find("imageWidth");
+					Datum* imageHeight = birds.Find("imageHeight");
 
-				//	Assert::IsNotNull(src);
-				//	Assert::IsTrue(src->Get<std::string>() == "Textures/SR_Regular_Birds-1.png");
-				//	Assert::IsNotNull(imageWidth);
-				//	Assert::IsNotNull(imageHeight);
-				//	Assert::AreEqual(1017, imageWidth->Get<std::int32_t>());
-				//	Assert::AreEqual(1024, imageHeight->Get<std::int32_t>());
-				//}
+					Assert::IsNotNull(src);
+					Assert::IsTrue(src->Get<std::string>() == "Textures/SR_Regular_Birds-1.png");
+					Assert::IsNotNull(imageWidth);
+					Assert::IsNotNull(imageHeight);
+					Assert::AreEqual(1017, imageWidth->Get<std::int32_t>());
+					Assert::AreEqual(1024, imageHeight->Get<std::int32_t>());
+				}
 				allDone1 = true;
-
-		/*		{
-					AngryBirdsSharedData anotherAngryBirdsData;
-					XmlParseMaster anotherAngryBirdsParser(angryBirdsData);
-					AngryBirdsXmlParseHelper anotherAngrybirdsParseHelper;
-
-					anotherAngryBirdsParser.AddHelper(anotherAngrybirdsParseHelper);
-					anotherAngryBirdsParser.SetSharedData(anotherAngryBirdsData);
-
-					anotherAngryBirdsParser.ParseFromFileAsync("config/angrybirds_small.xml", [&](bool parsed) {
-						Assert::IsTrue(parsed);
-						Assert::AreEqual(0U, anotherAngryBirdsData.Depth());
-
-						Datum* angrybirds = anotherAngryBirdsData.mAngryBirdsData.Find("angrybirds");
-						Assert::IsNotNull(angrybirds);
-
-						Scope& birds = ((angrybirds->Get<Scope>())["birds"].Get<Scope>());
-						Datum* src = birds.Find("src");
-						Datum* imageWidth = birds.Find("imageWidth");
-						Datum* imageHeight = birds.Find("imageHeight");
-
-						Assert::IsNotNull(src);
-						Assert::IsTrue(src->Get<std::string>() == "Textures/SR_Regular_Birds-1.png");
-						Assert::IsNotNull(imageWidth);
-						Assert::IsNotNull(imageHeight);
-						Assert::AreEqual(1017, imageWidth->Get<std::int32_t>());
-						Assert::AreEqual(1024, imageHeight->Get<std::int32_t>());
-						allDone2 = true;
-					});
-				}*/
-
 			});
 
 			while (!(allDone1)) {}
