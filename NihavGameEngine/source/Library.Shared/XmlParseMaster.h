@@ -248,7 +248,11 @@ namespace Library
 
 		std::function<void(bool)> fParseFromFileCallback;
 		std::function<void(void)> fOpenFileCallback;
+		std::function<void(void)> fOpenFileCallbackForIncludes;
+		std::function<void(void)> fTempCallback;
 		std::function<void(FileHandle*)> fGetFileCallback;
+
+		bool bIncludeFileOpen;
 	};
 }
 
