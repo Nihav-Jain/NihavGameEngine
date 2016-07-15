@@ -225,7 +225,6 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="AnimationState.h" />
     <ClInclude Include="Animator.h" />
-    <ClInclude Include="Attributed.h" />
     <ClInclude Include="BloomPostProcessing.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CircleColliderComponent.h" />
@@ -308,7 +307,6 @@
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationState.cpp" />
     <ClCompile Include="Animator.cpp" />
-    <ClCompile Include="Attributed.cpp" />
     <ClCompile Include="BloomPostProcessing.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />

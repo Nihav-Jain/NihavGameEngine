@@ -26,9 +26,6 @@
     <ClInclude Include="Entity.h">
       <Filter>Kernel</Filter>
     </ClInclude>
-    <ClInclude Include="Attributed.h">
-      <Filter>Kernel</Filter>
-    </ClInclude>
     <ClInclude Include="Action.h">
       <Filter>Kernel</Filter>
     </ClInclude>
@@ -272,9 +269,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
-    <ClCompile Include="Attributed.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
@@ -471,9 +465,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Containers">
-      <UniqueIdentifier>{9200d2f2-c985-4c30-b54a-2eed345be36e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="XmlParseHelpers">
       <UniqueIdentifier>{5a96a001-e4a9-4694-9437-8c9cc16c73c2}</UniqueIdentifier>
     </Filter>

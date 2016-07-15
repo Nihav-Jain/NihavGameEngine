@@ -13,6 +13,12 @@
     <Filter Include="Containers\DefaultAlgos">
       <UniqueIdentifier>{c7a15c93-6734-4cca-82ae-efc9d31d0bd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Kernel">
+      <UniqueIdentifier>{bd8c1f97-d556-44fb-94b5-3489c5df75ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\File Handling">
+      <UniqueIdentifier>{613bc8fa-b0f0-4abd-996b-3e1a26bec040}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h">
@@ -51,26 +57,39 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.h">
       <Filter>Containers\DefaultAlgos</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Engine.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)FileManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)FileHandle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestEngineModule.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Graph.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseMaster.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graph.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Datum.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FileHandle.h">
+      <Filter>Engine\File Handling</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FileManager.h">
+      <Filter>Engine\File Handling</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Engine.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EngineModule.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Factory.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTTI.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Attributed.h">
+      <Filter>Engine\Kernel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -91,10 +110,12 @@
     <None Include="$(MSBuildThisFileDirectory)Hashmap.inl">
       <Filter>Containers</Filter>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)Factory.inl">
-      <Filter>Engine</Filter>
+    <None Include="$(MSBuildThisFileDirectory)Graph.inl">
+      <Filter>Containers</Filter>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)Graph.inl" />
+    <None Include="$(MSBuildThisFileDirectory)Factory.inl">
+      <Filter>Engine\Kernel</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp">
@@ -115,20 +136,31 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultReserveStrategy.cpp">
       <Filter>Containers\DefaultAlgos</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Engine.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)FileManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)FileHandle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TestEngineModule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseMaster.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Datum.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scope.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FileHandle.cpp">
+      <Filter>Engine\File Handling</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FileManager.cpp">
+      <Filter>Engine\File Handling</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Engine.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EngineModule.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTTI.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Attributed.cpp">
+      <Filter>Engine\Kernel</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -33,3 +33,4 @@
 
 #include "Datum.h"
 #include "Scope.h"
+#include "Attributed.h"
