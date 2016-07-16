@@ -1,5 +1,5 @@
 #pragma once
-#include "../../source/Library.Desktop/GameObject.h"
+#include "GameObject.h"
 
 namespace Library
 {

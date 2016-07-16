@@ -3,15 +3,9 @@
 
 namespace Library
 {
-	DesktopAudioManager* DesktopAudioManager::sInstance = nullptr;
 	DesktopAudioManagerFactory DesktopAudioManager::sFactory;
-	RTTI_DEFINITIONS(DesktopAudioManager, EngineModule);
-	ENGINE_MODULE_DEFINITIONS(DesktopAudioManager, &DesktopAudioManager::sRunTimeTypeId, &DesktopAudioManager::sInstance);
-
-	DesktopAudioManager& DesktopAudioManager::Get()
-	{
-		return *sInstance;
-	}
+	RTTI_DEFINITIONS(DesktopAudioManager, AudioManager);
+	ENGINE_MODULE_DEFINITIONS(DesktopAudioManager, &DesktopAudioManager::sRunTimeTypeId, &AudioManager::sInstance);
 
 	DesktopAudioManager::DesktopAudioManager() :
 		mAudioMap(5),

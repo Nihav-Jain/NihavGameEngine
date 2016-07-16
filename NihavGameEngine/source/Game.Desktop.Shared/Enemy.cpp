@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "../../source/Library.Desktop/Game.h"
-#include "../../source/Library.Desktop/PolygonRenderer.h"
+#include "Game.h"
+#include "PolygonRenderer.h"
 #include "Enemy.h"
 #include "Player.h"
-#include "../../source/Library.Desktop/ParticleSystem.h"
-#include "../../source/Library.Desktop/LineParticle.h"
+#include "ParticleSystem.h"
+#include "LineParticle.h"
 
 namespace Library
 {

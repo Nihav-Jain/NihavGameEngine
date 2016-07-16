@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "../../source/Library.Desktop/Game.h"
-#include "../../source/Library.Desktop/PolygonRenderer.h"
+#include "Game.h"
+#include "PolygonRenderer.h"
 #include "Enemy.h"
 #include "Bullet.h"
 #include "Player.h"

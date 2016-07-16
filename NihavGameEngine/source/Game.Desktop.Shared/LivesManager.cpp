@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "LivesManager.h"
-#include "../../source/Library.Desktop/RenderDevice.h"
-#include "../../source/Library.Desktop/Renderer.h"
-#include "../../source/Library.Desktop/Image.h"
-#include "../../source/Library.Desktop/SpriteRenderer.h"
+#include "RenderDevice.h"
+#include "Renderer.h"
+#include "Image.h"
+#include "SpriteRenderer.h"
 
 namespace Library
 {

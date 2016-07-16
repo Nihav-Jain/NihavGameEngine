@@ -6,7 +6,7 @@
 #include "fmod.hpp"
 #include "fmod_errors.h"
 #include "RTTI.h"
-#include "EngineModule.h"
+#include "AudioManager.h"
 
 namespace Library
 {
@@ -15,17 +15,14 @@ namespace Library
 	/**
 	 *	Class DesktopAudioManager
 	 */
-	class DesktopAudioManager : public EngineModule
+	class DesktopAudioManager final : public AudioManager
 	{
-		RTTI_DECLARATIONS(DesktopAudioManager, EngineModule);
+		RTTI_DECLARATIONS(DesktopAudioManager, AudioManager);
 		ENGINE_MODULE_DECLARATIONS();
 
 	public:
-
-		static DesktopAudioManager& Get();
-
 		DesktopAudioManager();
-		~DesktopAudioManager();
+		virtual ~DesktopAudioManager();
 
 		/**
 		 *	AudioData - each audio will run in its own channel and will be loading on a seperate address
@@ -51,7 +48,7 @@ namespace Library
 		*	LoadMusic - Load music of given name with extension
 		*	@param audioNameWithExtension	just name no path
 		*/
-		void LoadMusic (const std::string& audioNameWithExtension);
+		virtual void LoadMusic (const std::string& audioNameWithExtension) override;
 
 		/**
 		*	PlayMusic - Play music of given name with extension
@@ -59,19 +56,19 @@ namespace Library
 		*	@param loopsOneToN	zero for continous looping and N for N loops
 		*	@param volumeZeroToOne	volume in float from zero to 1
 		*/
-		void PlayMusic (const std::string& audioNameWithExtension, std::int32_t loopsOneToN = 1, std::float_t volumeZeroToOne = 1.0f);
+		virtual void PlayMusic (const std::string& audioNameWithExtension, std::int32_t loopsOneToN = 1, std::float_t volumeZeroToOne = 1.0f) override;
 
 		/**
 		*	TogglePauseMusic - Pause if playing and vice verca
 		*	@param audioNameWithExtension	just name no path
 		*/
-		void TogglePauseMusic(const std::string& audioNameWithExtension);
+		virtual void TogglePauseMusic(const std::string& audioNameWithExtension) override;
 
 		/**
 		*	StopMusic - Stop Music
 		*	@param audioNameWithExtension	just name no path
 		*/
-		void StopMusic(const std::string& audioNameWithExtension);
+		virtual void StopMusic(const std::string& audioNameWithExtension) override;
 
 		/**
 		*	ResumeChannel - 
@@ -84,10 +81,9 @@ namespace Library
 		*/
 		void PutChannel(FMOD::Channel & channel);
 
-		void Update();
+		virtual void Update() override;
 	
 	private:
-		static DesktopAudioManager* sInstance;
 		void CreateMusic(const std::string& audioNameWithExtension);
 	
 		const std::string PATH = "Content/Music/";

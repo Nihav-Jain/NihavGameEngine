@@ -31,10 +31,18 @@ namespace UnitTestLibraryDesktop
 		{
 			_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
 			_CrtMemCheckpoint(&sStartMemState);
+
+			const std::pair<const std::uint64_t*, EngineModule**> ptr = *DesktopAudioManager::Itr;
+			UNREFERENCED_PARAMETER(ptr);
+
+			Engine::CreateEngine();
+			Engine::Get().Activate();
 		}
 
 		TEST_METHOD_CLEANUP(Cleanup)
 		{
+			Engine::Get().Deactivate();
+			Engine::Destroy();
 			_CrtMemState endMemState, diffMemState;
 			_CrtMemCheckpoint(&endMemState);
 			if (_CrtMemDifference(&diffMemState, &sStartMemState, &endMemState))

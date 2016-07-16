@@ -207,28 +207,18 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ActionLoadMusic.h" />
-    <ClInclude Include="ActionPlayMusic.h" />
-    <ClInclude Include="ActionStopMusic.h" />
-    <ClInclude Include="ActionTogglePauseMusic.h" />
     <ClInclude Include="DesktopAudioManager.h" />
     <ClInclude Include="DesktopFileHandle.h" />
     <ClInclude Include="DesktopFileManager.h" />
     <ClInclude Include="DesktopMemory.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ActionLoadMusic.cpp" />
-    <ClCompile Include="ActionPlayMusic.cpp" />
-    <ClCompile Include="ActionStopMusic.cpp" />
-    <ClCompile Include="ActionTogglePauseMusic.cpp" />
     <ClCompile Include="DesktopAudioManager.cpp" />
     <ClCompile Include="DesktopFileHandle.cpp" />
     <ClCompile Include="DesktopFileManager.cpp" />
     <ClCompile Include="DesktopMemory.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

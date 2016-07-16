@@ -2,30 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionTogglePauseMusic.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionLoadMusic.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionPlayMusic.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionStopMusic.h">
-      <Filter>Kernel\Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParseHelperGameObject.h">
-      <Filter>XmlParseHelpers</Filter>
-    </ClInclude>
-    <ClInclude Include="CircleColliderComponent.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Kernel\Input</Filter>
     </ClInclude>
@@ -38,30 +14,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="XmlParseHelperGameObject.cpp">
-      <Filter>XmlParseHelpers</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleColliderComponent.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionLoadMusic.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionPlayMusic.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionStopMusic.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionTogglePauseMusic.cpp">
-      <Filter>Kernel\Actions</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Kernel\Input</Filter>
     </ClCompile>
@@ -75,9 +27,6 @@
   <ItemGroup>
     <Filter Include="Kernel">
       <UniqueIdentifier>{2033ed55-8f3b-4ec8-bb52-925fe9fb8498}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Kernel\Actions">
-      <UniqueIdentifier>{4a675d0f-1bc5-41bd-b87b-7d54457da1e0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{1a8892a5-8c0e-4ec2-9d05-78b2304d8d38}</UniqueIdentifier>

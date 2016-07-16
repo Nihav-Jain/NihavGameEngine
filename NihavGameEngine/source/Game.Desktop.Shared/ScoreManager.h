@@ -1,7 +1,7 @@
 #pragma once
 
+#include "Game.h"
 #include "SpriteManager.h"
-#include "../../source/Library.Desktop/Game.h"
 
 #include <vector>
 

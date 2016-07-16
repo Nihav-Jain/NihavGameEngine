@@ -1,5 +1,4 @@
 #pragma once
-#include "../../source/Library.Desktop/Game.h"
 
 namespace Library
 {

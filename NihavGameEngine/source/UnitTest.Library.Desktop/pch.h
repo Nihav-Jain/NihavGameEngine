@@ -58,7 +58,6 @@
 #include "AttributedFoo.h"
 #include "AttributedFooChild.h"
 #include "AttributedNative.h"
-#include "AudioManager.h"
-
+#include "DesktopAudioManager.h"
 
 

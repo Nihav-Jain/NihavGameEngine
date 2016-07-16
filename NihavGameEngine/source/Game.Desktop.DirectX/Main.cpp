@@ -13,6 +13,7 @@
 #include "EnemySquare.h"
 #include "Collectible.h"
 #include "BloomPostProcessing.h"
+#include "DesktopAudioManager.h"
 
 
 #include <fstream>
@@ -41,7 +42,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	UNREFERENCED_PARAMETER(showCommand);
 
 	const std::pair<const std::uint64_t*, EngineModule**> ptr = *DesktopFileManager::Itr;
-	const std::pair<const std::uint64_t*, EngineModule**> ptr2 = *AudioManager::Itr;
+	const std::pair<const std::uint64_t*, EngineModule**> ptr2 = *DesktopAudioManager::Itr;
 
 	UNREFERENCED_PARAMETER(ptr);
 	UNREFERENCED_PARAMETER(ptr2);

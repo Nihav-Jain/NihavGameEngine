@@ -17,26 +17,26 @@
 #include <utility>
 #include <string>
 
-#include "../../source/Library.Desktop/RTTI.h"
+#include "RTTI.h"
 #include "glm\glm.hpp"
 
 #pragma region Containers
 
-#include "../../source/Library.Desktop/SList.h"
-#include "../../source/Library.Desktop/Vector.h"
-#include "../../source/Library.Desktop/Stack.h"
-#include "../../source/Library.Desktop/Hashmap.h"
-#include "../../source/Library.Desktop/Graph.h"
+#include "SList.h"
+#include "Vector.h"
+#include "Stack.h"
+#include "Hashmap.h"
+#include "Graph.h"
 
 #pragma endregion
 
-#include "../../source/Library.Desktop/Datum.h"
-#include "../../source/Library.Desktop/Scope.h"
-#include "../../source/Library.Desktop/Attributed.h"
-#include "../../source/Library.Desktop/Entity.h"
-#include "../../source/Library.Desktop/Sector.h"
-#include "../../source/Library.Desktop/World.h"
-#include "../../source/Library.Desktop/GameObject.h"
+#include "Datum.h"
+#include "Scope.h"
+#include "Attributed.h"
+#include "Entity.h"
+#include "Sector.h"
+#include "World.h"
+#include "GameObject.h"
 
 #include "SpriteManager.h"
 #include "ScoreManager.h"

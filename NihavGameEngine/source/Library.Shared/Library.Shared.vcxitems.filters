@@ -324,6 +324,24 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)XmlParseHelperSprite.h">
       <Filter>XmlParseHelpers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioManager.h">
+      <Filter>Engine\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionLoadMusic.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionPlayMusic.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionStopMusic.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ActionTogglePauseMusic.h">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Game.h">
+      <Filter>Engine\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -553,9 +571,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Renderer.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Sprite.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SpriteRenderer.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
@@ -585,6 +600,24 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)XmlParseHelperSprite.cpp">
       <Filter>XmlParseHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioManager.cpp">
+      <Filter>Engine\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionLoadMusic.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionPlayMusic.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionStopMusic.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ActionTogglePauseMusic.cpp">
+      <Filter>Engine\Kernel\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Game.cpp">
+      <Filter>Engine\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
