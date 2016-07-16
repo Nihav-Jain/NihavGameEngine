@@ -174,7 +174,7 @@ namespace Library
 
 		bool mLoadingLevel;
 
-		DesktopMemory mMemory;
+		//DesktopMemory mMemory;
 
 		Renderer* mRenderer;
 

@@ -95,7 +95,7 @@ namespace Library {
 			if (it.second.TargetFrameBuffer != nullptr) {
 				FrameBuffer * buff = it.second.TargetFrameBuffer;
 				// Post processing
-				for (auto & p = it.second.PostProcessings.begin();
+				for (auto p = it.second.PostProcessings.begin();
 					p != it.second.PostProcessings.end(); ++p) {
 					(*p)->Apply(mDevice, buff, it.second.PostProcessingFrameBuffer);
 				}

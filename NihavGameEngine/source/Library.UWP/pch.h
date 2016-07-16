@@ -37,3 +37,6 @@
 #include "Entity.h"
 #include "Sector.h"
 #include "World.h"
+
+#include "AudioManager.h"
+#include "GameObject.h"
