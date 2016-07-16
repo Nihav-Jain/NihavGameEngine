@@ -13,19 +13,19 @@ namespace Library
 	const std::int32_t MAX_CHANNELS = 256;
 
 	/**
-	 *	Class AudioManager
+	 *	Class DesktopAudioManager
 	 */
-	class AudioManager : public EngineModule
+	class DesktopAudioManager : public EngineModule
 	{
-		RTTI_DECLARATIONS(AudioManager, EngineModule);
+		RTTI_DECLARATIONS(DesktopAudioManager, EngineModule);
 		ENGINE_MODULE_DECLARATIONS();
 
 	public:
 
-		static AudioManager& Get();
+		static DesktopAudioManager& Get();
 
-		AudioManager();
-		~AudioManager();
+		DesktopAudioManager();
+		~DesktopAudioManager();
 
 		/**
 		 *	AudioData - each audio will run in its own channel and will be loading on a seperate address
@@ -87,7 +87,7 @@ namespace Library
 		void Update();
 	
 	private:
-		static AudioManager* sInstance;
+		static DesktopAudioManager* sInstance;
 		void CreateMusic(const std::string& audioNameWithExtension);
 	
 		const std::string PATH = "Content/Music/";
@@ -102,10 +102,10 @@ namespace Library
 		int mChannelCount;
 
 		Hashmap <std::string, AudioData> mAudioMap;
-		static class AudioManagerFactory sFactory;
+		static class DesktopAudioManagerFactory sFactory;
 
 	};
-	CONCRETE_MODULE_FACTORY(AudioManager);
+	CONCRETE_MODULE_FACTORY(DesktopAudioManager);
 
 }
 

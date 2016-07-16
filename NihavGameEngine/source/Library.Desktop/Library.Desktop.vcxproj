@@ -211,67 +211,24 @@
     <ClInclude Include="ActionPlayMusic.h" />
     <ClInclude Include="ActionStopMusic.h" />
     <ClInclude Include="ActionTogglePauseMusic.h" />
-    <ClInclude Include="AnimationFrame.h" />
-    <ClInclude Include="AnimationState.h" />
-    <ClInclude Include="Animator.h" />
-    <ClInclude Include="BloomPostProcessing.h" />
-    <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="CircleColliderComponent.h" />
+    <ClInclude Include="DesktopAudioManager.h" />
     <ClInclude Include="DesktopFileHandle.h" />
     <ClInclude Include="DesktopFileManager.h" />
     <ClInclude Include="DesktopMemory.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="LineParticle.h" />
-    <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="PolygonRenderer.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="PostProcessing.h" />
-    <ClInclude Include="Renderable.h" />
-    <ClInclude Include="Buffer.h" />
-    <ClInclude Include="RenderDevice.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Image.h" />
-    <ClInclude Include="FrameBuffer.h" />
-    <ClInclude Include="XmlParseHelperAnimationFrame.h" />
-    <ClInclude Include="XmlParseHelperAnimationState.h" />
-    <ClInclude Include="XmlParseHelperAnimator.h" />
-    <ClInclude Include="XmlParseHelperCircleColliderComponent.h" />
-    <ClInclude Include="XmlParseHelperGameObject.h" />
-    <ClInclude Include="XmlParseHelperImage.h" />
-    <ClInclude Include="XmlParseHelperPolygon.h" />
-    <ClInclude Include="XmlParseHelperReaction.h" />
-    <ClInclude Include="XmlParseHelperSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActionLoadMusic.cpp" />
     <ClCompile Include="ActionPlayMusic.cpp" />
     <ClCompile Include="ActionStopMusic.cpp" />
     <ClCompile Include="ActionTogglePauseMusic.cpp" />
-    <ClCompile Include="AnimationFrame.cpp" />
-    <ClCompile Include="AnimationState.cpp" />
-    <ClCompile Include="Animator.cpp" />
-    <ClCompile Include="BloomPostProcessing.cpp" />
-    <ClCompile Include="AudioManager.cpp" />
-    <ClCompile Include="CircleColliderComponent.cpp" />
+    <ClCompile Include="DesktopAudioManager.cpp" />
     <ClCompile Include="DesktopFileHandle.cpp" />
     <ClCompile Include="DesktopFileManager.cpp" />
     <ClCompile Include="DesktopMemory.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="LineParticle.cpp" />
-    <None Include="ParticleSystem.inl">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <FileType>CppCode</FileType>
-    </None>
-    <ClCompile Include="PolygonRenderer.cpp">
-      <FileType>CppCode</FileType>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -279,18 +236,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="SpriteRenderer.cpp" />
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="XmlParseHelperAnimationFrame.cpp" />
-    <ClCompile Include="XmlParseHelperAnimationState.cpp" />
-    <ClCompile Include="XmlParseHelperAnimator.cpp" />
-    <ClCompile Include="XmlParseHelperCircleColliderComponent.cpp" />
-    <ClCompile Include="XmlParseHelperGameObject.cpp" />
-    <ClCompile Include="XmlParseHelperImage.cpp" />
-    <ClCompile Include="XmlParseHelperPolygon.cpp" />
-    <ClCompile Include="XmlParseHelperReaction.cpp" />
-    <ClCompile Include="XmlParseHelperSprite.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

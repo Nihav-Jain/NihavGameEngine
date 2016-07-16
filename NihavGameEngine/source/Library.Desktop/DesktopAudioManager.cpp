@@ -1,18 +1,19 @@
 #include "pch.h"
+#include "DesktopAudioManager.h"
 
 namespace Library
 {
-	AudioManager* AudioManager::sInstance = nullptr;
-	AudioManagerFactory AudioManager::sFactory;
-	RTTI_DEFINITIONS(AudioManager, EngineModule);
-	ENGINE_MODULE_DEFINITIONS(AudioManager, &AudioManager::sRunTimeTypeId, &AudioManager::sInstance);
+	DesktopAudioManager* DesktopAudioManager::sInstance = nullptr;
+	DesktopAudioManagerFactory DesktopAudioManager::sFactory;
+	RTTI_DEFINITIONS(DesktopAudioManager, EngineModule);
+	ENGINE_MODULE_DEFINITIONS(DesktopAudioManager, &DesktopAudioManager::sRunTimeTypeId, &DesktopAudioManager::sInstance);
 
-	AudioManager& AudioManager::Get()
+	DesktopAudioManager& DesktopAudioManager::Get()
 	{
 		return *sInstance;
 	}
 
-	AudioManager::AudioManager() :
+	DesktopAudioManager::DesktopAudioManager() :
 		mAudioMap(5),
 		mFmodSystem(nullptr),
 		mNumberOfDrivers(0),
@@ -22,7 +23,7 @@ namespace Library
 	}
 
 
-	AudioManager::~AudioManager()
+	DesktopAudioManager::~DesktopAudioManager()
 	{
 		// TODO: Kishor Fix me!
 
@@ -37,7 +38,7 @@ namespace Library
 		mFmodSystem->release();
 	}
 
-	void AudioManager::InitMusic()
+	void DesktopAudioManager::InitMusic()
 	{
 		// Create FMOD interface object
 		mFmodResult = FMOD::System_Create(&mFmodSystem);
@@ -59,7 +60,7 @@ namespace Library
 		FMODErrorCheck(mFmodResult);
 	}
 
-	void AudioManager::FMODErrorCheck(const FMOD_RESULT& result)
+	void DesktopAudioManager::FMODErrorCheck(const FMOD_RESULT& result)
 	{
 		if (result != FMOD_OK)
 		{
@@ -67,7 +68,7 @@ namespace Library
 		}
 	}
 
-	void AudioManager::CreateMusic(const std::string & audioNameWithExtension)
+	void DesktopAudioManager::CreateMusic(const std::string & audioNameWithExtension)
 	{
 		//create music	
 		AudioData *newAudioData = new AudioData;
@@ -79,7 +80,7 @@ namespace Library
 		mAudioMap.Insert(std::make_pair(audioNameWithExtension, *newAudioData));
 	}
 
-	void AudioManager::LoadMusic(const std::string & audioNameWithExtension)
+	void DesktopAudioManager::LoadMusic(const std::string & audioNameWithExtension)
 	{
 		Hashmap <std::string, AudioData>::Iterator foundElement = mAudioMap.Find(audioNameWithExtension);
 		//music not created
@@ -89,7 +90,7 @@ namespace Library
 		}
 	}
 
-	void AudioManager::PlayMusic(const std::string & audioNameWithExtension, std::int32_t loopsOneToN, std::float_t volumeZeroToOne)
+	void DesktopAudioManager::PlayMusic(const std::string & audioNameWithExtension, std::int32_t loopsOneToN, std::float_t volumeZeroToOne)
 	{
 		Hashmap <std::string, AudioData>::Iterator foundElement = mAudioMap.Find(audioNameWithExtension);
 
@@ -122,7 +123,7 @@ namespace Library
 	}
 
 
-	void AudioManager::TogglePauseMusic(const std::string & audioNameWithExtension)
+	void DesktopAudioManager::TogglePauseMusic(const std::string & audioNameWithExtension)
 	{
 		Hashmap <std::string, AudioData>::Iterator foundElement = mAudioMap.Find(audioNameWithExtension);
 
@@ -136,7 +137,7 @@ namespace Library
 		(*(*foundElement).second.mChannel)->setPaused(!isPaused);
 	}
 
-	void AudioManager::StopMusic(const std::string & audioNameWithExtension)
+	void DesktopAudioManager::StopMusic(const std::string & audioNameWithExtension)
 	{
 		Hashmap <std::string, AudioData>::Iterator foundElement = mAudioMap.Find(audioNameWithExtension);
 		
@@ -148,7 +149,7 @@ namespace Library
 		(*(*foundElement).second.mChannel)->stop();
 	}
 
-	void AudioManager::ResumeChannel()
+	void DesktopAudioManager::ResumeChannel()
 	{
 		// Find all channel and modify their priority, the one that is curreny playing has high priority
 		for (int i = 0; i < MAX_CHANNELS; i++) 
@@ -170,7 +171,7 @@ namespace Library
 		}
 	}
 
-	void AudioManager::PutChannel(FMOD::Channel & channel)
+	void DesktopAudioManager::PutChannel(FMOD::Channel & channel)
 	{
 		int index = 0;
 		channel.setPriority(0);
@@ -200,7 +201,7 @@ namespace Library
 		mChannels[index] = &channel;
 	}
 
-	void AudioManager::Update()
+	void DesktopAudioManager::Update()
 	{
 		mFmodSystem->update();
 	}
