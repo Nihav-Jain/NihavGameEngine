@@ -46,5 +46,7 @@ namespace Library
 		CGeometryBufferPerObject mGeoBufferInstance;
 
 		ID3D11InputLayout* mInputLayout;
+
+		void ReadData(const std::wstring& filename, std::vector<char>& fileDataVector);
 	};
 }
