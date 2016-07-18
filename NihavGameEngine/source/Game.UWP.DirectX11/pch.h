@@ -13,3 +13,16 @@
 #include <memory>
 #include <agile.h>
 #include <concrt.h>
+#include <string>
+#include <locale>
+#include <codecvt>
+#include <vector>
+#include <map>
+#include <exception>
+#include <WICTextureLoader.h>
+
+#include "GameException.h"
+#include "glm\glm.hpp"
+
+#define DeleteObjects(objects) if((objects) != nullptr) { delete[] objects; objects = nullptr; }
+#define ReleaseObject(object) if((object) != nullptr) { object->Release(); object = nullptr; }
