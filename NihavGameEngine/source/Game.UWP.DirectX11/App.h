@@ -3,6 +3,7 @@
 #include "pch.h"
 #include "Common\DeviceResources.h"
 #include "Game_UWP_DirectX11Main.h"
+#include "Game.h"
 
 namespace Game_UWP_DirectX11
 {
@@ -11,6 +12,7 @@ namespace Game_UWP_DirectX11
 	{
 	public:
 		App();
+		virtual ~App();
 
 		// IFrameworkView Methods.
 		virtual void Initialize(Windows::ApplicationModel::Core::CoreApplicationView^ applicationView);
@@ -40,6 +42,8 @@ namespace Game_UWP_DirectX11
 		std::unique_ptr<Game_UWP_DirectX11Main> m_main;
 		bool m_windowClosed;
 		bool m_windowVisible;
+
+		Library::Game mGame;
 	};
 }
 

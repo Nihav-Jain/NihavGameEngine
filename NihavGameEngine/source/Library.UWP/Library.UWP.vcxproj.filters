@@ -19,6 +19,7 @@
     </ClCompile>
     <ClCompile Include="UWPFileManager.cpp" />
     <ClCompile Include="UWPFileHandle.cpp" />
+    <ClCompile Include="UWPAudioManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -33,5 +34,6 @@
     </ClInclude>
     <ClInclude Include="UWPFileManager.h" />
     <ClInclude Include="UWPFileHandle.h" />
+    <ClInclude Include="UWPAudioManager.h" />
   </ItemGroup>
 </Project>

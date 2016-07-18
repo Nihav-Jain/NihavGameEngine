@@ -61,6 +61,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FileHandle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IEventSubscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Image.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)InputManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IXmlParseHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LineParticle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Memory.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HeapManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileHandle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Image.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)InputManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)LineParticle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Memory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PolygonRenderer.cpp" />

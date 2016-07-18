@@ -40,6 +40,9 @@
     <Filter Include="Engine\Audio">
       <UniqueIdentifier>{9536ec5a-f9e3-483a-9bc4-0103d350a6d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{7044c532-db79-47a9-bcc7-d285502d311c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)SharedPtr.h">
@@ -342,6 +345,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Game.h">
       <Filter>Engine\Game</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InputManager.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SharedPtr.inl">
@@ -618,6 +624,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Game.cpp">
       <Filter>Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InputManager.cpp">
+      <Filter>Engine\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

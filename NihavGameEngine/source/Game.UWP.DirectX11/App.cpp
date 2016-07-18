@@ -1,5 +1,8 @@
 ﻿#include "pch.h"
 #include "App.h"
+#include "Engine.h"
+#include "UWPFileManager.h"
+#include "UWPAudioManager.h"
 
 #include <ppltasks.h>
 
@@ -14,6 +17,7 @@ using namespace Windows::UI::Input;
 using namespace Windows::System;
 using namespace Windows::Foundation;
 using namespace Windows::Graphics::Display;
+using namespace Library;
 
 // The main function is only used to initialize our IFrameworkView class.
 [Platform::MTAThread]
@@ -31,13 +35,27 @@ IFrameworkView^ Direct3DApplicationSource::CreateView()
 
 App::App() :
 	m_windowClosed(false),
-	m_windowVisible(true)
+	m_windowVisible(true), mGame()
 {
+}
+
+App::~App()
+{
+	Engine::Get().Deactivate();
+	Engine::Destroy();
 }
 
 // The first method called when the IFrameworkView is being created.
 void App::Initialize(CoreApplicationView^ applicationView)
 {
+	const std::pair<const std::uint64_t*, EngineModule**> ptr = *UWPFileManager::Itr;
+	const std::pair<const std::uint64_t*, EngineModule**> ptr2 = *UWPAudioManager::Itr;
+	UNREFERENCED_PARAMETER(ptr);
+	UNREFERENCED_PARAMETER(ptr2);
+
+	Engine::CreateEngine();
+	Engine::Get().Activate();
+
 	// Register event handlers for app lifecycle. This example includes Activated, so that we
 	// can make the CoreWindow active and start rendering on the window.
 	applicationView->Activated +=
@@ -86,6 +104,7 @@ void App::Load(Platform::String^ entryPoint)
 	if (m_main == nullptr)
 	{
 		m_main = std::unique_ptr<Game_UWP_DirectX11Main>(new Game_UWP_DirectX11Main(m_deviceResources));
+		mGame.Start();
 	}
 }
 
@@ -99,6 +118,7 @@ void App::Run()
 			CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
 			m_main->Update();
+			mGame.Update();
 
 			if (m_main->Render())
 			{
