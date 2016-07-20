@@ -11,7 +11,7 @@ namespace Library
 		virtual ~DesktopFileHandle();
 
 		virtual void ReadTextAsync(const std::function<void(std::string)>& callback) override;
-		virtual void ReadBufferAsync(Vector<std::uint8_t>& outBuffer) override;
+		virtual void ReadBufferAsync(const std::function<void(std::vector<std::uint8_t>)>& callback) override;
 
 		virtual void WriteTextAsync(const std::string& fileText) override;
 		virtual void WriteBufferAsync(const Vector<std::uint8_t>& buffer);

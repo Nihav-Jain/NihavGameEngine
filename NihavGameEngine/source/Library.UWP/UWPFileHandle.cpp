@@ -28,9 +28,14 @@ namespace Library
 		});
 	}
 
-	void UWPFileHandle::ReadBufferAsync(Vector<std::uint8_t>& outBuffer)
+	void UWPFileHandle::ReadBufferAsync(const std::function<void(std::vector<std::uint8_t>)>& callback)
 	{
-		UNREFERENCED_PARAMETER(outBuffer);
+		concurrency::create_task(FileIO::ReadBufferAsync(mFile)).then([&](Streams::IBuffer^ buffer) {
+			std::vector<std::uint8_t> returnBuffer;
+			returnBuffer.resize(buffer->Length);
+			Streams::DataReader::FromBuffer(buffer)->ReadBytes(Platform::ArrayReference<std::uint8_t>(returnBuffer.data(), buffer->Length));
+			callback(returnBuffer);
+		});
 	}
 
 	void UWPFileHandle::WriteTextAsync(const std::string& fileText)

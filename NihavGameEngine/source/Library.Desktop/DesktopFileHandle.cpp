@@ -35,9 +35,18 @@ namespace Library
 			std::future<void> fut = std::async(openCallback);
 	}
 
-	void DesktopFileHandle::ReadBufferAsync(Vector<std::uint8_t>& outBuffer)
+	void DesktopFileHandle::ReadBufferAsync(const std::function<void(std::vector<std::uint8_t>)>& callback)
 	{
-		UNREFERENCED_PARAMETER(outBuffer);
+		assert(bIsOpen);
+
+		std::future<void> fut = std::async([&]() {
+			std::vector<std::uint8_t> buffer;
+			while (mFile.good())
+			{
+				buffer.push_back(static_cast<std::uint8_t>(mFile.get()));
+			}
+			callback(buffer);
+		});
 	}
 
 	void DesktopFileHandle::WriteTextAsync(const std::string& fileText)

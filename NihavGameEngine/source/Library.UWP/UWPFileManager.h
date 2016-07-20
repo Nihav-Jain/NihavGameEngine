@@ -15,12 +15,9 @@ namespace Library
 		virtual void GetFileAsync(const std::string& fileName, const std::function<void(FileHandle*)>& callback) override;
 		virtual void CreateFileAsync(FileHandle* outFileHandle, const std::string& fileName) override;
 
-		bool AssetsFolderFound() const;
-
 	private:
 		static class UWPFileManagerFactory sFactory;
 		Windows::Storage::StorageFolder^ mAssetsFolder;
-		bool bAssetsFolderFound;
 		mutable std::mutex mMutex;
 
 		static std::wstring ASSETS_FOLDER;

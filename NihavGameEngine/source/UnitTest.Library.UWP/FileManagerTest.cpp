@@ -65,7 +65,7 @@ namespace UnitTest_Library_UWP
 				Assert::IsFalse(testXml->IsOpen());
 				allDone = true;
 			};
-			FileManager::Get().GetFileAsync("test.xml", getFileCallback);
+			FileManager::Get().GetFileAsync("Assets\\test.xml", getFileCallback);
 			while (!allDone)
 			{}
 
@@ -90,7 +90,7 @@ namespace UnitTest_Library_UWP
 				Assert::IsFalse(testXml->IsOpen());
 				allDone = true;
 			};
-			FileManager::Get().GetFileAsync("config\\angrybirds_small.xml", getFileCallback);
+			FileManager::Get().GetFileAsync("Assets\\config\\angrybirds_small.xml", getFileCallback);
 			while (!allDone)
 			{}
 
@@ -120,7 +120,7 @@ namespace UnitTest_Library_UWP
 				Assert::IsFalse(testXml->IsOpen());
 				testXml->ReadTextAsync(readTextCallback);
 			};
-			FileManager::Get().GetFileAsync("test.xml", getFileCallback);
+			FileManager::Get().GetFileAsync("Assets\\test.xml", getFileCallback);
 			while (!allDone)
 			{}
 
@@ -155,7 +155,7 @@ namespace UnitTest_Library_UWP
 
 					testXml->OpenFileAsync(openFileCallback);
 				};
-				FileManager::Get().GetFileAsync("test2.xml", getFileCallback);
+				FileManager::Get().GetFileAsync("Assets\\test2.xml", getFileCallback);
 
 
 				while (!allDone)

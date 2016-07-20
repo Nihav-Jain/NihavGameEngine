@@ -104,10 +104,10 @@ namespace UnitTest_Library_UWP
 			//bool allDone2 = false;
 
 			angryBirdsParser.AddHelper(angrybirdsParseHelper);
-			angryBirdsParser.ParseFromFileAsync("config\\angrybirds_small.xml", [&](bool parsed) {
+			angryBirdsParser.ParseFromFileAsync("Assets\\config\\angrybirds_small.xml", [&](bool parsed) {
 				Assert::IsTrue(parsed);
 				Assert::AreEqual(0U, angryBirdsData.Depth());
-				Assert::IsTrue(angryBirdsParser.GetFileName() == "config\\angrybirds_small.xml");
+				Assert::IsTrue(angryBirdsParser.GetFileName() == "Assets\\config\\angrybirds_small.xml");
 				{
 					Datum* angrybirds = angryBirdsData.mAngryBirdsData.Find("angrybirds");
 					Assert::IsNotNull(angrybirds);
@@ -151,7 +151,7 @@ namespace UnitTest_Library_UWP
 
 			bool allDone = false;
 			clonedParseMaster = angryBirdsParser.Clone();
-			clonedParseMaster->ParseFromFileAsync("config\\angrybirds_small.xml", [&](bool parsed) {
+			clonedParseMaster->ParseFromFileAsync("Assets\\config\\angrybirds_small.xml", [&](bool parsed) {
 				Assert::IsTrue(parsed);
 				allDone = true;
 			});
