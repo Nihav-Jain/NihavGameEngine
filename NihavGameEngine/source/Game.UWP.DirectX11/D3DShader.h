@@ -1,5 +1,7 @@
 #pragma once
-#include <Shader.h>
+#include <mutex>
+#include "Shader.h"
+
 
 struct ID3D11Device1;
 struct ID3D11DeviceContext;
@@ -16,7 +18,7 @@ namespace Library
 		virtual ~D3DShader();
 
 		virtual void Init(const std::string & vPath, const std::string & fPath, const std::string & gPath) override;
-		virtual void Use() override;
+		virtual bool Use() override;
 		virtual void SetMatrix4(const std::string & name, const glm::mat4 & value) override;
 		virtual void SetVector4(const std::string & name, const glm::vec4 & value) override;
 		virtual void SetFloat(const std::string & name, float value) override;
@@ -47,6 +49,8 @@ namespace Library
 
 		ID3D11InputLayout* mInputLayout;
 
-		void ReadData(const std::wstring& filename, std::vector<char>& fileDataVector);
+		//void ReadData(const std::wstring& filename, std::vector<char>& fileDataVector);
+		std::recursive_mutex mMutex;
+		bool bIsSprite;
 	};
 }

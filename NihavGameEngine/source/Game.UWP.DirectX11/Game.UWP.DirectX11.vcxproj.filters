@@ -68,6 +68,12 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{582c22a1-4f43-495c-97cc-dfacc90d8db0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\config">
+      <UniqueIdentifier>{336cf476-3e0b-4b02-986b-e6881ff5b49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\resource">
+      <UniqueIdentifier>{8ad37e7c-9c6b-4493-90c2-1fb088f1a815}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -86,6 +92,7 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GameException.cpp" />
+    <ClCompile Include="UWPRenderDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -104,10 +111,14 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GameException.h" />
+    <ClInclude Include="UWPRenderDevice.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\resource\mushroom.png">
+      <Filter>Assets\resource</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -133,5 +144,10 @@
     <FxCompile Include="VertexShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\config\sprite.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

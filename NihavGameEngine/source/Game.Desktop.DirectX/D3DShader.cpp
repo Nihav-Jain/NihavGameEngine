@@ -81,7 +81,8 @@ namespace Library
 			ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantPixelBuffer), "ID3D11Device::CreateBuffer() failed.");
 		}
 	}
-	void D3DShader::Use()
+
+	bool D3DShader::Use()
 	{
 		mContext->VSSetShader(mVertexShader, nullptr, 0);
 		mContext->GSSetShader(mGeometryShader, nullptr, 0);
@@ -98,6 +99,7 @@ namespace Library
 		{
 			mContext->VSSetConstantBuffers(0, 1, &mConstantGeometryBuffer);
 		}
+		return true;
 	}
 	void D3DShader::SetMatrix4(const std::string & name, const glm::mat4 & value)
 	{

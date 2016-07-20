@@ -35,12 +35,13 @@ IFrameworkView^ Direct3DApplicationSource::CreateView()
 
 App::App() :
 	m_windowClosed(false),
-	m_windowVisible(true), mGame()
+	m_windowVisible(true), mGame(), mRenderer(nullptr)
 {
 }
 
 App::~App()
 {
+	Renderer::DestroyInstance();
 	Engine::Get().Deactivate();
 	Engine::Destroy();
 }
@@ -55,6 +56,11 @@ void App::Initialize(CoreApplicationView^ applicationView)
 
 	Engine::CreateEngine();
 	Engine::Get().Activate();
+
+	//mRenderDevice = std::make_shared<UWPRenderDevice>();
+	//mRenderer = Renderer::GetInstance(mRenderDevice.get());
+	mGame = std::make_unique<Game>();
+	//mGame->SetRenderer(mRenderer);
 
 	// Register event handlers for app lifecycle. This example includes Activated, so that we
 	// can make the CoreWindow active and start rendering on the window.
@@ -96,6 +102,7 @@ void App::SetWindow(CoreWindow^ window)
 		ref new TypedEventHandler<DisplayInformation^, Object^>(this, &App::OnDisplayContentsInvalidated);
 
 	m_deviceResources->SetWindow(window);
+	//mRenderDevice->SetWindow(window);
 }
 
 // Initializes scene resources, or loads a previously saved app state.
@@ -104,8 +111,9 @@ void App::Load(Platform::String^ entryPoint)
 	if (m_main == nullptr)
 	{
 		m_main = std::unique_ptr<Game_UWP_DirectX11Main>(new Game_UWP_DirectX11Main(m_deviceResources));
-		mGame.Start();
+		//mGame = std::make_unique<Game>();
 	}
+	//mGame->Start("config\\sprite.xml");
 }
 
 // This method is called after the window becomes active.
@@ -118,7 +126,7 @@ void App::Run()
 			CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
 			m_main->Update();
-			mGame.Update();
+			//mGame->Update();
 
 			if (m_main->Render())
 			{

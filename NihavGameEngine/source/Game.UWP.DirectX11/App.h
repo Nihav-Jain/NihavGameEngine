@@ -4,6 +4,7 @@
 #include "Common\DeviceResources.h"
 #include "Game_UWP_DirectX11Main.h"
 #include "Game.h"
+#include "UWPRenderDevice.h"
 
 namespace Game_UWP_DirectX11
 {
@@ -43,7 +44,9 @@ namespace Game_UWP_DirectX11
 		bool m_windowClosed;
 		bool m_windowVisible;
 
-		Library::Game mGame;
+		std::unique_ptr<Library::Game> mGame;
+		Library::Renderer* mRenderer;
+		std::shared_ptr<Library::UWPRenderDevice> mRenderDevice;
 	};
 }
 

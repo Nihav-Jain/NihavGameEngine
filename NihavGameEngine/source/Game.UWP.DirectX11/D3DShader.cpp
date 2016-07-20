@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <DirectXMath.h>
 #include "D3DShader.h"
+#include "Common\DirectXHelper.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Storage;
@@ -13,7 +14,8 @@ using namespace concurrency;
 namespace Library
 {
 	D3DShader::D3DShader(ID3D11Device1& device, ID3D11DeviceContext& context) : mDevice(&device), mContext(&context),
-		mVertexShader(nullptr), mGeometryShader(nullptr), mPixelShader(nullptr), mInputLayout(nullptr), mConstantGeometryBuffer(nullptr), mConstantPixelBuffer(nullptr), mGeoBufferInstance()
+		mVertexShader(nullptr), mGeometryShader(nullptr), mPixelShader(nullptr), mInputLayout(nullptr), mConstantGeometryBuffer(nullptr), mConstantPixelBuffer(nullptr), mGeoBufferInstance(),
+		bIsSprite(false)
 	{
 	}
 
@@ -27,69 +29,102 @@ namespace Library
 		ReleaseObject(mConstantGeometryBuffer);
 		ReleaseObject(mConstantPixelBuffer);
 	}
-	void D3DShader::Init(const std::string & vPath, const std::string & fPath, const std::string & gPath)
+	void D3DShader::Init(const std::string& vPath, const std::string& fPath, const std::string& gPath)
 	{
 		UNREFERENCED_PARAMETER(vPath);
 		UNREFERENCED_PARAMETER(fPath);
 		bool IsASprite = gPath == "";
-		std::vector<char> compiledVertexShader;
+		bIsSprite = IsASprite;
+
+		bool vertexShaderDone = false;
+		bool geometryShaderDone = false;
+		bool pixelShaderDone = false;
+
+		//std::vector<byte> compiledVertexShader;
+		Concurrency::task<std::vector<byte>> vertexShaderTask;
+
 		if(IsASprite)
-			ReadData(L"SpriteVertexShader.cso", compiledVertexShader);
+			vertexShaderTask = DX::ReadDataAsync(L"SpriteVertexShader.cso");
 		else
-			ReadData(L"VertexShader.cso", compiledVertexShader);
-		ThrowIfFailed(mDevice->CreateVertexShader(&compiledVertexShader[0], compiledVertexShader.size(), nullptr, &mVertexShader), "ID3D11Device::CreatedVertexShader() failed.");
+			vertexShaderTask = DX::ReadDataAsync(L"VertexShader.cso");
+
+		vertexShaderTask.then([&](std::vector<byte> fileData) {
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			vertexShaderDone = true;
+			ThrowIfFailed(mDevice->CreateVertexShader(&fileData[0], fileData.size(), nullptr, &mVertexShader), "ID3D11Device::CreatedVertexShader() failed.");
+
+			D3D11_BUFFER_DESC constantBufferDesc;
+			ZeroMemory(&constantBufferDesc, sizeof(constantBufferDesc));
+			if (IsASprite)
+			{
+				D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
+				{
+					{ "POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+					{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+				};
+				ThrowIfFailed(mDevice->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), &fileData[0], fileData.size(), &mInputLayout), "ID3D11Device::CreateInputLayout() failed.");
+
+				constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+				constantBufferDesc.ByteWidth = sizeof(DirectX::XMFLOAT4X4);
+				ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantGeometryBuffer), "ID3D11Device::CreateBuffer() failed.");
+
+			}
+			else
+			{
+				D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
+				{
+					{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				};
+				ThrowIfFailed(mDevice->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), &fileData[0], fileData.size(), &mInputLayout), "ID3D11Device::CreateInputLayout() failed.");
+
+				constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+				constantBufferDesc.ByteWidth = sizeof(CGeometryBufferPerObject);
+				ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantGeometryBuffer), "ID3D11Device::CreateBuffer() failed.");
+
+				constantBufferDesc.ByteWidth = sizeof(CPixelBufferPerObject);
+				ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantPixelBuffer), "ID3D11Device::CreateBuffer() failed.");
+			}
+		});
 
 		if (!IsASprite)
 		{
 			// Load a compiled pixel shader
 			std::vector<char> compiledGeometryShader;
-			ReadData(L"GeometryShader.cso", compiledGeometryShader);
-			ThrowIfFailed(mDevice->CreateGeometryShader(&compiledGeometryShader[0], compiledGeometryShader.size(), nullptr, &mGeometryShader), "ID3D11Device::CreatedGeometryShader() failed.");
+			DX::ReadDataAsync(L"GeometryShader.cso").then([&](std::vector<byte> fileData) {
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				geometryShaderDone = true;
+				ThrowIfFailed(mDevice->CreateGeometryShader(&fileData[0], fileData.size(), nullptr, &mGeometryShader), "ID3D11Device::CreatedGeometryShader() failed.");
+			});
 		}
+		else
+			geometryShaderDone = true;
 
 		std::vector<char> compiledPixelShader;
+		Concurrency::task<std::vector<byte>> pixelShaderTask;
 		if (IsASprite)
-			ReadData(L"SpritePixelShader.cso", compiledPixelShader);
+			pixelShaderTask = DX::ReadDataAsync(L"SpritePixelShader.cso");
 		else
-			ReadData(L"PixelShader.cso", compiledPixelShader);
-		ThrowIfFailed(mDevice->CreatePixelShader(&compiledPixelShader[0], compiledPixelShader.size(), nullptr, &mPixelShader), "ID3D11Device::CreatedPixelShader() failed.");
+			pixelShaderTask = DX::ReadDataAsync(L"PixelShader.cso");
+		pixelShaderTask.then([&](std::vector<byte> fileData) {
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			pixelShaderDone = true;
+			ThrowIfFailed(mDevice->CreatePixelShader(&fileData[0], fileData.size(), nullptr, &mPixelShader), "ID3D11Device::CreatedPixelShader() failed.");
+		});
 
-
-		D3D11_BUFFER_DESC constantBufferDesc;
-		ZeroMemory(&constantBufferDesc, sizeof(constantBufferDesc));
-		if (IsASprite)
-		{
-			D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-			};
-			ThrowIfFailed(mDevice->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), &compiledVertexShader[0], compiledVertexShader.size(), &mInputLayout), "ID3D11Device::CreateInputLayout() failed.");
-
-			constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-			constantBufferDesc.ByteWidth = sizeof(DirectX::XMFLOAT4X4);
-			ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantGeometryBuffer), "ID3D11Device::CreateBuffer() failed.");
-
-		}
-		else
-		{
-			D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			};
-			ThrowIfFailed(mDevice->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), &compiledVertexShader[0], compiledVertexShader.size(), &mInputLayout), "ID3D11Device::CreateInputLayout() failed.");
-
-			constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-			constantBufferDesc.ByteWidth = sizeof(CGeometryBufferPerObject);
-			ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantGeometryBuffer), "ID3D11Device::CreateBuffer() failed.");
-
-			constantBufferDesc.ByteWidth = sizeof(CPixelBufferPerObject);
-			ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantPixelBuffer), "ID3D11Device::CreateBuffer() failed.");
-		}
+		while(!(vertexShaderDone && geometryShaderDone && pixelShaderDone)){}
 	}
-	void D3DShader::Use()
+
+	bool D3DShader::Use()
 	{
+		{
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			if (mVertexShader == nullptr || mPixelShader == nullptr)
+				return false;
+			if (!bIsSprite && mGeometryShader == nullptr)
+				return false;
+		}
+
 		mContext->VSSetShader(mVertexShader, nullptr, 0);
 		mContext->GSSetShader(mGeometryShader, nullptr, 0);
 		mContext->PSSetShader(mPixelShader, nullptr, 0);
@@ -105,6 +140,7 @@ namespace Library
 		{
 			mContext->VSSetConstantBuffers(0, 1, &mConstantGeometryBuffer);
 		}
+		return true;
 	}
 	void D3DShader::SetMatrix4(const std::string & name, const glm::mat4 & value)
 	{
@@ -134,68 +170,6 @@ namespace Library
 		{
 			mGeoBufferInstance.width = value;
 			mContext->UpdateSubresource(mConstantGeometryBuffer, 0, nullptr, &mGeoBufferInstance, 0, 0);
-		}
-	}
-
-	void D3DShader::ReadData(const std::wstring& filename, std::vector<char>& fileDataVector)
-	{
-		Platform::String^ pFileName = ref new Platform::String(filename.c_str());
-
-		CREATEFILE2_EXTENDED_PARAMETERS extendedParams = { 0 };
-		extendedParams.dwSize = sizeof(CREATEFILE2_EXTENDED_PARAMETERS);
-		extendedParams.dwFileAttributes = FILE_ATTRIBUTE_NORMAL;
-		extendedParams.dwFileFlags = FILE_FLAG_SEQUENTIAL_SCAN;
-		extendedParams.dwSecurityQosFlags = SECURITY_ANONYMOUS;
-		extendedParams.lpSecurityAttributes = nullptr;
-		extendedParams.hTemplateFile = nullptr;
-
-		Wrappers::FileHandle file(
-			CreateFile2(
-				Platform::String::Concat("\\", pFileName)->Data(),
-				GENERIC_READ,
-				FILE_SHARE_READ,
-				OPEN_EXISTING,
-				&extendedParams
-			)
-		);
-		if (file.Get() == INVALID_HANDLE_VALUE)
-		{
-			throw ref new Platform::FailureException();
-		}
-
-		FILE_STANDARD_INFO fileInfo = { 0 };
-		if (!GetFileInformationByHandleEx(
-			file.Get(),
-			FileStandardInfo,
-			&fileInfo,
-			sizeof(fileInfo)
-		))
-		{
-			throw ref new Platform::FailureException();
-		}
-
-		if (fileInfo.EndOfFile.HighPart != 0)
-		{
-			throw ref new Platform::OutOfMemoryException();
-		}
-
-		Platform::Array<byte>^ fileData = ref new Platform::Array<byte>(fileInfo.EndOfFile.LowPart);
-
-		if (!ReadFile(
-			file.Get(),
-			fileData->Data,
-			fileData->Length,
-			nullptr,
-			nullptr
-		))
-		{
-			throw ref new Platform::FailureException();
-		}
-
-		fileDataVector.clear();
-		for (std::uint32_t i = 0; i < fileData->Length; i++)
-		{
-			fileDataVector.push_back(fileData->get(i));
 		}
 	}
 }

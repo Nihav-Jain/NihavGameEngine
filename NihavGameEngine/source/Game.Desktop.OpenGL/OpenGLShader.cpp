@@ -53,9 +53,10 @@ namespace OpenGLImplmentation {
 		}
 	}
 
-	void OpenGLShader::Use()
+	bool OpenGLShader::Use()
 	{
 		glUseProgram(mShaderId);
+		return true;
 	}
 
 	void OpenGLShader::SetMatrix4(const std::string & name, const glm::mat4 & value)

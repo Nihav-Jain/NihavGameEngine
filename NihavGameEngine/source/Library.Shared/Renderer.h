@@ -23,6 +23,7 @@ namespace Library {
 			return  sInstance;
 		};
 
+		static void DestroyInstance();
 
 		Renderer(RenderDevice * device);
 		~Renderer();

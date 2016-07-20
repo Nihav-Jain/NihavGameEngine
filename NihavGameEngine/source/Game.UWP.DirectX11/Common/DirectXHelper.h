@@ -19,7 +19,7 @@ namespace DX
 		using namespace Windows::Storage;
 		using namespace Concurrency;
 
-		auto folder = Windows::ApplicationModel::Package::Current->InstalledLocation;
+		Windows::Storage::StorageFolder^ folder = Windows::ApplicationModel::Package::Current->InstalledLocation;
 
 		return create_task(folder->GetFileAsync(Platform::StringReference(filename.c_str()))).then([] (StorageFile^ file) 
 		{

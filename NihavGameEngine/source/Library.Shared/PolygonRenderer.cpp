@@ -61,7 +61,8 @@ namespace Library {
 
 		if (device == nullptr)
 			return;
-		mShader->Use();
+		if (!mShader->Use())
+			return;
 
 		glm::mat4 model;
 

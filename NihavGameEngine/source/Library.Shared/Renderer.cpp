@@ -11,7 +11,12 @@
 
 namespace Library {
 
-	Renderer * Renderer::sInstance = nullptr;
+	Renderer* Renderer::sInstance = nullptr;
+
+	void Renderer::DestroyInstance()
+	{
+		delete sInstance;
+	}
 
 	Renderer::Renderer(RenderDevice * device) :
 		mInited(false),

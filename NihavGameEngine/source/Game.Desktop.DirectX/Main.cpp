@@ -73,6 +73,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 	Game game;
 	game.SetRenderer(renderer);
 	game.Start("config/geometrywars_test.xml");
+	//game.Start("config/sprite.xml");
 
 	mScreenWidth = game.GetWorld().GetWidth();
 	mScreenHeight = game.GetWorld().GetHeight();

@@ -68,6 +68,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 		game.Update();
 	}
 
+	game.Destroy();
+
 	Engine::Get().Deactivate();
 	Engine::Destroy();
 	return 0;

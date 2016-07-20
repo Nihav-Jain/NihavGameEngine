@@ -16,7 +16,7 @@
 			</expression>
 			<sprite_renderer name="sprite1">
 				<image name="image">
-					<string name="path" value="Content/resource/mushroom.png"/>
+					<string name="path" value="Assets\resource\mushroom.png"/>
 					<vector name="size" value="vec4(100, 100, 0, 0)"/>
 				</image>
 			</sprite_renderer>
