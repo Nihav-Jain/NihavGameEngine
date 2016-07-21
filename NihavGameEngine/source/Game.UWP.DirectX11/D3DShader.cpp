@@ -15,7 +15,7 @@ namespace Library
 {
 	D3DShader::D3DShader(ID3D11Device1& device, ID3D11DeviceContext& context) : mDevice(&device), mContext(&context),
 		mVertexShader(nullptr), mGeometryShader(nullptr), mPixelShader(nullptr), mInputLayout(nullptr), mConstantGeometryBuffer(nullptr), mConstantPixelBuffer(nullptr), mGeoBufferInstance(),
-		bIsSprite(false)
+		bIsSprite(false), mMutex()
 	{
 	}
 
@@ -117,13 +117,13 @@ namespace Library
 
 	bool D3DShader::Use()
 	{
-		{
-			std::lock_guard<std::recursive_mutex> lock(mMutex);
-			if (mVertexShader == nullptr || mPixelShader == nullptr)
-				return false;
-			if (!bIsSprite && mGeometryShader == nullptr)
-				return false;
-		}
+		//{
+		//	std::lock_guard<std::recursive_mutex> lock(mMutex);
+		//	if (mVertexShader == nullptr || mPixelShader == nullptr)
+		//		return false;
+		//	if (!bIsSprite && mGeometryShader == nullptr)
+		//		return false;
+		//}
 
 		mContext->VSSetShader(mVertexShader, nullptr, 0);
 		mContext->GSSetShader(mGeometryShader, nullptr, 0);

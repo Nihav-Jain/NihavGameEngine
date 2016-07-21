@@ -3,6 +3,11 @@
 #include "..\Common\DeviceResources.h"
 #include "ShaderStructures.h"
 #include "..\Common\StepTimer.h"
+#include <mutex>
+#include <functional>
+#include "FileManager.h"
+#include "FileHandle.h"
+
 
 namespace Game_UWP_DirectX11
 {
@@ -24,6 +29,7 @@ namespace Game_UWP_DirectX11
 
 	private:
 		void Rotate(float radians);
+		void ShadersLoaded();
 
 	private:
 		// Cached pointer to device resources.
@@ -45,6 +51,16 @@ namespace Game_UWP_DirectX11
 		bool	m_loadingComplete;
 		float	m_degreesPerSecond;
 		bool	m_tracking;
+
+		std::recursive_mutex mMutex;
+		bool mVertexShaderLoaded;
+		bool mPixelShaderLoaded;
+
+		std::function<void(Library::FileHandle*)> mVSGetFileCallabck;
+		std::function<void(std::vector<std::uint8_t>)> mVSReadBufferCallback;
+
+		std::function<void(Library::FileHandle*)> mPSGetFileCallabck;
+		std::function<void(std::vector<std::uint8_t>)> mPSReadBufferCallback;
 	};
 }
 

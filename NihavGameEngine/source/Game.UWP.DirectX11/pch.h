@@ -24,5 +24,20 @@
 #include "GameException.h"
 #include "glm\glm.hpp"
 
+#include "RTTI.h"
+#include "Engine.h"
+#include "EngineModule.h"
+
+#pragma region Containers
+
+#include "SList.h"
+#include "Vector.h"
+#include "Stack.h"
+#include "Hashmap.h"
+#include "Graph.h"
+
+#pragma endregion
+
+
 #define DeleteObjects(objects) if((objects) != nullptr) { delete[] objects; objects = nullptr; }
 #define ReleaseObject(object) if((object) != nullptr) { object->Release(); object = nullptr; }
