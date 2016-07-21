@@ -5,6 +5,8 @@
 #include <fstream>
 #include <streambuf>
 
+class Library::RenderDevice;
+
 namespace OpenGLImplmentation {
 
 	class OpenGLShader :
@@ -15,7 +17,7 @@ namespace OpenGLImplmentation {
 		OpenGLShader();
 		~OpenGLShader();
 
-		virtual void Init(const std::string & vPath, const std::string & fPath, const std::string & gPath) override;
+		virtual void Init(const std::string & vPath, const std::string & fPath, const std::string & gPath, Library::RenderDevice& device) override;
 		virtual bool Use() override;
 		virtual void SetMatrix4(const std::string & name, const glm::mat4 & value) override;
 		virtual void SetVector4(const std::string & name, const glm::vec4 & value) override;

@@ -80,6 +80,9 @@ namespace Library {
 			Init();
 		}
 		
+		if (!mDevice->AllResourcesLoaded())
+			return;
+
 		for (auto & it : mLayers) {
 
 			if (it.second.TargetFrameBuffer == nullptr)
@@ -151,6 +154,11 @@ namespace Library {
 
 		if (mBuffer != nullptr)
 			mBuffer->SetData(vertices, sizeof(vertices), 4 * sizeof(float), nullptr, 0, 4);
+	}
+
+	bool Renderer::AllResourcesLoaded() const
+	{
+		return (mDevice == nullptr) ? true : mDevice->AllResourcesLoaded();
 	}
 
 	void Renderer::CreateNewLayer(std::uint32_t layerId)

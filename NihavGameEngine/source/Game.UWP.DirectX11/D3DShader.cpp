@@ -2,6 +2,7 @@
 #include <DirectXMath.h>
 #include "D3DShader.h"
 #include "Common\DirectXHelper.h"
+#include "RenderDevice.h"
 
 using namespace Microsoft::WRL;
 using namespace Windows::Storage;
@@ -29,10 +30,14 @@ namespace Library
 		ReleaseObject(mConstantGeometryBuffer);
 		ReleaseObject(mConstantPixelBuffer);
 	}
-	void D3DShader::Init(const std::string& vPath, const std::string& fPath, const std::string& gPath)
+
+	void D3DShader::Init(const std::string& vPath, const std::string& fPath, const std::string& gPath, RenderDevice& device)
 	{
 		UNREFERENCED_PARAMETER(vPath);
 		UNREFERENCED_PARAMETER(fPath);
+
+		mRenderDevice = &device;
+
 		bool IsASprite = gPath == "";
 		bIsSprite = IsASprite;
 
@@ -111,19 +116,10 @@ namespace Library
 			pixelShaderDone = true;
 			ThrowIfFailed(mDevice->CreatePixelShader(&fileData[0], fileData.size(), nullptr, &mPixelShader), "ID3D11Device::CreatedPixelShader() failed.");
 		});
-
-		while(!(vertexShaderDone && geometryShaderDone && pixelShaderDone)){}
 	}
 
 	bool D3DShader::Use()
 	{
-		//{
-		//	std::lock_guard<std::recursive_mutex> lock(mMutex);
-		//	if (mVertexShader == nullptr || mPixelShader == nullptr)
-		//		return false;
-		//	if (!bIsSprite && mGeometryShader == nullptr)
-		//		return false;
-		//}
 
 		mContext->VSSetShader(mVertexShader, nullptr, 0);
 		mContext->GSSetShader(mGeometryShader, nullptr, 0);

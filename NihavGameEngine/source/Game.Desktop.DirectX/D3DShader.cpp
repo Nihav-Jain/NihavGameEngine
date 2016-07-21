@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "RenderDevice.h"
 #include "D3DShader.h"
 #include "Utility.h"
 
@@ -19,7 +20,7 @@ namespace Library
 		ReleaseObject(mConstantGeometryBuffer);
 		ReleaseObject(mConstantPixelBuffer);
 	}
-	void D3DShader::Init(const std::string & vPath, const std::string & fPath, const std::string & gPath)
+	void D3DShader::Init(const std::string & vPath, const std::string & fPath, const std::string & gPath, RenderDevice& device)
 	{
 		UNREFERENCED_PARAMETER(vPath);
 		UNREFERENCED_PARAMETER(fPath);
@@ -80,6 +81,8 @@ namespace Library
 			constantBufferDesc.ByteWidth = sizeof(CPixelBufferPerObject);
 			ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantPixelBuffer), "ID3D11Device::CreateBuffer() failed.");
 		}
+
+		device.ResourceLoaded();
 	}
 
 	bool D3DShader::Use()

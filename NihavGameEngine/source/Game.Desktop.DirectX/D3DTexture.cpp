@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "D3DTexture.h"
+#include "RenderDevice.h"
 
 namespace Library
 {
@@ -13,7 +14,7 @@ namespace Library
 		ReleaseObject(mColorSampler);
 
 	}
-	void D3DTexture::Init(const std::string & imagePath)
+	void D3DTexture::Init(const std::string & imagePath, RenderDevice& device)
 	{
 
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
@@ -28,6 +29,8 @@ namespace Library
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 		
 		ThrowIfFailed(mDevice->CreateSamplerState(&samplerDesc, &mColorSampler), "ID3D11Device::CreateSamplerState() failed.");
+
+		device.ResourceLoaded();
 	}
 	void D3DTexture::Use(std::uint32_t useAsTextureIndex)
 	{

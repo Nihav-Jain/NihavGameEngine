@@ -1,5 +1,5 @@
 #pragma once
-#include <memory>
+#include <mutex>
 #include "RenderDevice.h"
 
 namespace Library
@@ -38,6 +38,8 @@ namespace Library
 		void SetWindow(Windows::UI::Core::CoreWindow^ window);
 		void RegisterDeviceNotify(IDeviceNotify& deviceNotify);
 
+		virtual bool AllResourcesLoaded() const;
+		virtual void ResourceLoaded();
 	private:
 		void CreateDeviceResources();
 		void CreateWindowSizeDependentResources();
@@ -74,6 +76,8 @@ namespace Library
 
 		// The IDeviceNotify can be held directly as it owns the DeviceResources.
 		IDeviceNotify* mDeviceNotify;
+		mutable std::recursive_mutex mMutex;
+		std::int32_t mResourcesPendingLoadCount;
 	};
 }
 

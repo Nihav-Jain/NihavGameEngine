@@ -11,13 +11,14 @@ struct ID3D11InputLayout;
 struct ID3D11Buffer;
 namespace Library
 {
+	class RenderDevice;
 	class D3DShader : public Library::Shader
 	{
 	public:
 		D3DShader(ID3D11Device1& device, ID3D11DeviceContext& context);
 		virtual ~D3DShader();
 
-		virtual void Init(const std::string & vPath, const std::string & fPath, const std::string & gPath) override;
+		virtual void Init(const std::string & vPath, const std::string & fPath, const std::string & gPath, RenderDevice& device) override;
 		virtual bool Use() override;
 		virtual void SetMatrix4(const std::string & name, const glm::mat4 & value) override;
 		virtual void SetVector4(const std::string & name, const glm::vec4 & value) override;
@@ -52,5 +53,6 @@ namespace Library
 		//void ReadData(const std::wstring& filename, std::vector<char>& fileDataVector);
 		std::recursive_mutex mMutex;
 		bool bIsSprite;
+		RenderDevice* mRenderDevice;
 	};
 }

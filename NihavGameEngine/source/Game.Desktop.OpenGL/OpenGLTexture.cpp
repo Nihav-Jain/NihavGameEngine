@@ -35,7 +35,7 @@ namespace OpenGLImplmentation {
 		}
 	}
 
-	void OpenGLTexture::Init(const std::string & imagePath)
+	void OpenGLTexture::Init(const std::string & imagePath, Library::RenderDevice& device)
 	{
 		mTextureId = SOIL_load_OGL_texture
 			(
@@ -55,6 +55,8 @@ namespace OpenGLImplmentation {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glGenerateMipmap(GL_TEXTURE_2D);
+
+		device.ResourceLoaded();
 	}
 
 	void OpenGLTexture::Use(std::uint32_t useAsTextureIndex)

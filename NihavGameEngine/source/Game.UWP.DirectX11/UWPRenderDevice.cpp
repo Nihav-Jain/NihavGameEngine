@@ -74,7 +74,8 @@ namespace Library
 		mCurrentOrientation(DisplayOrientations::None),
 		mDpi(-1.0f),
 		mEffectiveDpi(-1.0f),
-		mDeviceNotify(nullptr)
+		mDeviceNotify(nullptr),
+		mMutex(), mResourcesPendingLoadCount(0)
 	{
 		CreateDeviceResources();
 	}
@@ -96,16 +97,24 @@ namespace Library
 
 	Texture* UWPRenderDevice::CreateTexture(const std::string& imagePath)
 	{
+		{
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			++mResourcesPendingLoadCount;
+		}
 		std::shared_ptr<D3DTexture> texture = std::make_shared<D3DTexture>(*mDirect3DDevice.Get(), *mDirect3DDeviceContext.Get());
-		texture->Init(imagePath);
+		texture->Init(imagePath, *this);
 		mTextures.push_back(texture);
 		return texture.get();
 	}
 
 	Shader* UWPRenderDevice::CreateShader(const std::string& vPath, const std::string& fPath, const std::string& gPath)
 	{
+		{
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			++mResourcesPendingLoadCount;
+		}
 		std::shared_ptr<D3DShader> shader = std::make_shared<D3DShader>(*mDirect3DDevice.Get(), *mDirect3DDeviceContext.Get());
-		shader->Init(vPath, fPath, gPath);
+		shader->Init(vPath, fPath, gPath, *this);
 		mShaders.push_back(shader);
 		return shader.get();
 	}
@@ -165,6 +174,19 @@ namespace Library
 	void UWPRenderDevice::RegisterDeviceNotify(IDeviceNotify& deviceNotify)
 	{
 		mDeviceNotify = &deviceNotify;
+	}
+
+	bool UWPRenderDevice::AllResourcesLoaded() const
+	{
+		std::lock_guard<std::recursive_mutex> lock(mMutex);
+		return (mResourcesPendingLoadCount == 0);
+	}
+
+	void UWPRenderDevice::ResourceLoaded()
+	{
+		std::lock_guard<std::recursive_mutex> lock(mMutex);
+		assert(mResourcesPendingLoadCount > 0);
+		--mResourcesPendingLoadCount;
 	}
 
 	void UWPRenderDevice::CreateDeviceResources()

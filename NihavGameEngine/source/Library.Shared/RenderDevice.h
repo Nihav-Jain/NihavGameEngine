@@ -35,6 +35,9 @@ namespace Library {
 		virtual void Draw(DrawMode mode = DrawMode::TRIANGLES, std::uint32_t counts = 6, bool useIndices = false) = 0;
 
 		virtual void ClearScreen() = 0;
+
+		virtual bool AllResourcesLoaded() const = 0;
+		virtual void ResourceLoaded() = 0;
 	};
 
 }

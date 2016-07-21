@@ -52,7 +52,6 @@ namespace Library
 				throw std::exception("Error while parsing Level");
 			mGameClock.Reset();
 			mGameClock.UpdateGameTime(mGameTime);
-			//mWorld.SetAudioManager(mAudioManager);
 			mWorld.BeginPlay();
 			mLoadingLevel = false;
 		});
@@ -66,7 +65,9 @@ namespace Library
 		mGameClock.UpdateGameTime(mGameTime);
 		mWorld.Update();
 		if (mRenderer != nullptr)
+		{
 			mRenderer->Update();
+		}
 		AudioManager::Get().Update();
 	}
 

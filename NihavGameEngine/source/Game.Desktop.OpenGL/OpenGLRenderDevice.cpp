@@ -18,7 +18,7 @@ namespace OpenGLImplmentation {
 	OpenGLRenderDevice::OpenGLRenderDevice() :
 		mWindow(nullptr),
 		mWidth(800),
-		mHeight(600)
+		mHeight(600), mResourcesPendingLoadCount(0)
 	{
 	}
 
@@ -75,8 +75,9 @@ namespace OpenGLImplmentation {
 
 	Library::Texture * OpenGLRenderDevice::CreateTexture(const std::string & imagePath)
 	{
+		++mResourcesPendingLoadCount;
 		OpenGLTexture * texture = new OpenGLTexture();
-		texture->Init(imagePath);
+		texture->Init(imagePath, *this);
 		mTextures.push_back(texture);
 		return texture;
 	}
@@ -91,8 +92,9 @@ namespace OpenGLImplmentation {
 
 	Library::Shader * OpenGLRenderDevice::CreateShader(const std::string & vPath, const std::string & fPath, const std::string & gPath)
 	{
+		++mResourcesPendingLoadCount;
 		OpenGLShader * shader = new OpenGLShader();
-		shader->Init(vPath, fPath, gPath);
+		shader->Init(vPath, fPath, gPath, *this);
 		mShaders.push_back(shader);
 		return shader;
 	}
@@ -120,6 +122,17 @@ namespace OpenGLImplmentation {
 	bool OpenGLRenderDevice::IsValid()
 	{
 		return !glfwWindowShouldClose(mWindow);
+	}
+
+	bool OpenGLRenderDevice::AllResourcesLoaded() const
+	{
+		return (mResourcesPendingLoadCount == 0);
+	}
+
+	void OpenGLRenderDevice::ResourceLoaded()
+	{
+		assert(mResourcesPendingLoadCount > 0);
+		--mResourcesPendingLoadCount;
 	}
 
 	Library::Buffer * OpenGLRenderDevice::CreateBuffer(bool createIndicesBuffer)

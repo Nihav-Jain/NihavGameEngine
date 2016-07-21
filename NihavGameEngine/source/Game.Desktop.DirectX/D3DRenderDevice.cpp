@@ -49,16 +49,18 @@ namespace Library
 
 	Texture * D3DRenderDevice::CreateTexture(const std::string & imagePath)
 	{
+		++mResourcesPendingLoadCount;
 		D3DTexture * texture = new D3DTexture(*mDirect3DDevice, *mDirect3DDeviceContext);
-		texture->Init(imagePath);
+		texture->Init(imagePath, *this);
 		mTextures.push_back(texture);
 		return texture;
 	}
 
 	Shader * D3DRenderDevice::CreateShader(const std::string & vPath, const std::string & fPath, const std::string & gPath)
 	{
+		++mResourcesPendingLoadCount;
 		D3DShader * shader = new D3DShader(*mDirect3DDevice, *mDirect3DDeviceContext);
-		shader->Init(vPath, fPath, gPath);
+		shader->Init(vPath, fPath, gPath, *this);
 		mShaders.push_back(shader);
 		return shader;
 	}
@@ -104,6 +106,17 @@ namespace Library
 		ThrowIfFailed(mSwapChain->Present(0, 0), "IDXGISwapChain::Present() failed.");
 		mDirect3DDeviceContext->ClearRenderTargetView(mRenderTargetView, reinterpret_cast<const float*>(&BackgroundColor));
 		mDirect3DDeviceContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	}
+
+	bool D3DRenderDevice::AllResourcesLoaded() const
+	{
+		return (mResourcesPendingLoadCount == 0);
+	}
+
+	void D3DRenderDevice::ResourceLoaded()
+	{
+		assert(mResourcesPendingLoadCount > 0);
+		--mResourcesPendingLoadCount;
 	}
 
 

@@ -12,6 +12,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+using namespace Library;
+
 namespace OpenGLImplmentation {
 
 	OpenGLShader::OpenGLShader() :
@@ -28,7 +30,7 @@ namespace OpenGLImplmentation {
 		}
 	}
 
-	void OpenGLShader::Init(const std::string & vPath, const std::string & fPath, const std::string & gPath)
+	void OpenGLShader::Init(const std::string & vPath, const std::string & fPath, const std::string & gPath, RenderDevice& device)
 	{
 		GLint success = 0;
 		GLuint fragmentShader = createOpenGLShaderObj(GL_FRAGMENT_SHADER, fPath);
@@ -51,6 +53,7 @@ namespace OpenGLImplmentation {
 			glGetProgramInfoLog(mShaderId, 512, NULL, buf);
 			printf("%s", buf);
 		}
+		device.ResourceLoaded();
 	}
 
 	bool OpenGLShader::Use()

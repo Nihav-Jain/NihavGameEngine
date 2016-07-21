@@ -39,7 +39,10 @@ namespace Library {
 
 		void Update();
 
+		bool AllResourcesLoaded() const;
+
 	private:
+		void Init();
 
 		// TODO: Remove this !!!!!!!!
 		static Renderer * sInstance;
@@ -49,8 +52,6 @@ namespace Library {
 		Shader * mShader;
 		Buffer * mBuffer;
 		RenderDevice * mDevice;
-
-		void Init();
 
 		void CreateNewLayer(std::uint32_t layerId);
 

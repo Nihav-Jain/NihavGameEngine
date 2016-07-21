@@ -38,6 +38,9 @@ namespace Library
 
 		virtual void ClearScreen();
 
+		virtual bool AllResourcesLoaded() const;
+		virtual void ResourceLoaded();
+
 	private:
 		D3D_FEATURE_LEVEL mFeatureLevel;
 		ID3D11Device1* mDirect3DDevice;
@@ -54,6 +57,8 @@ namespace Library
 		std::vector<D3DRenderBuffer*> mBuffers;
 		std::int32_t mWidth;
 		std::int32_t mHeight;
+
+		std::int32_t mResourcesPendingLoadCount;
 	};
 }
 

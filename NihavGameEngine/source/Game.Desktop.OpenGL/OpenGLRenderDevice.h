@@ -33,12 +33,14 @@ namespace OpenGLImplmentation {
 		virtual void Draw(DrawMode mode, std::uint32_t counts, bool useIndices) override;
 
 		virtual bool IsValid();
+		virtual bool AllResourcesLoaded() const;
 
+		virtual void ResourceLoaded();
 	private:
 		// The actuall draw call
 		virtual void ClearScreen() override;
 
-		GLFWwindow * mWindow;
+		GLFWwindow* mWindow;
 
 		std::vector<OpenGLShader*> mShaders;
 		std::vector<OpenGLTexture*> mTextures;
@@ -46,6 +48,8 @@ namespace OpenGLImplmentation {
 
 		std::int32_t mWidth;
 		std::int32_t mHeight;
+
+		std::int32_t mResourcesPendingLoadCount;
 	};
 
 }

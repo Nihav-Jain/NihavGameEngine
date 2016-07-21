@@ -3,12 +3,14 @@
 
 namespace Library {
 
+	class RenderDevice;
+
 	class Shader
 	{
 	public:
 		virtual ~Shader() = default;
 
-		virtual void Init(const std::string & vPath, const std::string & fPath, const std::string & gPath) = 0;
+		virtual void Init(const std::string & vPath, const std::string & fPath, const std::string & gPath, RenderDevice& device) = 0;
 		virtual bool Use() = 0;
 		virtual void SetMatrix4(const std::string & name, const glm::mat4 & value) = 0;
 		virtual void SetVector4(const std::string & name, const glm::vec4 & value) = 0;
