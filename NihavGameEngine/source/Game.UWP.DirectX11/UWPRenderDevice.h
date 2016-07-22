@@ -46,6 +46,7 @@ namespace Library
 		void UpdateRenderTargetSize();
 		DXGI_MODE_ROTATION ComputeDisplayRotation();
 		void HandleDeviceLost();
+		void SwapSwapChain();
 
 		D3D_FEATURE_LEVEL mFeatureLevel;
 		Microsoft::WRL::ComPtr<ID3D11Device1> mDirect3DDevice;

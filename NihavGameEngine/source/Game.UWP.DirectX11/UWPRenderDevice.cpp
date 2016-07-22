@@ -147,13 +147,15 @@ namespace Library
 			mDirect3DDeviceContext->DrawIndexed(counts, 0, 0);
 		else
 			mDirect3DDeviceContext->Draw(counts, 0);
+
+		//SwapSwapChain();
 	}
 
 	void UWPRenderDevice::ClearScreen()
 	{
 		static DirectX::XMVECTORF32 BackgroundColor = { 0, 0, 0, 1.0f };
 
-		ThrowIfFailed(mSwapChain->Present(0, 0), "IDXGISwapChain::Present() failed.");
+		ThrowIfFailed(mSwapChain->Present(1, 0), "IDXGISwapChain::Present() failed.");
 		mDirect3DDeviceContext->ClearRenderTargetView(mRenderTargetView.Get(), reinterpret_cast<const float*>(&BackgroundColor));
 		mDirect3DDeviceContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	}
@@ -565,6 +567,34 @@ namespace Library
 		if (mDeviceNotify != nullptr)
 		{
 			mDeviceNotify->OnDeviceRestored();
+		}
+	}
+
+	void UWPRenderDevice::SwapSwapChain()
+	{
+		// The first argument instructs DXGI to block until VSync, putting the application
+		// to sleep until the next VSync. This ensures we don't waste any cycles rendering
+		// frames that will never be displayed to the screen.
+		DXGI_PRESENT_PARAMETERS parameters = { 0 };
+		HRESULT hr = mSwapChain->Present1(1, 0, &parameters);
+
+		// Discard the contents of the render target.
+		// This is a valid operation only when the existing contents will be entirely
+		// overwritten. If dirty or scroll rects are used, this call should be removed.
+		mDirect3DDeviceContext->DiscardView1(mRenderTargetView.Get(), nullptr, 0);
+
+		// Discard the contents of the depth stencil.
+		mDirect3DDeviceContext->DiscardView1(mDepthStencilView.Get(), nullptr, 0);
+
+		// If the device was removed either by a disconnection or a driver upgrade, we 
+		// must recreate all device resources.
+		if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
+		{
+			HandleDeviceLost();
+		}
+		else
+		{
+			DX::ThrowIfFailed(hr);
 		}
 	}
 }

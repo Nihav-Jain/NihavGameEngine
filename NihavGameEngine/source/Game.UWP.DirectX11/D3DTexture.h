@@ -16,5 +16,7 @@ namespace Library
 		ID3D11DeviceContext* mContext;
 		ID3D11ShaderResourceView* mColorTexture;
 		ID3D11SamplerState* mColorSampler;
+
+		RenderDevice* mRenderDevice;
 	};
 }

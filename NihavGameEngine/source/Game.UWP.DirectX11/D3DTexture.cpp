@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "D3DTexture.h"
 #include "RenderDevice.h"
+#include <future>
 
 namespace Library
 {
-	D3DTexture::D3DTexture(ID3D11Device1& device, ID3D11DeviceContext& context) : mDevice(&device), mContext(&context), mColorTexture(nullptr), mColorSampler(nullptr)
+	D3DTexture::D3DTexture(ID3D11Device1& device, ID3D11DeviceContext& context) : 
+		mDevice(&device), mContext(&context), mColorTexture(nullptr), mColorSampler(nullptr),
+		mRenderDevice(nullptr)
 	{
 	}
 
@@ -12,22 +15,27 @@ namespace Library
 	{
 		ReleaseObject(mColorTexture);
 		ReleaseObject(mColorSampler);
-
 	}
+
 	void D3DTexture::Init(const std::string& imagePath, RenderDevice& device)
 	{
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		ThrowIfFailed(DirectX::CreateWICTextureFromFile(mDevice, mContext, converter.from_bytes(imagePath).c_str(), nullptr, &mColorTexture), "CreateWICTextureFromFile() failed.");
-		// Create a texture sampler
-		D3D11_SAMPLER_DESC samplerDesc;
-		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-		
-		ThrowIfFailed(mDevice->CreateSamplerState(&samplerDesc, &mColorSampler), "ID3D11Device::CreateSamplerState() failed.");
-		device.ResourceLoaded();
+		concurrency::create_async([&]() {
+
+			CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			ThrowIfFailed(DirectX::CreateWICTextureFromFile(mDevice, mContext, converter.from_bytes(imagePath).c_str(), nullptr, &mColorTexture), "CreateWICTextureFromFile() failed.");
+			// Create a texture sampler
+			D3D11_SAMPLER_DESC samplerDesc;
+			ZeroMemory(&samplerDesc, sizeof(samplerDesc));
+			samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+			samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+
+			ThrowIfFailed(mDevice->CreateSamplerState(&samplerDesc, &mColorSampler), "ID3D11Device::CreateSamplerState() failed.");
+			device.ResourceLoaded();
+		});
 	}
 	void D3DTexture::Use(std::uint32_t useAsTextureIndex)
 	{
