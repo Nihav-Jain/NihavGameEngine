@@ -16,51 +16,22 @@ namespace Library
 {
 	D3DShader::D3DShader(ID3D11Device1& device, ID3D11DeviceContext& context) : mDevice(&device), mContext(&context),
 		mVertexShader(nullptr), mGeometryShader(nullptr), mPixelShader(nullptr), mInputLayout(nullptr), mConstantGeometryBuffer(nullptr), mConstantPixelBuffer(nullptr), mGeoBufferInstance(),
-		bIsSprite(false), mMutex()
+		bIsSprite(false), mMutex(), mVSLoaded(false), mPSLoaded(false), mGSLoaded(false)
 	{
-	}
+		mVSReadBufferCallback = [&](std::vector<std::uint8_t> fileData){
 
+			bool sprite = false;
+			
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				sprite = bIsSprite;
+			}
 
-	D3DShader::~D3DShader()
-	{
-		ReleaseObject(mVertexShader);
-		ReleaseObject(mGeometryShader);
-		ReleaseObject(mPixelShader);
-		ReleaseObject(mInputLayout);
-		ReleaseObject(mConstantGeometryBuffer);
-		ReleaseObject(mConstantPixelBuffer);
-	}
-
-	void D3DShader::Init(const std::string& vPath, const std::string& fPath, const std::string& gPath, RenderDevice& device)
-	{
-		UNREFERENCED_PARAMETER(vPath);
-		UNREFERENCED_PARAMETER(fPath);
-
-		mRenderDevice = &device;
-
-		bool IsASprite = gPath == "";
-		bIsSprite = IsASprite;
-
-		bool vertexShaderDone = false;
-		bool geometryShaderDone = false;
-		bool pixelShaderDone = false;
-
-		//std::vector<byte> compiledVertexShader;
-		Concurrency::task<std::vector<byte>> vertexShaderTask;
-
-		if(IsASprite)
-			vertexShaderTask = DX::ReadDataAsync(L"SpriteVertexShader.cso");
-		else
-			vertexShaderTask = DX::ReadDataAsync(L"VertexShader.cso");
-
-		vertexShaderTask.then([&](std::vector<byte> fileData) {
-			std::lock_guard<std::recursive_mutex> lock(mMutex);
-			vertexShaderDone = true;
 			ThrowIfFailed(mDevice->CreateVertexShader(&fileData[0], fileData.size(), nullptr, &mVertexShader), "ID3D11Device::CreatedVertexShader() failed.");
 
 			D3D11_BUFFER_DESC constantBufferDesc;
 			ZeroMemory(&constantBufferDesc, sizeof(constantBufferDesc));
-			if (IsASprite)
+			if (sprite)
 			{
 				D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
 				{
@@ -90,32 +61,91 @@ namespace Library
 				constantBufferDesc.ByteWidth = sizeof(CPixelBufferPerObject);
 				ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantPixelBuffer), "ID3D11Device::CreateBuffer() failed.");
 			}
-		});
+
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				mVSLoaded = true;
+			}
+			AllShadersLoaded();
+		};
+
+		mVSGetFileCallback = [&](FileHandle* handle) {
+			handle->ReadBufferAsync(mVSReadBufferCallback);
+		};
+
+		mGSReadBufferCallback = [&](std::vector<std::uint8_t> fileData) {
+			ThrowIfFailed(mDevice->CreateGeometryShader(&fileData[0], fileData.size(), nullptr, &mGeometryShader), "ID3D11Device::CreatedGeometryShader() failed.");
+
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				mGSLoaded = true;
+			}
+			AllShadersLoaded();
+		};
+
+		mGSGetFileCallback = [&](FileHandle* handle) {
+			handle->ReadBufferAsync(mGSReadBufferCallback);
+		};
+
+		mPSReadBufferCallback = [&](std::vector<std::uint8_t> fileData) {
+			ThrowIfFailed(mDevice->CreatePixelShader(&fileData[0], fileData.size(), nullptr, &mPixelShader), "ID3D11Device::CreatedPixelShader() failed.");
+
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				mPSLoaded = true;
+			}
+			AllShadersLoaded();
+		};
+
+		mPSGetFileCallback = [&](FileHandle* handle) {
+			handle->ReadBufferAsync(mPSReadBufferCallback);
+		};
+	}
+
+
+	D3DShader::~D3DShader()
+	{
+		ReleaseObject(mVertexShader);
+		ReleaseObject(mGeometryShader);
+		ReleaseObject(mPixelShader);
+		ReleaseObject(mInputLayout);
+		ReleaseObject(mConstantGeometryBuffer);
+		ReleaseObject(mConstantPixelBuffer);
+	}
+
+	void D3DShader::Init(const std::string& vPath, const std::string& fPath, const std::string& gPath, RenderDevice& device)
+	{
+		UNREFERENCED_PARAMETER(vPath);
+		UNREFERENCED_PARAMETER(fPath);
+
+		mRenderDevice = &device;
+
+		bool IsASprite = gPath == "";
+
+		{
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			bIsSprite = IsASprite;
+		}
+
+		if (IsASprite)
+			FileManager::Get().GetFileAsync("SpriteVertexShader.cso", mVSGetFileCallback);
+		else
+			FileManager::Get().GetFileAsync("VertexShader.cso", mVSGetFileCallback);
 
 		if (!IsASprite)
 		{
-			// Load a compiled pixel shader
-			std::vector<char> compiledGeometryShader;
-			DX::ReadDataAsync(L"GeometryShader.cso").then([&](std::vector<byte> fileData) {
-				std::lock_guard<std::recursive_mutex> lock(mMutex);
-				geometryShaderDone = true;
-				ThrowIfFailed(mDevice->CreateGeometryShader(&fileData[0], fileData.size(), nullptr, &mGeometryShader), "ID3D11Device::CreatedGeometryShader() failed.");
-			});
+			FileManager::Get().GetFileAsync("GeometryShader.cso", mGSGetFileCallback);
 		}
 		else
-			geometryShaderDone = true;
-
-		std::vector<char> compiledPixelShader;
-		Concurrency::task<std::vector<byte>> pixelShaderTask;
-		if (IsASprite)
-			pixelShaderTask = DX::ReadDataAsync(L"SpritePixelShader.cso");
-		else
-			pixelShaderTask = DX::ReadDataAsync(L"PixelShader.cso");
-		pixelShaderTask.then([&](std::vector<byte> fileData) {
+		{
 			std::lock_guard<std::recursive_mutex> lock(mMutex);
-			pixelShaderDone = true;
-			ThrowIfFailed(mDevice->CreatePixelShader(&fileData[0], fileData.size(), nullptr, &mPixelShader), "ID3D11Device::CreatedPixelShader() failed.");
-		});
+			mGSLoaded = true;
+		}
+
+		if (IsASprite)
+			FileManager::Get().GetFileAsync("SpritePixelShader.cso", mPSGetFileCallback);
+		else
+			FileManager::Get().GetFileAsync("PixelShader.cso", mPSGetFileCallback);
 	}
 
 	bool D3DShader::Use()
@@ -167,5 +197,12 @@ namespace Library
 			mGeoBufferInstance.width = value;
 			mContext->UpdateSubresource(mConstantGeometryBuffer, 0, nullptr, &mGeoBufferInstance, 0, 0);
 		}
+	}
+
+	void D3DShader::AllShadersLoaded()
+	{
+		std::lock_guard<std::recursive_mutex> lock(mMutex);
+		if (mVSLoaded && mPSLoaded && mGSLoaded)
+			mRenderDevice->ResourceLoaded();
 	}
 }

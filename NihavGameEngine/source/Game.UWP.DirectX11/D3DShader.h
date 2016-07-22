@@ -1,7 +1,8 @@
 #pragma once
 #include <mutex>
 #include "Shader.h"
-
+#include "FileManager.h"
+#include "FileHandle.h"
 
 struct ID3D11Device1;
 struct ID3D11DeviceContext;
@@ -26,6 +27,7 @@ namespace Library
 		virtual void SetBool(const std::string & name, bool value) { UNREFERENCED_PARAMETER(name); UNREFERENCED_PARAMETER(value); };
 		virtual void SetInt(const std::string & name, std::int32_t value) { UNREFERENCED_PARAMETER(name); UNREFERENCED_PARAMETER(value); };
 	private:
+		void AllShadersLoaded();
 
 		struct CGeometryBufferPerObject
 		{
@@ -54,5 +56,18 @@ namespace Library
 		std::recursive_mutex mMutex;
 		bool bIsSprite;
 		RenderDevice* mRenderDevice;
+
+		bool mVSLoaded;
+		bool mGSLoaded;
+		bool mPSLoaded;
+
+		std::function<void(FileHandle*)> mVSGetFileCallback;
+		std::function<void(std::vector<std::uint8_t>)> mVSReadBufferCallback;
+
+		std::function<void(FileHandle*)> mGSGetFileCallback;
+		std::function<void(std::vector<std::uint8_t>)> mGSReadBufferCallback;
+
+		std::function<void(FileHandle*)> mPSGetFileCallback;
+		std::function<void(std::vector<std::uint8_t>)> mPSReadBufferCallback;
 	};
 }
