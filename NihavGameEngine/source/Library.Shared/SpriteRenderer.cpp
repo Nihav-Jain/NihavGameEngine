@@ -40,6 +40,7 @@ namespace Library {
 		mLayerNumber(100)
 	{
 		AddExternalAttribute(ATTRIBUTE_LAYER, 1, &mLayerNumber);
+
 	}
 
 	SpriteRenderer::~SpriteRenderer()
@@ -194,6 +195,7 @@ namespace Library {
 			delete mTexture;
 			mTexture = nullptr;
 		}
+		Init(&(Renderer::GetInstance()->GetRenderDevice()));
 	}
 
 	void SpriteRenderer::OnDestroy(WorldState & worldState)

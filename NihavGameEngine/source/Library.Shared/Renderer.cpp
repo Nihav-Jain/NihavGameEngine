@@ -78,10 +78,14 @@ namespace Library {
 
 		if (!mInited) {
 			Init();
+			return;
 		}
 		
 		if (!mDevice->AllResourcesLoaded())
 			return;
+
+		bool something = true;
+		something = false;
 
 		for (auto & it : mLayers) {
 
@@ -159,6 +163,12 @@ namespace Library {
 	bool Renderer::AllResourcesLoaded() const
 	{
 		return (mDevice == nullptr) ? true : mDevice->AllResourcesLoaded();
+	}
+
+	RenderDevice& Renderer::GetRenderDevice()
+	{
+		assert(mDevice != nullptr);
+		return *mDevice;
 	}
 
 	void Renderer::CreateNewLayer(std::uint32_t layerId)

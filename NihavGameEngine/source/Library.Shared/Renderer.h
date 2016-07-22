@@ -41,6 +41,8 @@ namespace Library {
 
 		bool AllResourcesLoaded() const;
 
+		RenderDevice& GetRenderDevice();
+
 	private:
 		void Init();
 

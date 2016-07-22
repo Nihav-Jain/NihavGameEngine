@@ -50,7 +50,7 @@ namespace Library
 	Texture * D3DRenderDevice::CreateTexture(const std::string & imagePath)
 	{
 		D3DTexture * texture = new D3DTexture(*mDirect3DDevice, *mDirect3DDeviceContext);
-		texture->Init(imagePath);
+		texture->Init(imagePath, *this);
 		mTextures.push_back(texture);
 		return texture;
 	}
@@ -58,7 +58,7 @@ namespace Library
 	Shader * D3DRenderDevice::CreateShader(const std::string & vPath, const std::string & fPath, const std::string & gPath)
 	{
 		D3DShader * shader = new D3DShader(*mDirect3DDevice, *mDirect3DDeviceContext);
-		shader->Init(vPath, fPath, gPath);
+		shader->Init(vPath, fPath, gPath, *this);
 		mShaders.push_back(shader);
 		return shader;
 	}

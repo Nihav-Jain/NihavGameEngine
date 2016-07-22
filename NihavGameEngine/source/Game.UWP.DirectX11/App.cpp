@@ -57,10 +57,10 @@ void App::Initialize(CoreApplicationView^ applicationView)
 	Engine::CreateEngine();
 	Engine::Get().Activate();
 
-	//mRenderDevice = std::make_shared<UWPRenderDevice>();
-	//mRenderer = Renderer::GetInstance(mRenderDevice.get());
+	mRenderDevice = std::make_shared<UWPRenderDevice>();
+	mRenderer = Renderer::GetInstance(mRenderDevice.get());
 	mGame = std::make_unique<Game>();
-	//mGame->SetRenderer(mRenderer);
+	mGame->SetRenderer(mRenderer);
 
 	// Register event handlers for app lifecycle. This example includes Activated, so that we
 	// can make the CoreWindow active and start rendering on the window.
@@ -75,7 +75,7 @@ void App::Initialize(CoreApplicationView^ applicationView)
 
 	// At this point we have access to the device. 
 	// We can create the device-dependent resources.
-	m_deviceResources = std::make_shared<DX::DeviceResources>();
+	//m_deviceResources = std::make_shared<DX::DeviceResources>();
 }
 
 // Called when the CoreWindow object is created (or re-created).
@@ -101,19 +101,20 @@ void App::SetWindow(CoreWindow^ window)
 	DisplayInformation::DisplayContentsInvalidated +=
 		ref new TypedEventHandler<DisplayInformation^, Object^>(this, &App::OnDisplayContentsInvalidated);
 
-	m_deviceResources->SetWindow(window);
-	//mRenderDevice->SetWindow(window);
+	//m_deviceResources->SetWindow(window);
+	mRenderDevice->SetWindow(window);
 }
 
 // Initializes scene resources, or loads a previously saved app state.
 void App::Load(Platform::String^ entryPoint)
 {
-	if (m_main == nullptr)
+	if (mGame == nullptr)
 	{
-		m_main = std::unique_ptr<Game_UWP_DirectX11Main>(new Game_UWP_DirectX11Main(m_deviceResources));
-		//mGame = std::make_unique<Game>();
+		//m_main = std::unique_ptr<Game_UWP_DirectX11Main>(new Game_UWP_DirectX11Main(m_deviceResources));
+		mGame = std::make_unique<Game>();
+		mGame->SetRenderer(mRenderer);
 	}
-	//mGame->Start("config\\sprite.xml");
+	mGame->Start("Assets\\config\\sprite.xml");
 }
 
 // This method is called after the window becomes active.
@@ -125,13 +126,13 @@ void App::Run()
 		{
 			CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
-			m_main->Update();
-			//mGame->Update();
+			//m_main->Update();
+			mGame->Update();
 
-			if (m_main->Render())
-			{
-				m_deviceResources->Present();
-			}
+			//if (m_main->Render())
+			//{
+			//	m_deviceResources->Present();
+			//}
 		}
 		else
 		{
@@ -165,7 +166,7 @@ void App::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
 
 	create_task([this, deferral]()
 	{
-        m_deviceResources->Trim();
+        //m_deviceResources->Trim();
 
 		// Insert your code here.
 
@@ -186,8 +187,8 @@ void App::OnResuming(Platform::Object^ sender, Platform::Object^ args)
 
 void App::OnWindowSizeChanged(CoreWindow^ sender, WindowSizeChangedEventArgs^ args)
 {
-	m_deviceResources->SetLogicalSize(Size(sender->Bounds.Width, sender->Bounds.Height));
-	m_main->CreateWindowSizeDependentResources();
+	//m_deviceResources->SetLogicalSize(Size(sender->Bounds.Width, sender->Bounds.Height));
+	//m_main->CreateWindowSizeDependentResources();
 }
 
 void App::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEventArgs^ args)
@@ -208,17 +209,17 @@ void App::OnDpiChanged(DisplayInformation^ sender, Object^ args)
 	// if it is being scaled for high resolution devices. Once the DPI is set on DeviceResources,
 	// you should always retrieve it using the GetDpi method.
 	// See DeviceResources.cpp for more details.
-	m_deviceResources->SetDpi(sender->LogicalDpi);
-	m_main->CreateWindowSizeDependentResources();
+	//m_deviceResources->SetDpi(sender->LogicalDpi);
+	//m_main->CreateWindowSizeDependentResources();
 }
 
 void App::OnOrientationChanged(DisplayInformation^ sender, Object^ args)
 {
-	m_deviceResources->SetCurrentOrientation(sender->CurrentOrientation);
-	m_main->CreateWindowSizeDependentResources();
+	//m_deviceResources->SetCurrentOrientation(sender->CurrentOrientation);
+	//m_main->CreateWindowSizeDependentResources();
 }
 
 void App::OnDisplayContentsInvalidated(DisplayInformation^ sender, Object^ args)
 {
-	m_deviceResources->ValidateDevice();
+	//m_deviceResources->ValidateDevice();
 }

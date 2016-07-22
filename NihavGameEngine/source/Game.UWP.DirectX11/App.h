@@ -39,8 +39,8 @@ namespace Game_UWP_DirectX11
 		void OnDisplayContentsInvalidated(Windows::Graphics::Display::DisplayInformation^ sender, Platform::Object^ args);
 
 	private:
-		std::shared_ptr<DX::DeviceResources> m_deviceResources;
-		std::unique_ptr<Game_UWP_DirectX11Main> m_main;
+		//std::shared_ptr<DX::DeviceResources> m_deviceResources;
+		//std::unique_ptr<Game_UWP_DirectX11Main> m_main;
 		bool m_windowClosed;
 		bool m_windowVisible;
 
