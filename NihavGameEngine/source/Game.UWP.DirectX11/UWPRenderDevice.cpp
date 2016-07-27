@@ -153,7 +153,7 @@ namespace Library
 
 	void UWPRenderDevice::ClearScreen()
 	{
-		static DirectX::XMVECTORF32 BackgroundColor = { 0, 0, 0, 1.0f };
+		static DirectX::XMVECTORF32 BackgroundColor = { 0.39f, 0.58f, 0.92f, 1.0f };
 
 		ThrowIfFailed(mSwapChain->Present(1, 0), "IDXGISwapChain::Present() failed.");
 		mDirect3DDeviceContext->ClearRenderTargetView(mRenderTargetView.Get(), reinterpret_cast<const float*>(&BackgroundColor));
