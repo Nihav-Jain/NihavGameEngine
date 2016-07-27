@@ -1,4 +1,5 @@
 #pragma once
+#include <mutex>
 
 #include "SList.h"
 #include "Vector.h"
@@ -148,7 +149,7 @@ namespace Library
 		*	Resets the game clock and other things to be initialized before starting the game loop
 		*	Must be called before entering the game loop
 		*/
-		void Start(const std::string & config);
+		void Start(const std::string& config, const std::function<void(void)>& callback = []() {});
 
 
 		/**
@@ -251,5 +252,7 @@ namespace Library
 		ActionPlayMusicFactory actionPlayMusicFactory;
 		ActionTogglePauseMusicFactory actionTogglePauseMusicFactory;
 		ActionStopMusicFactory actionStopMusicFactory;
+
+		std::recursive_mutex mMutex;
 	};
 }

@@ -7,7 +7,7 @@ namespace Library
 	Game::Game() :
 		mSharedData(), mParseMaster(mSharedData),
 		mGameClock(), mGameTime(), mWorld(mGameTime, mParseMaster), mRenderer(nullptr),
-		mLoadingLevel(false)
+		mLoadingLevel(false), mMutex()
 	{
 		//HeapManager::CreateHeapManager(mMemory);
 		mSharedData.SetRootScope(mWorld);
@@ -44,23 +44,35 @@ namespace Library
 		mWorld.BeginPlay();
 	}
 
-	void Game::Start(const std::string& config)
+	void Game::Start(const std::string& config, const std::function<void(void)>& callback)
 	{
-		mLoadingLevel = true;
+		{
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			mLoadingLevel = true;
+		}
+
 		mParseMaster.ParseFromFileAsync(config, [&](bool parsingSuccesfull) {
 			if (!parsingSuccesfull)
 				throw std::exception("Error while parsing Level");
+			callback();
 			mGameClock.Reset();
 			mGameClock.UpdateGameTime(mGameTime);
 			mWorld.BeginPlay();
-			mLoadingLevel = false;
+	
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				mLoadingLevel = false;
+			}
 		});
 	}
 
 	void Game::Update()
 	{
-		if (mLoadingLevel)
-			return;
+		{
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			if (mLoadingLevel)
+				return;
+		}
 
 		mGameClock.UpdateGameTime(mGameTime);
 		mWorld.Update();
