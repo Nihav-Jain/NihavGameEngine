@@ -1,0 +1,265 @@
+<gameobject class="Enemy" name="EnemySpawner">
+  <float name="frequency" value="2000"/>
+  <float name="time" value="0" />
+  <integer name="currentEnemy" value="0" />
+  <integer name="enemyTier" value="1" />
+  <integer name="currentTier" value="5" />
+  <integer name="currentFrequency" value="1" />
+  <bool name="CanSpawn" value="true" />
+  <bool name="IsColliding" value="false" />
+  <integer name="MaxNumberOfEnemies" value="10" />
+  <integer name="NumberOfEnemyTypes" value="5" />
+  
+	<!-- Enemy Class Attributes -->
+	<bool name="isdead" value="false" />
+	<bool name="canspawncollectible" value="false" />
+	<string name="enemychannel" value="collideplayers" />
+	<integer name="score" value="1" />
+	
+	<!-- GameObject Class Attributes -->
+	<vector name="position" value="vec4(0, 250, 0, 0)"/>
+	<vector name="TargetPosition" value="vec4(0, 0, 0, 0)"/>
+	<vector name="rotation" value="vec4(0, 0, 3.14, 0)"/>
+	<vector name="scale" value="vec4(20, 20, 1, 0)"/>
+	<vector name="direction" value="vec4(0, 1, 0, 0)"/>
+	<float name="speed" value="20" />
+
+	
+	<!-- Begin Play, Get a random direction -->
+	<beginplay>
+		<expression name="GetRandomTargetPosition">
+			<string name="expression">TargetPosition = RandomVector()</string>
+		</expression>
+		<vector name="newdirection" value="vec4(0, 0, 0, 0)" />
+		<expression name="update_dir">
+			<string name="expression">newdirection = TargetPosition - position</string>
+		</expression>
+		<expression name="change_dir">
+			<string name="expression">direction = normalize(newdirection)</string>
+		</expression>
+	</beginplay>
+  
+	<!-- CircleCollider Component -->
+	<component class="CircleColliderComponent" name="CircleColliderComponent">
+		<float name="radius" value="30" />
+		<bool name="enabled" value="false" />
+		<string name="channel" value="collideplayers" />
+	</component>
+	
+	<!-- Update Loop -->
+	<action class="ActionList" name="Update">
+		<vector name="delta" value="vec4(0, 0, -0.005, 0)"/>
+		
+		<!-- Update position -->		
+		<expression name="movement">
+			<string name="expression">position = position + direction * ownerWorld.deltaTime * speed</string>
+		</expression>
+		
+		<expression name="movement">
+			<string name="expression">time = time + ownerWorld.deltaTime</string>
+		</expression>
+		
+		<if name="TierCondition">
+			<condition>
+				<string name="expression">Player1.multiplier &gt; currentTier</string>
+			</condition>
+			<then>
+				<expression name="incrementTier">
+					<string name="expression">enemyTier = enemyTier + {1}</string>
+				</expression>
+				<if name="TierCondition">
+					<condition>
+						<string name="expression">enemyTier &gt; NumberOfEnemyTypes</string>
+					</condition>
+					<then>
+						<expression name="incrementTier">
+							<string name="expression">enemyTier = NumberOfEnemyTypes</string>
+						</expression>
+					</then>
+					<else>
+						<expression name="resetFrequency">
+							<string name="expression">frequency = {1000}</string>
+						</expression>
+					</else>
+				</if>
+				<expression name="incrementMultiplier">
+					<string name="expression">currentTier = currentTier + {20}</string>
+				</expression>
+			</then>	
+		</if>
+		
+		<if name="FrequencyCondition">
+			<condition>
+				<string name="expression">Player1.multiplier &gt; currentFrequency</string>
+			</condition>
+			<then>
+				<expression name="increaseFrequency">
+					<string name="expression">frequency = frequency * {0.5f}</string>
+				</expression>
+				<expression name="incrementFrequency">
+					<string name="expression">currentFrequency = currentFrequency + {5}</string>
+				</expression>
+			</then>	
+		</if>
+		
+		
+
+    <!-- Disable spawning if colliding with player -->
+    <if name="CheckIfColliding">
+      <condition>
+        <string name="expression">isdead</string>
+      </condition>
+      <then>
+        <expression name="IsColliding">
+          <string name="expression">IsColliding = {true}</string>
+        </expression>
+        <expression name="FlipDead">
+          <string name="expression">isdead = {false}</string>
+        </expression>
+      </then>
+      <else>
+        <expression name="IsColliding">
+          <string name="expression">IsColliding = {false}</string>
+        </expression>
+        <!-- Otherwise check number of enemies -->
+        <if name="EnemyNumberGreaterThanMax">
+          <condition>
+            <string name="expression">numberOfEnemies &gt;= MaxNumberOfEnemies</string>
+          </condition>
+          <then>
+            <expression name="CantSpawn">
+              <string name="expression">CanSpawn = {false}</string>
+            </expression>
+          </then>
+        </if>
+        <if name="EnemyNumberIsZero">
+          <condition>
+            <string name="expression">numberOfEnemies &lt;= {0}</string>
+          </condition>
+          <then>
+            <expression name="CanSpawn">
+              <string name="expression">CanSpawn = {true}</string>
+            </expression>
+          </then>
+        </if>
+      </else>
+    </if>
+		
+		
+		<if name="SpawnCondition">
+			<condition>
+				<string name="expression">frequency &lt; time &amp;&amp; numberOfEnemies &lt; MaxNumberOfEnemies &amp;&amp; CanSpawn &amp;&amp; (IsColliding == {false})</string>
+			</condition>
+			<then>
+				<expression name="ResetTime">
+					<string name="expression">time = {0}</string>
+				</expression>
+				<expression name="ResetTime">
+					<string name="expression">currentEnemy = RandomInt(enemyTier)</string>
+				</expression>
+				<switch name="EnemySwitch" switchValue="currentEnemy">
+
+          <!-- Tier0: Pinwheel -->
+          <case name="case0" caseValue="0" break="true">
+            <action class="ActionCreateEntityFromFile" name="SpawnPinwheel">
+              <string name="filePath" value="Assets\config\enemy_pinwheel.xml" index="0" />
+              <string name="className" value="PinwheelEnemy" index="0" />
+              <string name="instanceName" value="PinwheelEnemy" index="0" />
+            </action>
+            <!-- Spawn music & set position -->
+            <action class="ActionPlayMusic" name="playMusic1">
+              <string name="musicName" value="Enemy_spawn_orange.mp3"/>
+            </action>
+            <expression name="SetPosition">
+              <string name="expression">SpawnPinwheel.newEntity.position = position</string>
+            </expression>
+          </case>       
+          
+          <!-- Tier1: Diamond -->
+					<case name="case1" caseValue="1" break="true">
+						<action class="ActionCreateEntityFromFile" name="SpawnDiamond" break="true">
+							<string name="filePath" value="Assets\config\enemy_diamond.xml" index="0" />
+							<string name="className" value="DiamondEnemy" index="0" />
+							<string name="instanceName" value="DiamondEnemy" index="0" />
+						</action>
+            <!-- Spawn music & set position -->
+						<action class="ActionPlayMusic" name="playMusic1">
+							<string name="musicName" value="Wanderer_spawn.mp3"/>
+						</action>
+						<expression name="SetPosition">
+							<string name="expression">SpawnDiamond.newEntity.position = position</string>
+						</expression>
+					</case>
+
+          <!-- Tier2: Arrow -->
+					<case name="case2" caseValue="2" break="true">
+						<action class="ActionCreateEntityFromFile" name="SpawnArrow" break="true">
+							<string name="filePath" value="Assets\config\enemy_arrow.xml" index="0" />
+							<string name="className" value="ArrowEnemy" index="0" />
+							<string name="instanceName" value="ArrowEnemy" index="0" />
+						</action>
+            <!-- Spawn music & set position -->
+						<action class="ActionPlayMusic" name="playMusic1">
+							<string name="musicName" value="Enemy_spawn_blue.mp3"/>
+						</action>					
+						<expression name="SetPosition">
+							<string name="expression">SpawnArrow.newEntity.position = position</string>
+						</expression>
+            <!-- Randomly Pick Horizontal or Verical Trajectory -->
+						<integer name="flip" value="0" />
+						<expression name="RandomFlip">
+							<string name="expression">flip = RandomInt({2})</string>
+						</expression>         
+						<if name="HorizOrVert">
+							<condition>
+								<string name="expression">flip == {0}</string>
+							</condition>
+							<then>
+								<expression name="Setdirection">
+									<string name="expression">SpawnArrow.newEntity.direction = perpindicular(SpawnArrow.newEntity.direction, {true})</string>
+								</expression>
+							</then>
+						</if>
+					</case>
+
+          <!-- Tier3: Square -->
+          <case name="case3" caseValue="3" break="true">
+            <action class="ActionCreateEntityFromFile" name="SpawnSquare" break="true">
+              <string name="filePath" value="Assets\config\enemy_square.xml" index="0" />
+              <string name="className" value="SquareEnemy" index="0" />
+              <string name="instanceName" value="SquareEnemy" index="0" />
+            </action>
+            <!-- Spawn music & set position -->
+            <action class="ActionPlayMusic" name="playMusic1">
+              <string name="musicName" value="Enemy_spawn_red.mp3"/>
+            </action>
+            <expression name="SetPosition">
+              <string name="expression">SpawnSquare.newEntity.position = position</string>
+            </expression>
+          </case>
+
+          <!-- Tier3: Cube -->
+					<case name="case1" caseValue="4" break="true">
+						<action class="ActionCreateEntityFromFile" name="SpawnCube">
+							<string name="filePath" value="Assets\config\enemy_cube.xml" index="0" />
+							<string name="className" value="CubeEnemy" index="0" />
+							<string name="instanceName" value="CubeEnemy" index="0" />
+						</action>
+            <!-- Set position -->
+						<expression name="SetPosition">
+							<string name="expression">SpawnCube.newEntity.position = position</string>
+						</expression>
+					</case>
+          
+				</switch>
+        
+				<expression name="IncrementNumEnemies">
+					<string name="expression">numberOfEnemies = numberOfEnemies + {1}</string>
+				</expression>
+			</then>	
+		</if>
+		
+		
+	</action>
+	
+</gameobject>

@@ -1,0 +1,126 @@
+<gameobject class="Enemy" name="PinwheelEnemy">
+	<!-- Enemy Class Attributes -->	
+	<bool name="isdead" value="false" />
+	<bool name="canspawncollectible" value="true" />
+	<string name="enemychannel" value="collideplayers" />
+	<integer name="score" value="25" />
+  
+	<!-- GameObject Class Attributes -->
+	<vector name="position" value="vec4(0, 250, 0, 0)"/>
+	<vector name="TargetPosition" value="vec4(0, 0, 0, 0)"/>
+	<vector name="rotation" value="vec4(0, 0, 3.14, 0)"/>
+	<vector name="scale" value="vec4(20, 20, 1, 0)"/>
+	<vector name="direction" value="vec4(0, 0.1, 0, 0)"/>
+	<float name="speed" value="0.15" />
+	
+	<!-- Begin Play, Get a random direction, get Numbered name -->
+	<beginplay>
+		<expression name="update_dir">
+			<string name="expression">direction = normalize(RandomVector())</string>
+		</expression>
+	</beginplay>
+  
+	<!-- Polygon Renderer Component -->
+	<polygon_renderer name="PolygonRenderer">
+		<float name="width" value="5" />
+		<vector name="color" value="vec4(0.796875, 0.19921875, 1, 1)" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="1" />
+		<integer name="indices" value="1" />
+		<integer name="indices" value="2" />
+		<integer name="indices" value="2" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="3" />
+		<integer name="indices" value="3" />
+		<integer name="indices" value="4" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="4" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="5" />
+		<integer name="indices" value="5" />
+		<integer name="indices" value="6" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="6" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="7" />
+		<integer name="indices" value="0" />
+		<integer name="indices" value="8" />
+		<integer name="indices" value="8" />
+		<integer name="indices" value="7" />
+		<vector name="points" value="vec4(0, 0.01, 0, 0)" />
+		<vector name="points" value="vec4(0, 0.82, 0, 0)" />
+		<vector name="points" value="vec4(0.4, 0.4, 0, 0)" />
+		<vector name="points" value="vec4(0.8, 0, 0, 0)" />
+		<vector name="points" value="vec4(0.4, -0.4, 0, 0)" />
+		<vector name="points" value="vec4(0, -0.8, 0, 0)" />
+		<vector name="points" value="vec4(-0.4, -0.4, 0, 0)" />
+		<vector name="points" value="vec4(-0.82, 0, 0, 0)" />
+		<vector name="points" value="vec4(-0.4, 0.4, 0, 0)" />
+	</polygon_renderer>
+	
+	<!-- CircleCollider Component -->
+	<component class="CircleColliderComponent" name="CircleColliderComponent">
+		<float name="radius" value="4" />
+		<bool name="enabled" value="true" />
+		<string name="channel" value="collideplayers" />
+	</component>
+	
+	<!-- Update Loop -->
+	<action class="ActionList" name="Update">
+		<vector name="delta" value="vec4(0, 0, -0.005, 0)"/>
+		<!-- Update rotation -->
+		<expression name="change_rot">
+			<string name="expression">rotation = rotation + delta * ownerWorld.deltaTime</string>
+		</expression>
+		
+		<!-- Update position -->
+		
+		<expression name="movement">
+			<string name="expression">position = position + direction * ownerWorld.deltaTime * speed</string>
+		</expression>
+		
+		<!-- Destroy self if dead -->
+		<if name="CheckIfDead">
+			<condition>
+				<string name="expression">isdead</string>
+			</condition>
+			<then>
+				<action class="ActionDestroyEntity" name="destroySelf">
+					<expression name="exp">
+						<string name="expression">entityInstanceName = ref(ownerEntity)</string>
+					</expression>
+				</action>
+				<expression name="SetPosition">
+					<string name="expression">numberOfEnemies = numberOfEnemies - {1}</string>
+				</expression>
+				
+				<!-- playMusic -->
+				<action class="ActionPlayMusic" name="playMusic1">
+					<string name="musicName" value="Enemy_explode.mp3"/>
+					<integer name="loop" value="1"  index="0"/>
+					<float name="volume" value="1.0" index="0"/>
+				</action>	
+				
+				<!-- Collectible Spawning -->
+				<if name="CheckIfCanSpawnCollectible">
+					<condition>
+						<string name="expression">canspawncollectible</string>
+					</condition>
+					<then>
+						<!-- Spawn Multiplier Collectible at Enemy Position -->
+						<action class="ActionCreateEntityFromFile" name="Multiplier">
+							<string name="filePath" value="Assets\config\collect_multiplier.xml" index="0" />
+							<string name="className" value="CollectMultiplier" index="0" />
+							<string name="instanceName" value="CollectMultiplier" index="0" />
+						</action>
+						<expression name="SetPosition">
+							<string name="expression">Multiplier.newEntity.position = position</string>
+						</expression>
+					</then>
+				</if>
+			</then>
+		</if>
+	</action>
+	
+</gameobject>

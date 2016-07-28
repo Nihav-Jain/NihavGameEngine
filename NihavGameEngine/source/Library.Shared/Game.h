@@ -149,7 +149,7 @@ namespace Library
 		*	Resets the game clock and other things to be initialized before starting the game loop
 		*	Must be called before entering the game loop
 		*/
-		void Start(const std::string& config, const std::function<void(void)>& callback = []() {});
+		void Start(const std::string& config);
 
 
 		/**

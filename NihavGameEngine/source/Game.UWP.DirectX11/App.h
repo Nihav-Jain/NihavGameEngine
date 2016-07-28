@@ -1,10 +1,21 @@
 ﻿#pragma once
 
 #include "pch.h"
+#include <Xinput.h>
+#include <Windows.h>
 #include "Common\DeviceResources.h"
 #include "Game_UWP_DirectX11Main.h"
 #include "Game.h"
 #include "UWPRenderDevice.h"
+#include "ReactionAttributed.h"
+#include "InputManager.h"
+#include "ActionDebug.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "Bullet.h"
+#include "EnemySquare.h"
+#include "Collectible.h"
+
 
 namespace Game_UWP_DirectX11
 {
@@ -47,6 +58,14 @@ namespace Game_UWP_DirectX11
 		std::unique_ptr<Library::Game> mGame;
 		Library::Renderer* mRenderer;
 		std::shared_ptr<Library::UWPRenderDevice> mRenderDevice;
+
+		Library::XBoxControllerHandlerFactory xchf;
+		Library::ActionDebugFactory actionDebugFactory;
+		Library::PlayerFactory mPlayerFactory;
+		Library::EnemyFactory mEnemyFactory;
+		Library::EnemySquareFactory mEnemySquareFactory;
+		Library::BulletFactory mBulletFactory;
+		Library::CollectibleFactory mCollectibleFactory;
 	};
 }
 

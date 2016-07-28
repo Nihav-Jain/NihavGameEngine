@@ -247,7 +247,34 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
+    <Image Include="Assets\resource\background2.png" />
+    <Image Include="Assets\resource\bomb.png" />
+    <Image Include="Assets\resource\digits\0.png" />
+    <Image Include="Assets\resource\digits\1.png" />
+    <Image Include="Assets\resource\digits\10.png" />
+    <Image Include="Assets\resource\digits\10_2.png" />
+    <Image Include="Assets\resource\digits\11.png" />
+    <Image Include="Assets\resource\digits\11_2.png" />
+    <Image Include="Assets\resource\digits\12.png" />
+    <Image Include="Assets\resource\digits\12_2.png" />
+    <Image Include="Assets\resource\digits\13.png" />
+    <Image Include="Assets\resource\digits\13_2.png" />
+    <Image Include="Assets\resource\digits\14.png" />
+    <Image Include="Assets\resource\digits\14_2.png" />
+    <Image Include="Assets\resource\digits\15.png" />
+    <Image Include="Assets\resource\digits\15_2.png" />
+    <Image Include="Assets\resource\digits\2.png" />
+    <Image Include="Assets\resource\digits\3.png" />
+    <Image Include="Assets\resource\digits\4.png" />
+    <Image Include="Assets\resource\digits\5.png" />
+    <Image Include="Assets\resource\digits\6.png" />
+    <Image Include="Assets\resource\digits\7.png" />
+    <Image Include="Assets\resource\digits\8.png" />
+    <Image Include="Assets\resource\digits\9.png" />
+    <Image Include="Assets\resource\gameover.png" />
+    <Image Include="Assets\resource\life.png" />
     <Image Include="Assets\resource\mushroom.png" />
+    <Image Include="Assets\resource\title.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.scale-200.png" />
@@ -391,7 +418,19 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\config\bullet.xml" />
+    <Xml Include="Assets\config\collect_multiplier.xml" />
+    <Xml Include="Assets\config\enemy_arrow.xml" />
+    <Xml Include="Assets\config\enemy_cube.xml" />
+    <Xml Include="Assets\config\enemy_diamond.xml" />
+    <Xml Include="Assets\config\enemy_pinwheel.xml" />
+    <Xml Include="Assets\config\enemy_spawner.xml" />
+    <Xml Include="Assets\config\GameOver.xml" />
+    <Xml Include="Assets\config\geometrywars_test.xml" />
+    <Xml Include="Assets\config\InGameSector.xml" />
+    <Xml Include="Assets\config\player1.xml" />
     <Xml Include="Assets\config\sprite.xml" />
+    <Xml Include="Assets\config\StartMenu.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

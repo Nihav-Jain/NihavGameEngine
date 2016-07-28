@@ -114,6 +114,7 @@ void App::Load(Platform::String^ entryPoint)
 		mGame = std::make_unique<Game>();
 		mGame->SetRenderer(mRenderer);
 	}
+	//mGame->Start("Assets\\config\\geometrywars_test.xml");
 	mGame->Start("Assets\\config\\sprite.xml");
 }
 

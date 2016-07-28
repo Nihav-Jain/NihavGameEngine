@@ -44,7 +44,7 @@ namespace Library
 		mWorld.BeginPlay();
 	}
 
-	void Game::Start(const std::string& config, const std::function<void(void)>& callback)
+	void Game::Start(const std::string& config)
 	{
 		{
 			std::lock_guard<std::recursive_mutex> lock(mMutex);
@@ -54,7 +54,7 @@ namespace Library
 		mParseMaster.ParseFromFileAsync(config, [&](bool parsingSuccesfull) {
 			if (!parsingSuccesfull)
 				throw std::exception("Error while parsing Level");
-			callback();
+			//callback();
 			mGameClock.Reset();
 			mGameClock.UpdateGameTime(mGameTime);
 			mWorld.BeginPlay();

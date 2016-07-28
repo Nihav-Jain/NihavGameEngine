@@ -74,6 +74,9 @@
     <Filter Include="Assets\resource">
       <UniqueIdentifier>{8ad37e7c-9c6b-4493-90c2-1fb088f1a815}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\resource\digits">
+      <UniqueIdentifier>{690b9839-b8bb-45bf-b846-863ec1657261}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -120,6 +123,87 @@
     <Image Include="Assets\resource\mushroom.png">
       <Filter>Assets\resource</Filter>
     </Image>
+    <Image Include="Assets\resource\background2.png">
+      <Filter>Assets\resource</Filter>
+    </Image>
+    <Image Include="Assets\resource\bomb.png">
+      <Filter>Assets\resource</Filter>
+    </Image>
+    <Image Include="Assets\resource\gameover.png">
+      <Filter>Assets\resource</Filter>
+    </Image>
+    <Image Include="Assets\resource\life.png">
+      <Filter>Assets\resource</Filter>
+    </Image>
+    <Image Include="Assets\resource\title.png">
+      <Filter>Assets\resource</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\0.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\1.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\2.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\3.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\4.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\5.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\6.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\7.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\8.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\9.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\10.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\10_2.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\11.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\11_2.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\12.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\12_2.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\13.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\13_2.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\14.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\14_2.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\15.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
+    <Image Include="Assets\resource\digits\15_2.png">
+      <Filter>Assets\resource\digits</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -147,6 +231,42 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\config\sprite.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\bullet.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\collect_multiplier.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\enemy_arrow.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\enemy_cube.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\enemy_diamond.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\enemy_pinwheel.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\enemy_spawner.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\GameOver.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\geometrywars_test.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\InGameSector.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\player1.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
+    <Xml Include="Assets\config\StartMenu.xml">
       <Filter>Assets\config</Filter>
     </Xml>
   </ItemGroup>
