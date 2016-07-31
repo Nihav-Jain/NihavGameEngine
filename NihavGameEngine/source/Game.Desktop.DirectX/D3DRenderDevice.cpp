@@ -18,17 +18,18 @@ namespace Library
 
 	D3DRenderDevice::~D3DRenderDevice()
 	{
-		for (auto ptr : mShaders) {
-			delete ptr;
-		}
+		// Each Renderable object deletes its own shaders, buffers and textures
+		//for (auto ptr : mShaders) {
+		//	delete ptr;
+		//}
 
-		for (auto ptr : mBuffers) {
-			delete ptr;
-		}
+		//for (auto ptr : mBuffers) {
+		//	delete ptr;
+		//}
 
-		for (auto ptr : mTextures) {
-			delete ptr;
-		}
+		//for (auto ptr : mTextures) {
+		//	delete ptr;
+		//}
 		ReleaseObject(mDirect3DDevice);
 		ReleaseObject(mDirect3DDeviceContext);
 		ReleaseObject(mSwapChain);
