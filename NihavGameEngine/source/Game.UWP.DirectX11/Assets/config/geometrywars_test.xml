@@ -1,20 +1,21 @@
 <root>
-	<!--<define>	
+	<define>	
 		<include file="Assets\config\enemy_spawner.xml" />	
 		<include file="Assets\config\player1.xml" />
 		<include file="Assets\config\bullet.xml" />
 		<include file="Assets\config\enemy_pinwheel.xml" />	
 		<include file="Assets\config\enemy_diamond.xml" />		
 		<include file="Assets\config\enemy_arrow.xml" />
-		<include file="Assets\config\enemy_square.xml" />
 		<include file="Assets\config\enemy_cube.xml" />
 		<include file="Assets\config\collect_multiplier.xml" />
-	</define>-->
+		<include file="Assets\config\enemy_square.xml" />
+	</define>
 	
 	<define-sectors>
+		
 		<include file="Assets\config\StartMenu.xml" />
-		<!--<include file="Assets\config\InGameSector.xml" />
-		<include file="Assets\config\GameOver.xml" />-->
+		<include file="Assets\config\InGameSector.xml" />
+		<include file="Assets\config\GameOver.xml" />
 	</define-sectors>
 
 	<world name="GeometryWarsWorld">

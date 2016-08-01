@@ -411,6 +411,7 @@
     <Xml Include="Assets\config\enemy_diamond.xml" />
     <Xml Include="Assets\config\enemy_pinwheel.xml" />
     <Xml Include="Assets\config\enemy_spawner.xml" />
+    <Xml Include="Assets\config\enemy_square.xml" />
     <Xml Include="Assets\config\GameOver.xml" />
     <Xml Include="Assets\config\geometrywars_test.xml" />
     <Xml Include="Assets\config\InGameSector.xml" />

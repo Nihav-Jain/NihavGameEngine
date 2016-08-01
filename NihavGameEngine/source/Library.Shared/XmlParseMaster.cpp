@@ -7,12 +7,11 @@ namespace Library
 {
 	XmlParseMaster::XmlParseMaster(SharedData& sharedData) :
 		mSharedData(&sharedData), mHelpers(), mLastClonedHelper(0), mIsCloned(false), mFileName(std::string()), mXmlParser(nullptr),
-		mFileHandles(), mFileHandleCounter(0), mMutex(), bIncludeFileOpen(true)
+		mFileHandles(), mFileHandleCounter(0), mMutex(), bIncludeFileOpen(true), bIsFirstChunk(false)
 	{
 		mSharedData->SetXmlParseMaster(this);
 
 		fOpenFileCallback = [this]() {
-			bool isFirstChunk = true;
 			bool isLastChunk = false;
 
 			std::string fileData;
@@ -21,11 +20,16 @@ namespace Library
 				{
 					std::lock_guard<std::recursive_mutex> lock(mMutex);
 					if (!bIncludeFileOpen)
-						continue;
+						break;
 				}
 
 				while (!mFileHandles.Top()->IsEndOfFile())
 				{
+					{
+						std::lock_guard<std::recursive_mutex> lock(mMutex);
+						if (!bIncludeFileOpen)
+							break;
+					}
 					fileData = mFileHandles.Top()->ReadLine();
 
 					std::uint32_t fileLength = static_cast<std::uint32_t>(fileData.length());
@@ -33,16 +37,29 @@ namespace Library
 					if (mFileHandleCounter == 1)
 						isLastChunk = mFileHandles.Top()->IsEndOfFile();
 
-					if (!Parse(fileData.c_str(), fileLength, isFirstChunk, isLastChunk))
+					if (!Parse(fileData.c_str(), fileLength, bIsFirstChunk, isLastChunk))
 					{
 						CloseTopFileHandle();
 						fParseFromFileCallback(false);
 					}
-					isFirstChunk = false;
+					bIsFirstChunk = false;
 				}
+
+				{
+					std::lock_guard<std::recursive_mutex> lock(mMutex);
+					if (!bIncludeFileOpen)
+						break;
+				}
+
 				CloseTopFileHandle();
 			}
-			fParseFromFileCallback(true);
+
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				if (bIncludeFileOpen)
+					fParseFromFileCallback(true);
+			}
+
 		};
 
 		fGetFileCallback = [this](FileHandle* handle) {
@@ -57,6 +74,7 @@ namespace Library
 		fOpenFileCallbackForIncludes = [&]() {
 			std::lock_guard<std::recursive_mutex> lock(mMutex);
 			bIncludeFileOpen = true;
+			fOpenFileCallback();
 		};
 
 	}
@@ -129,6 +147,7 @@ namespace Library
 		mFileName = fileName;
 		fParseFromFileCallback = callback;
 		fTempCallback = fOpenFileCallback;
+		bIsFirstChunk = true;
 		OpenFileHandleAsync(fileName, fOpenFileCallback);
 	}
 

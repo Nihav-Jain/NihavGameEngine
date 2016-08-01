@@ -253,6 +253,7 @@ namespace Library
 		std::function<void(FileHandle*)> fGetFileCallback;
 
 		bool bIncludeFileOpen;
+		bool bIsFirstChunk;
 	};
 }
 
