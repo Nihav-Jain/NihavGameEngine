@@ -4,7 +4,6 @@
 #include <Xinput.h>
 #include <Windows.h>
 #include "Common\DeviceResources.h"
-#include "Game_UWP_DirectX11Main.h"
 #include "Game.h"
 #include "UWPRenderDevice.h"
 #include "ReactionAttributed.h"

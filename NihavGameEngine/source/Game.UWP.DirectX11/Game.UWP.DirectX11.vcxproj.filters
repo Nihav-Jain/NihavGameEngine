@@ -23,27 +23,9 @@
     <ClCompile Include="Common\DeviceResources.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClInclude Include="Content\Sample3DSceneRenderer.h">
-      <Filter>Content</Filter>
-    </ClInclude>
-    <ClInclude Include="Content\SampleFpsTextRenderer.h">
-      <Filter>Content</Filter>
-    </ClInclude>
     <ClInclude Include="Content\ShaderStructures.h">
       <Filter>Content</Filter>
     </ClInclude>
-    <ClCompile Include="Content\Sample3DSceneRenderer.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
-    <ClCompile Include="Content\SampleFpsTextRenderer.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
-    <FxCompile Include="Content\SamplePixelShader.hlsl">
-      <Filter>Content</Filter>
-    </FxCompile>
-    <FxCompile Include="Content\SampleVertexShader.hlsl">
-      <Filter>Content</Filter>
-    </FxCompile>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
@@ -80,12 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="Game_UWP_DirectX11Main.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="D3DRenderBuffer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DRenderDevice.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="D3DShader.cpp">
@@ -95,16 +73,14 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GameException.cpp" />
-    <ClCompile Include="UWPRenderDevice.cpp" />
+    <ClCompile Include="UWPRenderDevice.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="Game_UWP_DirectX11Main.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="D3DRenderBuffer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DRenderDevice.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="D3DShader.h">
@@ -114,7 +90,9 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GameException.h" />
-    <ClInclude Include="UWPRenderDevice.h" />
+    <ClInclude Include="UWPRenderDevice.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
