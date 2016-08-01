@@ -67,6 +67,16 @@ namespace Library
 				mVSLoaded = true;
 			}
 			AllShadersLoaded();
+
+			if (!sprite)
+			{
+				FileManager::Get().GetFileAsync("GeometryShader.cso", mGSGetFileCallback);
+			}
+			else
+			{
+				FileManager::Get().GetFileAsync("SpritePixelShader.cso", mPSGetFileCallback);
+			}
+
 		};
 
 		mVSGetFileCallback = [&](FileHandle* handle) {
@@ -81,6 +91,8 @@ namespace Library
 				mGSLoaded = true;
 			}
 			AllShadersLoaded();
+
+			FileManager::Get().GetFileAsync("PixelShader.cso", mPSGetFileCallback);
 		};
 
 		mGSGetFileCallback = [&](FileHandle* handle) {
@@ -128,24 +140,23 @@ namespace Library
 		}
 
 		if (IsASprite)
+		{
 			FileManager::Get().GetFileAsync("SpriteVertexShader.cso", mVSGetFileCallback);
-		else
-			FileManager::Get().GetFileAsync("VertexShader.cso", mVSGetFileCallback);
 
-		if (!IsASprite)
-		{
-			FileManager::Get().GetFileAsync("GeometryShader.cso", mGSGetFileCallback);
-		}
-		else
-		{
 			std::lock_guard<std::recursive_mutex> lock(mMutex);
 			mGSLoaded = true;
 		}
-
-		if (IsASprite)
-			FileManager::Get().GetFileAsync("SpritePixelShader.cso", mPSGetFileCallback);
 		else
-			FileManager::Get().GetFileAsync("PixelShader.cso", mPSGetFileCallback);
+		{
+			FileManager::Get().GetFileAsync("VertexShader.cso", mVSGetFileCallback);
+		}
+
+
+
+		//if (IsASprite)
+		//	FileManager::Get().GetFileAsync("SpritePixelShader.cso", mPSGetFileCallback);
+		//else
+		//	FileManager::Get().GetFileAsync("PixelShader.cso", mPSGetFileCallback);
 	}
 
 	bool D3DShader::Use()
