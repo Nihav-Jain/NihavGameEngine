@@ -7,7 +7,7 @@ namespace Library
 {
 	XmlParseMaster::XmlParseMaster(SharedData& sharedData) :
 		mSharedData(&sharedData), mHelpers(), mLastClonedHelper(0), mIsCloned(false), mFileName(std::string()), mXmlParser(nullptr),
-		mFileHandles(), mFileHandleCounter(0), mMutex(), bIncludeFileOpen(false)
+		mFileHandles(), mFileHandleCounter(0), mMutex(), bIncludeFileOpen(true)
 	{
 		mSharedData->SetXmlParseMaster(this);
 
@@ -18,6 +18,12 @@ namespace Library
 			std::string fileData;
 			while (!mFileHandles.IsEmpty())
 			{
+				{
+					std::lock_guard<std::recursive_mutex> lock(mMutex);
+					if (!bIncludeFileOpen)
+						continue;
+				}
+
 				while (!mFileHandles.Top()->IsEndOfFile())
 				{
 					fileData = mFileHandles.Top()->ReadLine();
@@ -49,6 +55,7 @@ namespace Library
 		};
 
 		fOpenFileCallbackForIncludes = [&]() {
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
 			bIncludeFileOpen = true;
 		};
 
@@ -168,14 +175,18 @@ namespace Library
 			if (!attributeMap.ContainsKey("file"))
 				throw std::exception("<include> tag has missing attribute: file");
 			bool done = false;
-			xmlParseMaster->bIncludeFileOpen = false;
+
+			{
+				std::lock_guard<std::recursive_mutex> lock(xmlParseMaster->mMutex);
+				xmlParseMaster->bIncludeFileOpen = false;
+			}
 			xmlParseMaster->fTempCallback = xmlParseMaster->fOpenFileCallbackForIncludes;
 
 			xmlParseMaster->OpenFileHandleAsync(attributeMap["file"], [&]() {
 				done = true;
 			});
 
-			while(!xmlParseMaster->bIncludeFileOpen){}
+			//while(!xmlParseMaster->bIncludeFileOpen){}
 			return;
 		}
 

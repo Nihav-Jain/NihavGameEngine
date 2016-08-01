@@ -1,5 +1,5 @@
 <root>
-	<define>	
+	<!--<define>	
 		<include file="Assets\config\enemy_spawner.xml" />	
 		<include file="Assets\config\player1.xml" />
 		<include file="Assets\config\bullet.xml" />
@@ -9,12 +9,12 @@
 		<include file="Assets\config\enemy_square.xml" />
 		<include file="Assets\config\enemy_cube.xml" />
 		<include file="Assets\config\collect_multiplier.xml" />
-	</define>
+	</define>-->
 	
 	<define-sectors>
 		<include file="Assets\config\StartMenu.xml" />
-		<include file="Assets\config\InGameSector.xml" />
-		<include file="Assets\config\GameOver.xml" />
+		<!--<include file="Assets\config\InGameSector.xml" />
+		<include file="Assets\config\GameOver.xml" />-->
 	</define-sectors>
 
 	<world name="GeometryWarsWorld">
@@ -47,19 +47,6 @@
 				<string name="B"				value="Bomb"/>
 				<string name="START"			value="Start"/>
 				<string name="SELECT"			value="Select"/>
-				<!--
-				<string name="X"				value="Shoot"/>
-				<string name="Y"				value="Shoot"/>
-				<string name="A"				value="Shoot"/>
-				<string name="DPAD_UP"			value="MoveUp"/>
-				<string name="DPAD_DOWN"		value="MoveDown"/>
-				<string name="DPAD_LEFT"		value="MoveLeft"/>
-				<string name="DPAD_RIGHT"		value="MoveRight"/>
-				<string name="LEFT_THUMB"		value="MoveLeft"/>
-				<string name="RIGHT_THUMB"		value="MoveRight"/>
-				<string name="LEFT_SHOULDER"	value="MoveLeft"/>
-				<string name="RIGHT_SHOULDER"	value="MoveRight"/>
-				-->
 			</scope>
 		</action>
 		<beginplay>
@@ -72,7 +59,7 @@
 			
 			
 			<!-- Load music  -->
-			<action class="ActionLoadMusic" name="loadMusic">
+			<!--<action class="ActionLoadMusic" name="loadMusic">
 				<string name="musicName" value="Enemy_explode.mp3"/>
 				<string name="musicName" value="GeometryWars_RE2.mp3"/>
 				<string name="musicName" value="Fire_normal.mp3"/>
@@ -84,7 +71,7 @@
 				<string name="musicName" value="Enemy_spawn_orange.mp3"/>
 				<string name="musicName" value="Enemy_spawn_blue.mp3"/>
 				<string name="musicName" value="Enemy_spawn_red.mp3"/>
-			</action>
+			</action>-->
 			
 			
 		</beginplay>
