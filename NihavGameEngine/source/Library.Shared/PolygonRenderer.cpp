@@ -92,6 +92,7 @@ namespace Library {
 	{
 		UNREFERENCED_PARAMETER(worldState);
 		Renderer::GetInstance()->AddRenderable(this);
+		Init(&(Renderer::GetInstance()->GetRenderDevice()));
 	}
 
 	void PolygonRenderer::OnDestroy(WorldState & worldState)

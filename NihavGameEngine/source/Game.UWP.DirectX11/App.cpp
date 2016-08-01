@@ -115,7 +115,7 @@ void App::Load(Platform::String^ entryPoint)
 		mGame->SetRenderer(mRenderer);
 	}
 	//mGame->Start("Assets\\config\\geometrywars_test.xml");
-	mGame->Start("Assets\\config\\sprite.xml");
+	mGame->Start("Assets\\config\\polygon.xml");
 }
 
 // This method is called after the window becomes active.
