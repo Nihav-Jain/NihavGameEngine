@@ -93,8 +93,7 @@ namespace UnitTest_Library_UWP
 		TEST_METHOD(XmlParseMasterTestParseFromFile)
 		{
 			UWPFileManager* manager = FileManager::Get().As<UWPFileManager>();
-
-			while(!manager->AssetsFolderFound()){}
+			UNREFERENCED_PARAMETER(manager);
 
 			AngryBirdsSharedData angryBirdsData;
 			XmlParseMaster angryBirdsParser(angryBirdsData);

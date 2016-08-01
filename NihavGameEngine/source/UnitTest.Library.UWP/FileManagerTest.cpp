@@ -42,10 +42,7 @@ namespace UnitTest_Library_UWP
 			Assert::IsTrue(FileManager::Get().Is(UWPFileManager::TypeIdClass()));
 
 			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-
-			while(!fileManager->AssetsFolderFound())
-			{ }
-
+			UNREFERENCED_PARAMETER(fileManager);
 			Engine::Destroy();
 		}
 
@@ -54,8 +51,7 @@ namespace UnitTest_Library_UWP
 			Engine::CreateEngine();
 
 			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-			while (!fileManager->AssetsFolderFound())
-			{}
+			UNREFERENCED_PARAMETER(fileManager);
 
 			bool allDone = false;
 			FileHandle* testXml = nullptr;
@@ -78,9 +74,7 @@ namespace UnitTest_Library_UWP
 			Engine::CreateEngine();
 
 			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-			while (!fileManager->AssetsFolderFound())
-			{
-			}
+			UNREFERENCED_PARAMETER(fileManager);
 
 			bool allDone = false;
 			FileHandle* testXml = nullptr;
@@ -103,8 +97,7 @@ namespace UnitTest_Library_UWP
 			Engine::CreateEngine();
 
 			UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-			while (!fileManager->AssetsFolderFound())
-			{}
+			UNREFERENCED_PARAMETER(fileManager);
 
 			bool allDone = false;
 			FileHandle* testXml = nullptr;
@@ -134,8 +127,7 @@ namespace UnitTest_Library_UWP
 				Engine::CreateEngine();
 
 				UWPFileManager* fileManager = FileManager::Get().AssertiveAs<UWPFileManager>();
-				while (!fileManager->AssetsFolderFound())
-				{}
+				UNREFERENCED_PARAMETER(fileManager);
 
 				bool allDone = false;
 				FileHandle* testXml = nullptr;
