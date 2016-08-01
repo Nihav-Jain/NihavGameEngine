@@ -61,7 +61,7 @@ namespace Library
 
 	void DesktopFileHandle::OpenFileAsync(const std::function<void(void)>& callback, FileMode mode)
 	{
-		std::future<void> fut =  std::async([&]() {
+		std::future<void> fut =  std::async(std::launch::async, [&]() {
 			{
 				std::lock_guard<std::recursive_mutex> recLock(mMutex);
 				if (bIsOpen)

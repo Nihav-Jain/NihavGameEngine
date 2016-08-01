@@ -254,6 +254,7 @@ namespace Library
 
 		bool bIncludeFileOpen;
 		bool bIsFirstChunk;
+		bool bCameSynchronously;
 	};
 }
 

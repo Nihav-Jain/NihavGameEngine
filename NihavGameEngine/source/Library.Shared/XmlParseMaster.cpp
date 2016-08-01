@@ -7,11 +7,18 @@ namespace Library
 {
 	XmlParseMaster::XmlParseMaster(SharedData& sharedData) :
 		mSharedData(&sharedData), mHelpers(), mLastClonedHelper(0), mIsCloned(false), mFileName(std::string()), mXmlParser(nullptr),
-		mFileHandles(), mFileHandleCounter(0), mMutex(), bIncludeFileOpen(true), bIsFirstChunk(false)
+		mFileHandles(), mFileHandleCounter(0), mMutex(), bIncludeFileOpen(true), bIsFirstChunk(false), bCameSynchronously(false)
 	{
 		mSharedData->SetXmlParseMaster(this);
 
 		fOpenFileCallback = [this]() {
+
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				if (bCameSynchronously)
+					return;
+			}
+
 			bool isLastChunk = false;
 
 			std::string fileData;
@@ -43,6 +50,20 @@ namespace Library
 						fParseFromFileCallback(false);
 					}
 					bIsFirstChunk = false;
+
+					bool sync = false;
+					{
+
+						std::lock_guard<std::recursive_mutex> lock(mMutex);
+						sync = bCameSynchronously;
+						if(sync)
+							bCameSynchronously = false;
+					}
+	
+					if (sync)
+					{
+						fOpenFileCallback();
+					}
 				}
 
 				{
@@ -200,6 +221,11 @@ namespace Library
 				xmlParseMaster->bIncludeFileOpen = false;
 			}
 			xmlParseMaster->fTempCallback = xmlParseMaster->fOpenFileCallbackForIncludes;
+
+			{
+				std::lock_guard<std::recursive_mutex> lock(xmlParseMaster->mMutex);
+				xmlParseMaster->bCameSynchronously = true;
+			}
 
 			xmlParseMaster->OpenFileHandleAsync(attributeMap["file"], [&]() {
 				done = true;
