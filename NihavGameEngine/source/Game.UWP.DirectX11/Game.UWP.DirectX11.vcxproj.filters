@@ -269,5 +269,8 @@
     <Xml Include="Assets\config\StartMenu.xml">
       <Filter>Assets\config</Filter>
     </Xml>
+    <Xml Include="Assets\config\polygon.xml">
+      <Filter>Assets\config</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

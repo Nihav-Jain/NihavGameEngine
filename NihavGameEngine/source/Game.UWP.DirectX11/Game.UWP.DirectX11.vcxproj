@@ -429,6 +429,7 @@
     <Xml Include="Assets\config\geometrywars_test.xml" />
     <Xml Include="Assets\config\InGameSector.xml" />
     <Xml Include="Assets\config\player1.xml" />
+    <Xml Include="Assets\config\polygon.xml" />
     <Xml Include="Assets\config\sprite.xml" />
     <Xml Include="Assets\config\StartMenu.xml" />
   </ItemGroup>

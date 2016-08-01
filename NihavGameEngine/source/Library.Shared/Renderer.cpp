@@ -86,6 +86,7 @@ namespace Library {
 
 		bool something = true;
 		something = false;
+		mDevice->ClearScreen();
 
 		for (auto & it : mLayers) {
 
@@ -134,7 +135,7 @@ namespace Library {
 			mDevice->Draw();
 		}
 
-		mDevice->ClearScreen();
+		mDevice->Present();
 	}
 
 	void Renderer::Init()

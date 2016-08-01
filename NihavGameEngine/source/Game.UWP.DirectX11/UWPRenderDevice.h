@@ -34,6 +34,7 @@ namespace Library
 		virtual FrameBuffer* GetDefaultFrameBuffer() override { return nullptr; };
 		virtual void Draw(DrawMode mode, std::uint32_t counts, bool useIndices) override;
 		virtual void ClearScreen() override;
+		virtual void Present() override;
 
 		void SetWindow(Windows::UI::Core::CoreWindow^ window);
 		void RegisterDeviceNotify(IDeviceNotify& deviceNotify);

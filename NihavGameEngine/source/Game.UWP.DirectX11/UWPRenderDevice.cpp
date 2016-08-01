@@ -129,6 +129,7 @@ namespace Library
 
 	void UWPRenderDevice::Draw(DrawMode mode, std::uint32_t counts, bool useIndices)
 	{
+
 		switch (mode)
 		{
 		case Library::RenderDevice::DrawMode::TRIANGLES:
@@ -155,9 +156,21 @@ namespace Library
 	{
 		static DirectX::XMVECTORF32 BackgroundColor = { 0.39f, 0.58f, 0.92f, 1.0f };
 
-		ThrowIfFailed(mSwapChain->Present(1, 0), "IDXGISwapChain::Present() failed.");
+		mDirect3DDeviceContext->RSSetViewports(1, &mScreenViewport);
+
+		// Reset render targets to the screen.
+		ID3D11RenderTargetView *const targets[1] = { mRenderTargetView.Get() };
+		mDirect3DDeviceContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+		UNREFERENCED_PARAMETER(targets);
+
 		mDirect3DDeviceContext->ClearRenderTargetView(mRenderTargetView.Get(), reinterpret_cast<const float*>(&BackgroundColor));
 		mDirect3DDeviceContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+	}
+
+	void UWPRenderDevice::Present()
+	{
+		ThrowIfFailed(mSwapChain->Present(1, 0), "IDXGISwapChain::Present() failed.");
 	}
 
 	void UWPRenderDevice::SetWindow(CoreWindow^ window)
@@ -330,7 +343,7 @@ namespace Library
 			swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;	// All Windows Store apps must use this SwapEffect.
 			swapChainDesc.Flags = 0;
 			swapChainDesc.Scaling = scaling;
-			swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_IGNORE;
+			swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED;
 
 			// This sequence obtains the DXGI factory that was used to create the Direct3D device above.
 			ComPtr<IDXGIDevice3> dxgiDevice;
