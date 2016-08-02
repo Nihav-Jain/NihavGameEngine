@@ -29,7 +29,7 @@
 	</expression>
 
 	<!-- TODO: Spawn enemies randomly on escalating intervals -->
-	<include file="Assets\config\enemy_spawner.xml" />
+	<!--<include file="Assets\config\enemy_spawner.xml" />
 	
 	
 	<include file="Assets\config\enemy_diamond.xml" />
@@ -38,6 +38,6 @@
 	
 	<include file="Assets\config\enemy_arrow.xml" />
 	
-	<include file="Assets\config\bullet.xml" />
+	<include file="Assets\config\bullet.xml" />-->
 	
 </sector>

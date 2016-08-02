@@ -1,7 +1,10 @@
 #pragma once
 
+
 namespace Library
 {
+	class WorldState;
+
 	class SpriteManager
 	{
 	public:
@@ -14,7 +17,7 @@ namespace Library
 		void SetData(std::int32_t value, std::int32_t numSprites, std::int32_t imageSize, std::int32_t xOffset, std::int32_t yOffset,
 			std::int32_t padding, bool leftToRight, const std::string & path, const std::string & folder, const std::string & extension);
 
-		virtual void Init() = 0;
+		virtual void Init(WorldState& worldState) = 0;
 		virtual void RefreshSprites() = 0;
 		virtual void CleanupSprites() = 0;
 

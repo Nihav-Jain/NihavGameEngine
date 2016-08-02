@@ -54,7 +54,7 @@ namespace Library
 		}
 	}
 
-	void ScoreManager::Init()
+	void ScoreManager::Init(WorldState& worldState)
 	{
 		mSprites.resize(mNumSprites);
 		mDigits.resize(mNumSprites);
@@ -83,6 +83,7 @@ namespace Library
 				mDigits[i][j]->SetSize(glm::vec4( (float)(mImageSize) ));
 
 				renderer->SetTransform(pos, glm::vec4(), glm::vec4(1));
+				renderer->BeginPlay(worldState);
 			}
 
 			mCurrentSprites[i] = mSprites[i][0];

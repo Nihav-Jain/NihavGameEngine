@@ -17,7 +17,7 @@ namespace Library
 		BombManager();
 		~BombManager();
 
-		virtual void Init() override;
+		virtual void Init(WorldState& worldState) override;
 		virtual void RefreshSprites() override;
 		virtual void CleanupSprites() override;
 

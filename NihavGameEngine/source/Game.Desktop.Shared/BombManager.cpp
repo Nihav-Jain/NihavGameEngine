@@ -53,7 +53,7 @@ namespace Library
 		}
 	}
 
-	void BombManager::Init()
+	void BombManager::Init(WorldState& worldState)
 	{
 		mSprites.resize(mNumSprites);
 		mImages.resize(mNumSprites);
@@ -74,6 +74,8 @@ namespace Library
 			mImages[i]->SetSize(glm::vec4((float)(mImageSize)));
 
 			renderer->SetTransform(pos, glm::vec4(), glm::vec4(1));
+
+			renderer->BeginPlay(worldState);
 		}
 	}
 

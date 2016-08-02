@@ -35,7 +35,7 @@
 								
 				<!-- Load Game Sector -->
 				<action class="ActionLoadSector" name="loadGame">
-					<string name="sectorName" value="InGameSector" />
+					<string name="sectorName" value="gameover_menu" />
 				</action>
 
 				<!-- Play GameStart music -->

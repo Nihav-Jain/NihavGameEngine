@@ -217,7 +217,7 @@ namespace Library
 
 		GameObject::BeginPlay(worldState);
 
-		InitSpriteManagers();
+		InitSpriteManagers(worldState);
 	}
 
 	void Player::Update(WorldState & worldState)
@@ -281,26 +281,26 @@ namespace Library
 		BombManager::CreateInstance();
 	}
 
-	void Player::InitSpriteManagers() const
+	void Player::InitSpriteManagers(WorldState& worldState) const
 	{
 		if (!sInitializedManagers)
 		{
 			sInitializedManagers = true;
 
 			ScoreManager* score = ScoreManager::GetInstance();
-			score->SetData(0, 10, 40, 200, 315, 10, false, "Content//resource//", "digits//", ".png");
+			score->SetData(0, 10, 40, 200, 315, 10, false, "Assets\\resource\\", "digits\\", ".png");
 			score->SetNumberBase(Find(ATTRIBUTE_SCOREBASE)->Get<std::int32_t>());
-			score->Init();
+			score->Init(worldState);
 			score->RefreshSprites();
 
 			LivesManager* lives = LivesManager::GetInstance();
-			lives->SetData(mLives, mLives, 30, -110, 315, -5, false, "Content//resource//", "", ".png");
-			lives->Init();
+			lives->SetData(mLives, mLives, 30, -110, 315, -5, false, "Assets\\resource\\", "", ".png");
+			lives->Init(worldState);
 			lives->RefreshSprites();
 
 			BombManager* bomb = BombManager::GetInstance();
-			bomb->SetData(mBombCount, mBombCount, 30, 30, 315, -5, true, "Content//resource//", "", ".png");
-			bomb->Init();
+			bomb->SetData(mBombCount, mBombCount, 30, 30, 315, -5, true, "Assets\\resource\\", "", ".png");
+			bomb->Init(worldState);
 			bomb->RefreshSprites();
 		}
 	}

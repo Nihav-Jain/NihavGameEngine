@@ -90,7 +90,7 @@ namespace Library
 		static bool sInitializedManagers;
 
 		void CreateSpriteManagers() const;
-		void InitSpriteManagers() const;
+		void InitSpriteManagers(WorldState& worldState) const;
 
 		std::int32_t mPlayerNumber;
 
