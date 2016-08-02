@@ -44,6 +44,7 @@ namespace Library
 
 	ScoreManager::~ScoreManager()
 	{
+#ifndef PLATFORM_XBOX
 		for (std::int32_t i = 0; i < mNumSprites; ++i)
 		{
 			for (std::int32_t j = 0; j < mNumberBase; ++j)
@@ -52,10 +53,13 @@ namespace Library
 				mSprites[i][j] = nullptr;
 			}
 		}
+#endif
 	}
 
 	void ScoreManager::Init(WorldState& worldState)
 	{
+		UNREFERENCED_PARAMETER(worldState);
+#ifndef PLATFORM_XBOX
 		mSprites.resize(mNumSprites);
 		mDigits.resize(mNumSprites);
 		mCurrentSprites.resize(mNumSprites);
@@ -88,10 +92,13 @@ namespace Library
 
 			mCurrentSprites[i] = mSprites[i][0];
 		}
+
+#endif
 	}
 
 	void ScoreManager::RefreshSprites()
 	{
+#ifndef PLATFORM_XBOX
 		std::int32_t value = mValue;
 
 		if (mNumberBase > 0)
@@ -108,14 +115,17 @@ namespace Library
 				value = value / mNumberBase;
 			}
 		}
+#endif
 	}
 
 	void ScoreManager::CleanupSprites()
 	{
+#ifndef PLATFORM_XBOX
 		for (std::int32_t i = 0; i < mNumSprites; ++i)
 		{
 			Renderer::GetInstance()->RemoveRenderable(mCurrentSprites[i], 101);
 		}
+#endif
 	}
 
 	void ScoreManager::SetNumberBase(std::int32_t base)

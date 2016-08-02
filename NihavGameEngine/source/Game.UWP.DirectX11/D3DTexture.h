@@ -1,4 +1,5 @@
 #pragma once
+#include <mutex>
 #include "Texture.h"
 namespace Library
 {
@@ -18,5 +19,6 @@ namespace Library
 		ID3D11SamplerState* mColorSampler;
 
 		RenderDevice* mRenderDevice;
+		std::recursive_mutex mMutex;
 	};
 }

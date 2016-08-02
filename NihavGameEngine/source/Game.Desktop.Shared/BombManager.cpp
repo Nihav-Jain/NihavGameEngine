@@ -46,18 +46,22 @@ namespace Library
 
 	BombManager::~BombManager()
 	{
+#ifndef PLATFORM_XBOX
 		for (std::int32_t i = 0; i < mNumSprites; ++i)
 		{
 			delete mSprites[i];
 			mSprites[i] = nullptr;
 		}
+#endif
 	}
 
 	void BombManager::Init(WorldState& worldState)
 	{
+		UNREFERENCED_PARAMETER(worldState);
 		mSprites.resize(mNumSprites);
 		mImages.resize(mNumSprites);
 
+#ifndef PLATFORM_XBOX
 		std::int32_t padding = 0;
 		for (std::int32_t i = 0; i < mNumSprites; ++i)
 		{
@@ -77,10 +81,13 @@ namespace Library
 
 			renderer->BeginPlay(worldState);
 		}
+
+#endif
 	}
 
 	void BombManager::RefreshSprites()
 	{
+#ifndef PLATFORM_XBOX
 		for (std::int32_t i = 0; i < mNumSprites; ++i)
 		{
 			Renderer::GetInstance()->RemoveRenderable(mSprites[i], 101);
@@ -90,13 +97,16 @@ namespace Library
 				Renderer::GetInstance()->AddRenderable(mSprites[i], 101);
 			}
 		}
+#endif
 	}
 
 	void BombManager::CleanupSprites()
 	{
+#ifndef PLATFORM_XBOX
 		for (std::int32_t i = 0; i < mNumSprites; ++i)
 		{
 			Renderer::GetInstance()->RemoveRenderable(mSprites[i], 101);
 		}
+#endif
 	}
 }

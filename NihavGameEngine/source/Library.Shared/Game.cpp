@@ -74,14 +74,32 @@ namespace Library
 				return;
 		}
 
-		//mGameClock.UpdateGameTime(mGameTime);
-		//mWorld.Update();
-		//if (mRenderer != nullptr)
-		//{
-		//	mRenderer->Update();
-		//}
+		mGameClock.UpdateGameTime(mGameTime);
+		mWorld.Update();
+		if (mRenderer != nullptr)
+		{
+			mRenderer->Update();
+		}
+
+		//UpdateAsync();
+
+		AudioManager::Get().Update();
+	}
+
+	void Game::SetRenderer(Renderer* renderer)
+	{
+		mRenderer = renderer;
+	}
+
+	void Game::Destroy()
+	{
+		mWorld.OnDestroy();
+	}
+
+	void Game::UpdateAsync()
+	{
 		GameLoopState isWorldUpdating = GameLoopState::NONE;
-		
+
 		{
 			std::lock_guard<std::recursive_mutex> lock(mMutex);
 			isWorldUpdating = mGameLoopState;
@@ -133,17 +151,6 @@ namespace Library
 			}
 		}
 
-		AudioManager::Get().Update();
-	}
-
-	void Game::SetRenderer(Renderer* renderer)
-	{
-		mRenderer = renderer;
-	}
-
-	void Game::Destroy()
-	{
-		mWorld.OnDestroy();
 	}
 
 	void Game::AddParseHelpers()

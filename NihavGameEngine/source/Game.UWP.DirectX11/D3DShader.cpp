@@ -25,9 +25,9 @@ namespace Library
 			{
 				std::lock_guard<std::recursive_mutex> lock(mMutex);
 				sprite = bIsSprite;
+				ThrowIfFailed(mDevice->CreateVertexShader(&fileData[0], fileData.size(), nullptr, &mVertexShader), "ID3D11Device::CreatedVertexShader() failed.");
 			}
 
-			ThrowIfFailed(mDevice->CreateVertexShader(&fileData[0], fileData.size(), nullptr, &mVertexShader), "ID3D11Device::CreatedVertexShader() failed.");
 
 			D3D11_BUFFER_DESC constantBufferDesc;
 			ZeroMemory(&constantBufferDesc, sizeof(constantBufferDesc));
@@ -38,11 +38,14 @@ namespace Library
 					{ "POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 					{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 				};
-				ThrowIfFailed(mDevice->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), &fileData[0], fileData.size(), &mInputLayout), "ID3D11Device::CreateInputLayout() failed.");
 
-				constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-				constantBufferDesc.ByteWidth = sizeof(DirectX::XMFLOAT4X4);
-				ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantGeometryBuffer), "ID3D11Device::CreateBuffer() failed.");
+				{
+					std::lock_guard<std::recursive_mutex> lock(mMutex);
+					ThrowIfFailed(mDevice->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), &fileData[0], fileData.size(), &mInputLayout), "ID3D11Device::CreateInputLayout() failed.");
+					constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+					constantBufferDesc.ByteWidth = sizeof(DirectX::XMFLOAT4X4);
+					ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantGeometryBuffer), "ID3D11Device::CreateBuffer() failed.");
+				}
 
 			}
 			else
@@ -51,15 +54,19 @@ namespace Library
 				{
 					{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 				};
-				ThrowIfFailed(mDevice->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), &fileData[0], fileData.size(), &mInputLayout), "ID3D11Device::CreateInputLayout() failed.");
 
-				constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+				{
+					std::lock_guard<std::recursive_mutex> lock(mMutex);
+					ThrowIfFailed(mDevice->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), &fileData[0], fileData.size(), &mInputLayout), "ID3D11Device::CreateInputLayout() failed.");
+					constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-				constantBufferDesc.ByteWidth = sizeof(CGeometryBufferPerObject);
-				ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantGeometryBuffer), "ID3D11Device::CreateBuffer() failed.");
+					constantBufferDesc.ByteWidth = sizeof(CGeometryBufferPerObject);
+					ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantGeometryBuffer), "ID3D11Device::CreateBuffer() failed.");
 
-				constantBufferDesc.ByteWidth = sizeof(CPixelBufferPerObject);
-				ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantPixelBuffer), "ID3D11Device::CreateBuffer() failed.");
+					constantBufferDesc.ByteWidth = sizeof(CPixelBufferPerObject);
+					ThrowIfFailed(mDevice->CreateBuffer(&constantBufferDesc, nullptr, &mConstantPixelBuffer), "ID3D11Device::CreateBuffer() failed.");
+				}
+
 			}
 
 			{
@@ -84,9 +91,9 @@ namespace Library
 		};
 
 		mGSReadBufferCallback = [&](std::vector<std::uint8_t> fileData) {
-			ThrowIfFailed(mDevice->CreateGeometryShader(&fileData[0], fileData.size(), nullptr, &mGeometryShader), "ID3D11Device::CreatedGeometryShader() failed.");
 
 			{
+				ThrowIfFailed(mDevice->CreateGeometryShader(&fileData[0], fileData.size(), nullptr, &mGeometryShader), "ID3D11Device::CreatedGeometryShader() failed.");
 				std::lock_guard<std::recursive_mutex> lock(mMutex);
 				mGSLoaded = true;
 			}
@@ -100,9 +107,9 @@ namespace Library
 		};
 
 		mPSReadBufferCallback = [&](std::vector<std::uint8_t> fileData) {
-			ThrowIfFailed(mDevice->CreatePixelShader(&fileData[0], fileData.size(), nullptr, &mPixelShader), "ID3D11Device::CreatedPixelShader() failed.");
 
 			{
+				ThrowIfFailed(mDevice->CreatePixelShader(&fileData[0], fileData.size(), nullptr, &mPixelShader), "ID3D11Device::CreatedPixelShader() failed.");
 				std::lock_guard<std::recursive_mutex> lock(mMutex);
 				mPSLoaded = true;
 			}
@@ -189,6 +196,10 @@ namespace Library
 				value[0][1], value[1][1], value[2][1], value[3][1],
 				value[0][2], value[1][2], value[2][2], value[3][2],
 				value[0][3], value[1][3], value[2][3], value[3][3]);
+
+		//if (mConstantGeometryBuffer == nullptr)
+		//	return;
+
 		if(mGeometryShader)
 			mContext->UpdateSubresource(mConstantGeometryBuffer, 0, nullptr, &mGeoBufferInstance, 0, 0);
 		else

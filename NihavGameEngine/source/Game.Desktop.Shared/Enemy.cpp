@@ -106,13 +106,14 @@ namespace Library
 
 	void Enemy::OnDestroy(WorldState & worldState)
 	{
+#ifndef PLATFORM_XBOX
 		if (HasComponent(PolygonRenderer::TypeName()))
 		{
 			ParticleSystem<LineParticle> *p = ParticleSystem<LineParticle>::CreateParticleSystem(GetSector(), 6,
 				mPosition, mScale * 0.25f, this->FindAction("PolygonRenderer")->Find("color")->Get<glm::vec4>());
 			p->SetEnalbe(true);
 		}
-
+#endif
 		GameObject::OnDestroy(worldState);
 
 	}

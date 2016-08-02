@@ -54,8 +54,8 @@
 		
 			<!-- Load Start Menu Sector -->
 			<action class="ActionLoadSector" name="loadStart">				
-				<!--<string name="sectorName" value="start_menu" />-->
-				<string name="sectorName" value="InGameSector" />
+				<string name="sectorName" value="start_menu" />
+				<!--<string name="sectorName" value="InGameSector" />-->
 			</action>
 			
 			

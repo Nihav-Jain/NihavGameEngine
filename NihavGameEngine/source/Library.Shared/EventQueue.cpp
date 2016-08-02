@@ -30,10 +30,10 @@ namespace Library
 		DeliverExpiredEvents(gameTime, futures);
 
 		// wait for the events to be dispatched before removing them so that if an exception is thrown, the mEvents vector is not modified
-		for (auto& f : futures)
-		{
-			f.get();
-		}
+		//for (auto& f : futures)
+		//{
+		//	f.get();
+		//}
 
 		std::lock_guard<std::mutex> lock(mMutex);
 		for (auto& expiredEvent : mExpiredEvents)
@@ -45,13 +45,14 @@ namespace Library
 
 	void EventQueue::Clear(const GameTime& gameTime)
 	{
-		std::vector<std::future<void>> futures;
-		DeliverExpiredEvents(gameTime, futures);
+		UNREFERENCED_PARAMETER(gameTime);
+		//std::vector<std::future<void>> futures;
+		//DeliverExpiredEvents(gameTime, futures);
 
-		for (auto& f : futures)
-		{
-			f.get();
-		}
+		//for (auto& f : futures)
+		//{
+		//	f.get();
+		//}
 
 		std::lock_guard<std::mutex> lock(mMutex);
 		mPublishers.Clear();
@@ -78,17 +79,27 @@ namespace Library
 
 	void EventQueue::DeliverExpiredEvents(const GameTime& gameTime, std::vector<std::future<void>>& futures)
 	{
-		std::lock_guard<std::mutex> lock(mMutex);
+		UNREFERENCED_PARAMETER(futures);
 		for (const auto& publisher : mPublishers)
 		{
-			futures.emplace_back(std::async([&](std::shared_ptr<EventPublisher>& publisher) {
-				if (publisher->IsExpired(gameTime.ElapsedGameTime()))
-				{
-					publisher->Deliver();
-					mExpiredEvents.PushBack(publisher);
-				}
-			}, publisher));
+			if (publisher->IsExpired(gameTime.ElapsedGameTime()))
+			{
+				publisher->Deliver();
+				mExpiredEvents.PushBack(publisher);
+			}
 		}
+
+		//std::lock_guard<std::mutex> lock(mMutex);
+		//for (const auto& publisher : mPublishers)
+		//{
+		//	futures.emplace_back(std::async([&](std::shared_ptr<EventPublisher>& publisher) {
+		//		if (publisher->IsExpired(gameTime.ElapsedGameTime()))
+		//		{
+		//			publisher->Deliver();
+		//			mExpiredEvents.PushBack(publisher);
+		//		}
+		//	}, publisher));
+		//}
 	}
 
 }

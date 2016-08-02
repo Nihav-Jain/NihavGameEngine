@@ -5,9 +5,9 @@
 
 namespace Library
 {
-	D3DTexture::D3DTexture(ID3D11Device1& device, ID3D11DeviceContext& context) : 
+	D3DTexture::D3DTexture(ID3D11Device1& device, ID3D11DeviceContext& context) :
 		mDevice(&device), mContext(&context), mColorTexture(nullptr), mColorSampler(nullptr),
-		mRenderDevice(nullptr)
+		mRenderDevice(nullptr), mMutex()
 	{
 	}
 
@@ -24,7 +24,10 @@ namespace Library
 			CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
 
 			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-			ThrowIfFailed(DirectX::CreateWICTextureFromFile(mDevice, mContext, converter.from_bytes(imagePath).c_str(), nullptr, &mColorTexture), "CreateWICTextureFromFile() failed.");
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				ThrowIfFailed(DirectX::CreateWICTextureFromFile(mDevice, mContext, converter.from_bytes(imagePath).c_str(), nullptr, &mColorTexture), "CreateWICTextureFromFile() failed.");
+			}
 			// Create a texture sampler
 			D3D11_SAMPLER_DESC samplerDesc;
 			ZeroMemory(&samplerDesc, sizeof(samplerDesc));
@@ -33,7 +36,10 @@ namespace Library
 			samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 			samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 
-			ThrowIfFailed(mDevice->CreateSamplerState(&samplerDesc, &mColorSampler), "ID3D11Device::CreateSamplerState() failed.");
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				ThrowIfFailed(mDevice->CreateSamplerState(&samplerDesc, &mColorSampler), "ID3D11Device::CreateSamplerState() failed.");
+			}
 			device.ResourceLoaded();
 		});
 	}

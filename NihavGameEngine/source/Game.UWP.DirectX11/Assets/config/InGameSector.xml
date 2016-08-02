@@ -6,7 +6,7 @@
 		</expression>
 	</action>
 	
-	<gameobject class="GameObject" name="Background">
+	<!--<gameobject class="GameObject" name="Background">
 	
 		<vector name="position" value="vec4(0, 0, 0, 0)"/>
 		<vector name="rotation" value="vec4(0, 0, 0, 0)"/>
@@ -21,7 +21,7 @@
 			<integer name="layer" value="99" />
 		</sprite_renderer>
 	
-	</gameobject>
+	</gameobject>-->
 	
 	<include file="Assets\config\player1.xml" />
 	<expression name="playerRefSetter">
@@ -29,7 +29,7 @@
 	</expression>
 
 	<!-- TODO: Spawn enemies randomly on escalating intervals -->
-	<!--<include file="Assets\config\enemy_spawner.xml" />
+	<include file="Assets\config\enemy_spawner.xml" />
 	
 	
 	<include file="Assets\config\enemy_diamond.xml" />
@@ -38,6 +38,6 @@
 	
 	<include file="Assets\config\enemy_arrow.xml" />
 	
-	<include file="Assets\config\bullet.xml" />-->
+	<include file="Assets\config\bullet.xml" />
 	
 </sector>

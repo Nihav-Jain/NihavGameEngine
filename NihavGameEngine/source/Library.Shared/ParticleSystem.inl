@@ -42,6 +42,7 @@ namespace Library {
 	{
 		ParticleSystem<ParticlePattern> * particleSys = new ParticleSystem<ParticlePattern>();
 		particleSys->GenerateParticles(parent, cnt, pos, scale, color);
+		particleSys->Init(&Renderer::GetInstance()->GetRenderDevice());
 		return particleSys;
 	}
 

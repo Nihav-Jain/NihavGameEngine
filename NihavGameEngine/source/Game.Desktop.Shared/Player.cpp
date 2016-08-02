@@ -141,6 +141,7 @@ namespace Library
 	{
 		std::int32_t scoreWMultiplier = score * mMultiplier;
 		ScoreManager::GetInstance()->AddValue(scoreWMultiplier);
+		UNREFERENCED_PARAMETER(scoreWMultiplier);
 
 		OutputDebugStringA("Score = ");
 		OutputDebugStringA(std::to_string(ScoreManager::GetInstance()->GetValue()).c_str());
@@ -150,7 +151,7 @@ namespace Library
 	void Player::SetScore(const std::int32_t & score)
 	{
 		ScoreManager::GetInstance()->SetValue(score);
-
+		UNREFERENCED_PARAMETER(score);
 		OutputDebugStringA("Score = ");
 		OutputDebugStringA(std::to_string(ScoreManager::GetInstance()->GetValue()).c_str());
 		OutputDebugStringA("\n");
@@ -283,23 +284,36 @@ namespace Library
 
 	void Player::InitSpriteManagers(WorldState& worldState) const
 	{
+		UNREFERENCED_PARAMETER(worldState);
 		if (!sInitializedManagers)
 		{
 			sInitializedManagers = true;
 
 			ScoreManager* score = ScoreManager::GetInstance();
+#ifdef PLATFORM_XBOX
 			score->SetData(0, 10, 40, 200, 315, 10, false, "Assets\\resource\\", "digits\\", ".png");
+#else
+			score->SetData(0, 10, 40, 200, 315, 10, false, "Content\\resource\\", "digits\\", ".png");
+#endif
 			score->SetNumberBase(Find(ATTRIBUTE_SCOREBASE)->Get<std::int32_t>());
 			score->Init(worldState);
 			score->RefreshSprites();
 
 			LivesManager* lives = LivesManager::GetInstance();
+#ifdef PLATFORM_XBOX
 			lives->SetData(mLives, mLives, 30, -110, 315, -5, false, "Assets\\resource\\", "", ".png");
+#else
+			lives->SetData(mLives, mLives, 30, -110, 315, -5, false, "Content\\resource\\", "", ".png");
+#endif
 			lives->Init(worldState);
 			lives->RefreshSprites();
 
 			BombManager* bomb = BombManager::GetInstance();
+#ifdef PLATFORM_XBOX
 			bomb->SetData(mBombCount, mBombCount, 30, 30, 315, -5, true, "Assets\\resource\\", "", ".png");
+#else
+			bomb->SetData(mBombCount, mBombCount, 30, 30, 315, -5, true, "Content\\resource\\", "", ".png");
+#endif
 			bomb->Init(worldState);
 			bomb->RefreshSprites();
 		}

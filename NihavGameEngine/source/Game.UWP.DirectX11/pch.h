@@ -41,3 +41,5 @@
 
 #define DeleteObjects(objects) if((objects) != nullptr) { delete[] objects; objects = nullptr; }
 #define ReleaseObject(object) if((object) != nullptr) { object->Release(); object = nullptr; }
+
+#define PLATFORM_XBOX 1
