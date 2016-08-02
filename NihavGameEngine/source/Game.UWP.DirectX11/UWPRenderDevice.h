@@ -58,9 +58,9 @@ namespace Library
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView;
 		D3D11_VIEWPORT									mScreenViewport;
 
-		std::vector<std::shared_ptr<D3DShader>> mShaders;
-		std::vector<std::shared_ptr<D3DTexture>> mTextures;
-		std::vector<std::shared_ptr<D3DRenderBuffer>> mBuffers;
+		std::vector<D3DShader*> mShaders;
+		std::vector<D3DTexture*> mTextures;
+		std::vector<D3DRenderBuffer*> mBuffers;
 
 		Platform::Agile<Windows::UI::Core::CoreWindow> mWindow;
 		Windows::Foundation::Size						mD3DRenderTargetSize;

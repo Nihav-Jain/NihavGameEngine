@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\build\packages\directxtk_desktop_2015.2016.4.26.1\build\native\directxtk_desktop_2015.props" Condition="Exists('..\..\build\packages\directxtk_desktop_2015.2016.4.26.1\build\native\directxtk_desktop_2015.props')" />
+  <Import Project="..\..\build\packages\directxtk_desktop_2015.2016.7.18.1\build\native\directxtk_desktop_2015.props" Condition="Exists('..\..\build\packages\directxtk_desktop_2015.2016.7.18.1\build\native\directxtk_desktop_2015.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -111,7 +111,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)packages\directxtk_desktop_2015.2016.4.26.1\build\native\lib\$(Platform)\$(Configuration)\;$(SolutionDir)\..\source\Library.Desktop\bin\$(Platform)\$(Configuration);$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\FMOD\lib\;$(WindowsSDK_LibraryPath_x86)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\directxtk_desktop_2015.2016.7.18.1\build\native\lib\$(Platform)\$(Configuration)\;$(SolutionDir)\..\source\Library.Desktop\bin\$(Platform)\$(Configuration);$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\FMOD\lib\;$(WindowsSDK_LibraryPath_x86)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Library.Desktop.lib;d3d11.lib;DirectXTK.lib;Expat.lib;shlwapi.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
@@ -141,7 +141,7 @@ IF NOT EXIST "$(TargetDir)fmod.dll" xcopy /E /Y "$(SolutionDir)..\external\FMOD\
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)packages\directxtk_desktop_2015.2016.4.26.1\build\native\lib\$(Platform)\$(Configuration)\;$(SolutionDir)\..\source\Library.Desktop\bin\$(Platform)\$(Configuration);$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\FMOD\lib\;$(WindowsSDK_LibraryPath_x64)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\directxtk_desktop_2015.2016.7.18.1\build\native\lib\$(Platform)\$(Configuration)\;$(SolutionDir)\..\source\Library.Desktop\bin\$(Platform)\$(Configuration);$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\FMOD\lib\;$(WindowsSDK_LibraryPath_x64)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Library.Desktop.lib;d3d11.lib;DirectXTK.lib;Expat.lib;shlwapi.lib;fmod64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
@@ -175,7 +175,7 @@ IF NOT EXIST "$(TargetDir)fmod64.dll" xcopy /E /Y "$(SolutionDir)..\external\FMO
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)packages\directxtk_desktop_2015.2016.4.26.1\build\native\lib\$(Platform)\$(Configuration)\;$(SolutionDir)\..\source\Library.Desktop\bin\$(Platform)\$(Configuration);$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\FMOD\lib\;$(WindowsSDK_LibraryPath_x86)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\directxtk_desktop_2015.2016.7.18.1\build\native\lib\$(Platform)\$(Configuration)\;$(SolutionDir)\..\source\Library.Desktop\bin\$(Platform)\$(Configuration);$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\FMOD\lib\;$(WindowsSDK_LibraryPath_x86)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Library.Desktop.lib;d3d11.lib;DirectXTK.lib;Expat.lib;shlwapi.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
@@ -209,7 +209,7 @@ IF NOT EXIST "$(TargetDir)fmod.dll" xcopy /E /Y "$(SolutionDir)..\external\FMOD\
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)packages\directxtk_desktop_2015.2016.4.26.1\build\native\lib\$(Platform)\$(Configuration)\;$(SolutionDir)\..\source\Library.Desktop\bin\$(Platform)\$(Configuration);$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\FMOD\lib\;$(WindowsSDK_LibraryPath_x64)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\directxtk_desktop_2015.2016.7.18.1\build\native\lib\$(Platform)\$(Configuration)\;$(SolutionDir)\..\source\Library.Desktop\bin\$(Platform)\$(Configuration);$(SolutionDir)\..\external\expat\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\glfw\lib\$(Platform)\$(Configuration);$(SolutionDir)\..\external\FMOD\inc\;$(SolutionDir)\..\external\FMOD\lib\;$(WindowsSDK_LibraryPath_x64)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Library.Desktop.lib;d3d11.lib;DirectXTK.lib;Expat.lib;shlwapi.lib;fmod64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
@@ -298,13 +298,13 @@ IF NOT EXIST "$(TargetDir)fmod64.dll" xcopy /E /Y "$(SolutionDir)..\external\FMO
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\..\build\packages\directxtk_desktop_2015.2016.4.26.1\build\native\directxtk_desktop_2015.targets" Condition="Exists('..\..\build\packages\directxtk_desktop_2015.2016.4.26.1\build\native\directxtk_desktop_2015.targets')" />
+    <Import Project="..\..\build\packages\directxtk_desktop_2015.2016.7.18.1\build\native\directxtk_desktop_2015.targets" Condition="Exists('..\..\build\packages\directxtk_desktop_2015.2016.7.18.1\build\native\directxtk_desktop_2015.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\build\packages\directxtk_desktop_2015.2016.4.26.1\build\native\directxtk_desktop_2015.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\build\packages\directxtk_desktop_2015.2016.4.26.1\build\native\directxtk_desktop_2015.props'))" />
-    <Error Condition="!Exists('..\..\build\packages\directxtk_desktop_2015.2016.4.26.1\build\native\directxtk_desktop_2015.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\build\packages\directxtk_desktop_2015.2016.4.26.1\build\native\directxtk_desktop_2015.targets'))" />
+    <Error Condition="!Exists('..\..\build\packages\directxtk_desktop_2015.2016.7.18.1\build\native\directxtk_desktop_2015.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\build\packages\directxtk_desktop_2015.2016.7.18.1\build\native\directxtk_desktop_2015.props'))" />
+    <Error Condition="!Exists('..\..\build\packages\directxtk_desktop_2015.2016.7.18.1\build\native\directxtk_desktop_2015.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\build\packages\directxtk_desktop_2015.2016.7.18.1\build\native\directxtk_desktop_2015.targets'))" />
   </Target>
 </Project>

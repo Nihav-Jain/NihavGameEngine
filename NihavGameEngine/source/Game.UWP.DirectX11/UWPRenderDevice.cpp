@@ -101,10 +101,10 @@ namespace Library
 			std::lock_guard<std::recursive_mutex> lock(mMutex);
 			++mResourcesPendingLoadCount;
 		}
-		std::shared_ptr<D3DTexture> texture = std::make_shared<D3DTexture>(*mDirect3DDevice.Get(), *mDirect3DDeviceContext.Get());
+		D3DTexture* texture = new D3DTexture(*mDirect3DDevice.Get(), *mDirect3DDeviceContext.Get());
 		texture->Init(imagePath, *this);
 		mTextures.push_back(texture);
-		return texture.get();
+		return texture;
 	}
 
 	Shader* UWPRenderDevice::CreateShader(const std::string& vPath, const std::string& fPath, const std::string& gPath)
@@ -113,18 +113,18 @@ namespace Library
 			std::lock_guard<std::recursive_mutex> lock(mMutex);
 			++mResourcesPendingLoadCount;
 		}
-		std::shared_ptr<D3DShader> shader = std::make_shared<D3DShader>(*mDirect3DDevice.Get(), *mDirect3DDeviceContext.Get());
+		D3DShader* shader = new D3DShader(*mDirect3DDevice.Get(), *mDirect3DDeviceContext.Get());
 		shader->Init(vPath, fPath, gPath, *this);
 		mShaders.push_back(shader);
-		return shader.get();
+		return shader;
 	}
 
 	Buffer* UWPRenderDevice::CreateBuffer(bool createIndicesBuffer)
 	{
-		std::shared_ptr<D3DRenderBuffer> buffer = std::make_shared<D3DRenderBuffer>(*mDirect3DDevice.Get(), *mDirect3DDeviceContext.Get());
+		D3DRenderBuffer* buffer = new D3DRenderBuffer(*mDirect3DDevice.Get(), *mDirect3DDeviceContext.Get());
 		buffer->Init(createIndicesBuffer);
 		mBuffers.push_back(buffer);
-		return buffer.get();
+		return buffer;
 	}
 
 	void UWPRenderDevice::Draw(DrawMode mode, std::uint32_t counts, bool useIndices)

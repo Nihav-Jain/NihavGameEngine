@@ -16,6 +16,7 @@ namespace Library
 	}
 	void D3DTexture::Init(const std::string & imagePath, RenderDevice& device)
 	{
+		CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
 
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 		ThrowIfFailed(DirectX::CreateWICTextureFromFile(mDevice, mContext, converter.from_bytes(imagePath).c_str(), nullptr, &mColorTexture), "CreateWICTextureFromFile() failed.");

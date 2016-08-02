@@ -254,5 +254,16 @@ namespace Library
 		ActionStopMusicFactory actionStopMusicFactory;
 
 		std::recursive_mutex mMutex;
+		bool bWorldUpdated;
+
+		enum class GameLoopState
+		{
+			NONE,
+			WORLD_PENDING,
+			WORLD_UPDATING,
+			WORLD_UPDATED
+		};
+
+		GameLoopState mGameLoopState;
 	};
 }

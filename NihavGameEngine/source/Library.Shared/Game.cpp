@@ -7,7 +7,7 @@ namespace Library
 	Game::Game() :
 		mSharedData(), mParseMaster(mSharedData),
 		mGameClock(), mGameTime(), mWorld(mGameTime, mParseMaster), mRenderer(nullptr),
-		mLoadingLevel(false), mMutex()
+		mLoadingLevel(false), mMutex(), bWorldUpdated(false), mGameLoopState(GameLoopState::WORLD_PENDING)
 	{
 		//HeapManager::CreateHeapManager(mMemory);
 		mSharedData.SetRootScope(mWorld);
@@ -74,12 +74,65 @@ namespace Library
 				return;
 		}
 
-		mGameClock.UpdateGameTime(mGameTime);
-		mWorld.Update();
-		if (mRenderer != nullptr)
+		//mGameClock.UpdateGameTime(mGameTime);
+		//mWorld.Update();
+		//if (mRenderer != nullptr)
+		//{
+		//	mRenderer->Update();
+		//}
+		GameLoopState isWorldUpdating = GameLoopState::NONE;
+		
+		{
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			isWorldUpdating = mGameLoopState;
+		}
+
+		if (isWorldUpdating != GameLoopState::WORLD_UPDATING)
+		{
+			std::future<void> fut = std::async(std::launch::async, [&]() {
+
+				{
+					std::lock_guard<std::recursive_mutex> lock(mMutex);
+					mGameLoopState = GameLoopState::WORLD_UPDATING;
+				}
+
+				mGameClock.UpdateGameTime(mGameTime);
+
+				try
+				{
+					mWorld.Update();
+				}
+				catch (std::exception ex)
+				{
+					ex;
+				}
+
+				{
+					std::lock_guard<std::recursive_mutex> lock(mMutex);
+					mGameLoopState = GameLoopState::WORLD_UPDATED;
+				}
+			});
+
+			UNREFERENCED_PARAMETER(fut);
+		}
+
+		GameLoopState worldUpdated = GameLoopState::NONE;
+
+		{
+			std::lock_guard<std::recursive_mutex> lock(mMutex);
+			worldUpdated = mGameLoopState;
+		}
+
+		if (mRenderer != nullptr && worldUpdated != GameLoopState::WORLD_UPDATING)
 		{
 			mRenderer->Update();
+
+			{
+				std::lock_guard<std::recursive_mutex> lock(mMutex);
+				mGameLoopState = GameLoopState::WORLD_PENDING;
+			}
 		}
+
 		AudioManager::Get().Update();
 	}
 
