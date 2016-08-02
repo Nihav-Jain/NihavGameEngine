@@ -55,3 +55,5 @@ namespace Library
 
 using namespace DirectX;
 using namespace DirectX::PackedVector;
+
+#define PLATFORM_XBOX 1

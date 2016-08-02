@@ -29,3 +29,5 @@
 
 #pragma endregion
 
+#define PLATFORM_XBOX 1
+
