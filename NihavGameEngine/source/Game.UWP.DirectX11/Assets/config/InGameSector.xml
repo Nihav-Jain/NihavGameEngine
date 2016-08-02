@@ -6,7 +6,7 @@
 		</expression>
 	</action>
 	
-	<!--<gameobject class="GameObject" name="Background">
+	<gameobject class="GameObject" name="Background">
 	
 		<vector name="position" value="vec4(0, 0, 0, 0)"/>
 		<vector name="rotation" value="vec4(0, 0, 0, 0)"/>
@@ -18,10 +18,10 @@
 				<string name="path" value="Assets\resource\background2.png"/>
 				<vector name="size" value="vec4(1280, 720, 0, 0)"/>
 			</image>
-			<integer name="layer" value="99" />
+			<integer name="layer" value="101" />
 		</sprite_renderer>
 	
-	</gameobject>-->
+	</gameobject>
 	
 	<include file="Assets\config\player1.xml" />
 	<expression name="playerRefSetter">

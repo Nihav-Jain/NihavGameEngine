@@ -80,12 +80,11 @@ namespace Library {
 			Init();
 			return;
 		}
-		
+
+
 		if (!mDevice->AllResourcesLoaded())
 			return;
 
-		bool something = true;
-		something = false;
 		mDevice->ClearScreen();
 
 		for (auto & it : mLayers) {

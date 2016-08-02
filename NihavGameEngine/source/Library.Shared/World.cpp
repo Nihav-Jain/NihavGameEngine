@@ -142,6 +142,18 @@ namespace Library
 			mWorldState.entity = nullptr;
 			mWorldState.action = nullptr;
 			mActiveSector->BeginPlay(mWorldState);
+
+			std::int32_t counter = 0;
+			while (counter < 10000000)
+			{
+				counter++;
+			}
+			counter = 0;
+			while (counter < 10000000)
+			{
+				counter++;
+			}
+			return;
 		}
 
 		mEventQueue.Update(*mWorldState.mGameTime);

@@ -266,5 +266,6 @@ namespace Library
 		};
 
 		GameLoopState mGameLoopState;
+		std::function<void(void)> fGameUpdate;
 	};
 }

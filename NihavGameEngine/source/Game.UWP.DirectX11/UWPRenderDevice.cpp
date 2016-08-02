@@ -154,7 +154,7 @@ namespace Library
 
 	void UWPRenderDevice::ClearScreen()
 	{
-		static DirectX::XMVECTORF32 BackgroundColor = { 0.39f, 0.58f, 0.92f, 1.0f };
+		static DirectX::XMVECTORF32 BackgroundColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 		mDirect3DDeviceContext->RSSetViewports(1, &mScreenViewport);
 

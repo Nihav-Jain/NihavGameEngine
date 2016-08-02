@@ -74,14 +74,14 @@ namespace Library
 				return;
 		}
 
-		mGameClock.UpdateGameTime(mGameTime);
-		mWorld.Update();
-		if (mRenderer != nullptr)
-		{
-			mRenderer->Update();
-		}
+		//mGameClock.UpdateGameTime(mGameTime);
+		//mWorld.Update();
+		//if (mRenderer != nullptr)
+		//{
+		//	mRenderer->Update();
+		//}
 
-		//UpdateAsync();
+		UpdateAsync();
 
 		AudioManager::Get().Update();
 	}

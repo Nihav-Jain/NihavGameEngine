@@ -73,7 +73,7 @@ namespace Library
 				std::lock_guard<std::recursive_mutex> lock(mMutex);
 				mVSLoaded = true;
 			}
-			AllShadersLoaded();
+			//AllShadersLoaded();
 
 			if (!sprite)
 			{
@@ -97,7 +97,7 @@ namespace Library
 				std::lock_guard<std::recursive_mutex> lock(mMutex);
 				mGSLoaded = true;
 			}
-			AllShadersLoaded();
+			//AllShadersLoaded();
 
 			FileManager::Get().GetFileAsync("PixelShader.cso", mPSGetFileCallback);
 		};
