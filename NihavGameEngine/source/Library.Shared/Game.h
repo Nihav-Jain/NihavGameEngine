@@ -171,7 +171,6 @@ namespace Library
 		void SetRenderer(Renderer* device);
 
 	private:
-		void UpdateAsync();
 		void AddParseHelpers();
 
 		bool mLoadingLevel;
